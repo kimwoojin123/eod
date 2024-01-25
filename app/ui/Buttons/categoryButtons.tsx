@@ -21,6 +21,6 @@ export function TeamSearchButton(){
 
 export function FundingButton(){
   return (
-    <button className="w-40 h-20 bg-gray-200 rounded-lg shadow-md shadow-gray-400">아이디어 등록</button>
+    <button className="w-40 h-20 bg-gray-200 rounded-lg shadow-md shadow-gray-400">펀딩</button>
   )
 }
