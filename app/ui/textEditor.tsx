@@ -1,5 +1,7 @@
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css'; 
+import dynamic from 'next/dynamic';
+
+const DynamicQuill = dynamic(() => import('react-quill'), { ssr: false });
+import 'react-quill/dist/quill.snow.css';
 
 interface TextEditorProps {
   value: string;
@@ -17,9 +19,8 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
     },
   };
 
-
   return (
-    <ReactQuill
+    <DynamicQuill
       style={{ width: "800px", height: "600px" }}
       theme="snow"
       value={value}

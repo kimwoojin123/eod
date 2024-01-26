@@ -1,14 +1,21 @@
-import React, { useState } from 'react';
-import { gptSetting } from './gptSetting';
+import { useState } from 'react';
 
 export default function GptAI() {
-  const [question, setQuestion] = useState<string>('');
-  const [response, setResponse] = useState<string>('No response yet');
+  const [question, setQuestion] = useState('');
+  const [response, setResponse] = useState('No response yet');
 
   const handleAskQuestion = async () => {
     try {
-      const result = await gptSetting(question);
-      setResponse(result);
+      const apiResponse = await fetch('/gptSetting', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ question }),
+      });
+
+      const { response } = await apiResponse.json();
+      setResponse(response);
     } catch (error) {
       console.error('Error fetching data:', error);
     }

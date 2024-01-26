@@ -1,8 +1,10 @@
 'use client'
 
 import React, { useState } from 'react';
-import TextEditor from "@/app/ui/textEditor"
 import GptAI from '@/app/ui/gptAI';
+import dynamic from "next/dynamic";
+
+const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 
 
 export default function IdeaWrite(){
@@ -16,7 +18,7 @@ export default function IdeaWrite(){
     <div>
       <div className='flex flex-col justify-center items-center h-screen'>
         <h1 className='font-bold text-3xl mb-5'>아이디어 작성</h1>
-        <TextEditor value={editorValue} onChange={handleEditorChange} />
+        <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
       </div>
       <GptAI />
       <div className='flex justify-center relative left-72 bottom-14'>
