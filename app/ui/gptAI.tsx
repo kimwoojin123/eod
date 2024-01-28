@@ -6,21 +6,26 @@ export default function GptAI() {
 
   const handleAskQuestion = async () => {
     try {
-      const apiResponse = await fetch('/gptSetting', {
+      const apiResponse = await fetch('/api/gptSetting/route', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ question }),
       });
-
+  
+      if (!apiResponse.ok) {
+        const errorData = await apiResponse.json();
+        console.error('Server responded with:', errorData);
+        throw new Error('Server error');
+      }
+  
       const { response } = await apiResponse.json();
       setResponse(response);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
-
   return (
     <div>
       <h1>Ask ChatGPT a Question:</h1>
