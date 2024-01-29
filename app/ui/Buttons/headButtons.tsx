@@ -1,5 +1,6 @@
 'use client'
 import Link from 'next/link'
+import React, { useState, useEffect } from 'react';
 
 
 export function ReloadButton(){
@@ -26,6 +27,33 @@ export function SignUpButton(){
 
 
 export function LoginButton(){
-  return <Link href='login'>로그인</Link>
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  useEffect(() => {
+    const storageToken = localStorage.getItem('token');
+    setIsLoggedIn(!!storageToken);
+  }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    window.location.href = '/'
+  };
+  return(
+    <div>
+      {isLoggedIn ? (
+  
+        <div className='cursor-pointer' onClick={handleLogout}>
+          <span>로그아웃</span>
+        </div>
+  
+      ) : (
+  
+        <div>
+          <Link href='login'>로그인</Link>
+        </div>
+        
+      )}
+    </div>
+  );
 }

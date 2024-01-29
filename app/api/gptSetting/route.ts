@@ -1,8 +1,10 @@
 import OpenAI from "openai";
 import { NextRequest, NextResponse } from 'next/server';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const openai = new OpenAI({
-  apiKey : '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',
+  apiKey : process.env.OPENAI_API_KEY,
   organization: 'org-ecDIbKJfKgK760bFCUKIsBJU',
   dangerouslyAllowBrowser: true,
 });
