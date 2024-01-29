@@ -1,28 +1,31 @@
 import OpenAI from "openai";
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server';
 
 const openai = new OpenAI({
-  apiKey : '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',
+  apiKey : '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',
   organization: 'org-ecDIbKJfKgK760bFCUKIsBJU',
   dangerouslyAllowBrowser: true,
 });
 
-export default async function GptSetting(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(req:NextRequest) {
+      const formData = await req.formData()
+      const question = formData.get('question')
 
-    const { question } = req.body;
-
+      const userQuestion = question ? String(question) : '';
 
       const stream = await openai.chat.completions.create({
         model: 'gpt-3.5-turbo',
-        messages: [{ role: 'user', content: question }],
+        messages: [{ role: 'user', content: userQuestion }],
         stream: true,
         temperature : 1.0,
         max_tokens : 100,
       });
+
       let result = '';
       for await (const chunk of stream) {
         result += chunk.choices[0]?.delta?.content || "";
+      }
+      console.log('OpenAI 응답:', result); // 응답을 로그에 출력
 
-      res.status(200).json({ response: result });
-
-  }}
+      return NextResponse.json({result}, {status:200})
+  }

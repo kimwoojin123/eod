@@ -4,14 +4,15 @@ export default function GptAI() {
   const [question, setQuestion] = useState('');
   const [response, setResponse] = useState('No response yet');
 
-  const handleAskQuestion = async () => {
+  const handleAskQuestion = async (e:React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     try {
-      const apiResponse = await fetch('/api/gptSetting/route', {
+      const formData = new FormData();
+      formData.append('question', question);
+      const apiResponse = await fetch('/api/gptSetting', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ question }),
+        body: formData,
       });
   
       if (!apiResponse.ok) {
@@ -20,24 +21,25 @@ export default function GptAI() {
         throw new Error('Server error');
       }
   
-      const { response } = await apiResponse.json();
-      setResponse(response);
+      const { result } = await apiResponse.json();
+      setResponse( result );
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
   return (
-    <div>
+    <div className='absolute left-3/4 bottom-1/4'>
       <h1>Ask ChatGPT a Question:</h1>
+      <form onSubmit={handleAskQuestion}>
       <input
         type="text"
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
       />
-      <button onClick={handleAskQuestion}>Ask</button>
-
+      <button type='submit'>Ask</button>
+      </form>
       <h2>ChatGPT Response:</h2>
-      <p>{response}</p>
+      <p className="h-96 w-80 border">{response}</p>
     </div>
   );
 }
