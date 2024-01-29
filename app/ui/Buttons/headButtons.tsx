@@ -1,4 +1,6 @@
 'use client'
+import Link from 'next/link'
+
 
 export function ReloadButton(){
   const reloadPage = () =>{
@@ -19,9 +21,7 @@ export function MyPageButton(){
 
 
 export function SignUpButton(){
-  return (
-    <button>회원가입</button>
-  )
+  return <Link href='signup'>회원가입</Link>
 }
 
 

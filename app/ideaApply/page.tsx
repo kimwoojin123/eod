@@ -1,6 +1,5 @@
 import { IdeaWriteButton, IdeaDrawButton } from "../ui/Buttons/ideaApplyButtons"
 import BackButton from "../ui/Buttons/backButton"
-import { connectDB } from "../db"
 
 
 export default function IdeaApply(){
