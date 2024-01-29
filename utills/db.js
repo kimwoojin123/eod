@@ -31,4 +31,5 @@ async function closeConnection() {
 module.exports = {
   connectDB,
   closeConnection,
+  client
 };

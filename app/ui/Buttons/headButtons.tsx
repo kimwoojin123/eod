@@ -26,7 +26,6 @@ export function SignUpButton(){
 
 
 export function LoginButton(){
-  return (
-    <button>로그인</button>
-  )
+  return <Link href='login'>로그인</Link>
+
 }
