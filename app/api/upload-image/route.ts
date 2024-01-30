@@ -14,13 +14,13 @@ export async function POST(req: NextRequest) {
   try {
     const jsonData = await req.json(); // Parse JSON data from the request
 
-    const { dataURL, filename } = jsonData;
+    const { dataURL } = jsonData;
     const base64Data = dataURL.split(',')[1];
     const binaryData = Buffer.from(base64Data, 'base64');
 
     const params = {
       Bucket: process.env.S3_BUCKET_NAME || '',
-      Key: `images/${uuidv4()}-${filename}`, // S3에 저장될 파일 이름
+      Key: `images/${uuidv4()}`, // S3에 저장될 파일 이름
       Body: binaryData,
       ContentType: 'image/jpeg', // 이미지 형식에 따라 조절
     };

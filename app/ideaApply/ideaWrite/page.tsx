@@ -14,7 +14,7 @@ export default function IdeaWrite(){
     setEditorValue(value);
   };
 
-  const uploadImage = async (dataURL: string, filename: string) => {
+  const uploadImage = async (dataURL: string) => {
     try {
 
       const response = await fetch('/api/upload-image', {
@@ -24,7 +24,6 @@ export default function IdeaWrite(){
         },
         body: JSON.stringify({
           dataURL,
-          filename,
         }),
       });
 
@@ -40,7 +39,7 @@ export default function IdeaWrite(){
   const handleSubmit = async () => {
     const textContent = editorValue;
 
-    const imageUrl = await uploadImage(editorValue, '이미지 파일명');
+    const imageUrl = await uploadImage(editorValue);
 
     const response = await fetch('/api/idea-save', {
       method: 'POST',
