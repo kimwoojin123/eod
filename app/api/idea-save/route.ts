@@ -6,10 +6,10 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const jsonData = await req.json();
-    const { username, textContent, imageUrl } = jsonData;
+    const { username, title, textContent, imageUrl } = jsonData;
 
     // MongoDB에 저장
-    await saveToMongoDB({ username, textContent, imageUrl });
+    await saveToMongoDB({ username, title, textContent, imageUrl });
 
     return NextResponse.json({ message: '데이터가 성공적으로 저장되었습니다.' }, { status: 200 });
   } catch (error) {
@@ -20,9 +20,9 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function saveToMongoDB(data: { username:string; textContent: string; imageUrl: string }) {
+async function saveToMongoDB(data: { username:string; title:string; textContent: string; imageUrl: string }) {
   // MongoDB에 데이터 저장하는 로직 작성
-  const { username, textContent, imageUrl } = data;
+  const { username, title, textContent, imageUrl } = data;
   // 예시: ideas 컬렉션에 데이터 추가
-  await client.db('eoddb').collection('ideas').insertOne({ username, textContent, imageUrl });
+  await client.db('eoddb').collection('ideas').insertOne({ username, title, textContent, imageUrl });
 }

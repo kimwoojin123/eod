@@ -12,6 +12,7 @@ export default function IdeaWrite(){
   const [editorValue, setEditorValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [title, setTitle] = useState<string>('');
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false);
@@ -19,6 +20,10 @@ export default function IdeaWrite(){
 
   const handleEditorChange = (value : string) => {
     setEditorValue(value);
+  };
+
+  const handleTitleChange = (value : string) => {
+    setTitle(value);
   };
 
   const uploadImage = async (dataURL: string) => {
@@ -44,6 +49,12 @@ export default function IdeaWrite(){
 
   
   const handleSubmit = async () => {
+    if (title.trim() === '') {
+      setMessage('제목을 입력하세요.');
+      openModal();
+      return;
+    }
+
     const textContent = editorValue;
     const username = getUsernameSomehow();
     
@@ -56,6 +67,7 @@ export default function IdeaWrite(){
       },
       body: JSON.stringify({
         username,
+        title,
         textContent,
         imageUrl,
       }),
@@ -75,6 +87,10 @@ export default function IdeaWrite(){
     <div>
       <div className='flex flex-col justify-center items-center h-screen'>
         <h1 className='font-bold text-3xl mb-5'>아이디어 작성</h1>
+        <div className='w-screen flex justify-center mb-2'>
+        <label htmlFor='title'>제목</label>
+        <input className = 'ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e)=>handleTitleChange(e.target.value)} />
+        </div>
         <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
       </div>
       <GptAI />
