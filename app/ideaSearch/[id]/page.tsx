@@ -8,7 +8,7 @@ interface DetailPageProps {
   username: string;
   title: string;
   addDate: string;
-  imageURL: string;
+  imageUrl: string;
   textContent: string;
 }
 
@@ -43,8 +43,8 @@ export default function DetailPage() {
       <h1>{boardData.title}</h1>
       <p>{boardData.username}</p>
       <p>{boardData.addDate}</p>
-      <Image src={boardData.imageURL} alt="Image" width={500} height={500} />
-      <p>{boardData.textContent}</p>
+      <Image src={boardData.imageUrl} alt="Image" width={500} height={500} />
+      <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
     </div>
   );
 }
