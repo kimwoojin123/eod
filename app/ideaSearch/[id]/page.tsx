@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import BackButton from '@/app/ui/Buttons/backButton';
 
 interface DetailPageProps {
   username: string;
@@ -39,12 +40,15 @@ export default function DetailPage() {
   }
 
   return (
-    <div>
-      <h1>{boardData.title}</h1>
-      <p>{boardData.username}</p>
-      <p>{boardData.addDate}</p>
-      <Image src={boardData.imageUrl} alt="Image" width={500} height={500} />
-      <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
+    <div className="p-4">
+      <BackButton />
+      <div className="mx-auto p-4 max-w-2xl border">
+        <h1 className="text-2xl font-bold mb-4 border-b pb-2">{boardData.title}</h1>
+        <p className="text-gray-500 mb-2 border-b pb-2">작성자 : {boardData.username}</p>
+        <p className="text-gray-500 mb-4 border-b pb-2">{boardData.addDate}</p>
+        <Image src={boardData.imageUrl} alt="Image" width={500} height={500} className="mb-4" />
+        <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
+      </div>
     </div>
   );
-}
+  }
