@@ -7,7 +7,6 @@ export function ReloadButton(){
   const reloadPage = () =>{
     window.location.href="/"
   }
-
   return (
     <button onClick={reloadPage}>EveryOneDeveloper</button>
   )

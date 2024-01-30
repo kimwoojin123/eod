@@ -6,9 +6,7 @@ export function IdeaApplyButton(){
 
 
 export function IdeaSearchButton(){
-  return (
-    <button className="w-40 h-20 bg-gray-200 rounded-lg shadow-md shadow-gray-400">아이디어 검색</button>
-  )
+  return <Link href="/ideaSearch" className="flex justify-center items-center w-40 h-20 bg-gray-200 rounded-lg shadow-md shadow-gray-400"><p>아이디어 검색</p></Link>
 }
 
 
