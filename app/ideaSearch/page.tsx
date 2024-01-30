@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { ObjectId } from 'mongodb';
 import Link from 'next/link'
+import BackButton from '../ui/Buttons/backButton';
 
 interface BoardItem {
   _id: ObjectId;
@@ -28,7 +29,9 @@ export default function IdeaSearch(){
     fetchBoardList();
   }, []); 
   return (
-    <div className="flex justify-center items-center w-screen h-screen">
+    <div>
+      <BackButton />
+        <div className="flex justify-center items-start w-screen h-screen">
       <table className="table-auto w-8/12 border border-collapse">
         <thead>
           <tr className='bg-gray-100'>
@@ -51,6 +54,7 @@ export default function IdeaSearch(){
           ))}
         </tbody>
       </table>
+    </div>
     </div>
   )
 }
