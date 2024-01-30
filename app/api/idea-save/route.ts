@@ -20,9 +20,35 @@ export async function POST(req: NextRequest) {
   }
 }
 
+
+
 async function saveToMongoDB(data: { username:string; title:string; textContent: string; imageUrl: string }) {
-  // MongoDB에 데이터 저장하는 로직 작성
   const { username, title, textContent, imageUrl } = data;
-  // 예시: ideas 컬렉션에 데이터 추가
-  await client.db('eoddb').collection('ideas').insertOne({ username, title, textContent, imageUrl });
+  const currentDate = new Date();
+  const timeZone = 'Asia/Seoul'; // 선택적으로 'Asia/Seoul' 또는 'Asia/Korea'를 사용할 수 있습니다.
+
+  const formatter = new Intl.DateTimeFormat('en-US', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  });
+
+  const [
+    { value: month },,
+    { value: day },,
+    { value: year },,
+    { value: hour },,
+    { value: minute },,
+    { value: second },
+  ] = formatter.formatToParts(currentDate);
+  const formattedHour = hour === '24' ? '00' : hour;
+  const formattedDateTime = `${year}-${month}-${day} ${formattedHour}:${minute}:${second}`;
+
+
+  await client.db('eoddb').collection('ideas').insertOne({ username, title, textContent, imageUrl, addDate:formattedDateTime });
 }
