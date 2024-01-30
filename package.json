@@ -20,6 +20,7 @@
     "crypto": "^1.0.1",
     "dotenv": "^16.4.1",
     "highlight.js": "^11.9.0",
+    "js-base64": "^3.7.6",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.1.1",

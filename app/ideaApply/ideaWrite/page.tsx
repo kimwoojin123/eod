@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import GptAI from '@/app/ui/gptAI';
 import dynamic from "next/dynamic";
 import Modal from 'react-modal';
-
+import { getUsernameSomehow } from '@/app/ui/getUsername';
 const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 
 
@@ -45,7 +45,8 @@ export default function IdeaWrite(){
   
   const handleSubmit = async () => {
     const textContent = editorValue;
-
+    const username = getUsernameSomehow();
+    
     const imageUrl = await uploadImage(editorValue);
     try{
     const response = await fetch('/api/idea-save', {
@@ -54,6 +55,7 @@ export default function IdeaWrite(){
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
+        username,
         textContent,
         imageUrl,
       }),
