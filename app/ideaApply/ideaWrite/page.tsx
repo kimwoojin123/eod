@@ -7,7 +7,6 @@ import Modal from 'react-modal';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 
-
 export default function IdeaWrite(){
   const [editorValue, setEditorValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
@@ -21,6 +20,7 @@ export default function IdeaWrite(){
   const handleEditorChange = (value : string) => {
     setEditorValue(value);
   };
+
 
   const handleTitleChange = (value : string) => {
     setTitle(value);
@@ -48,14 +48,29 @@ export default function IdeaWrite(){
   };
 
   
+
+  
   const handleSubmit = async () => {
+    const removeImageTagsAndContent = (html: string): string => {
+      const doc = new DOMParser().parseFromString(html, 'text/html');
+      const images = doc.querySelectorAll('img');
+      
+      images.forEach((img) => img.remove());
+      doc.body.innerHTML = doc.body.innerHTML.replace(/<img[^>]*>/g, ''); // 이미지 태그 삭제
+      
+      return doc.body.innerHTML;
+    };
+  
+    // 제출할 때 이미지 태그와 내용을 제거한 텍스트를 사용
+    const textContentForSubmission = removeImageTagsAndContent(editorValue);
+
     if (title.trim() === '') {
       setMessage('제목을 입력하세요.');
       openModal();
       return;
     }
 
-    const textContent = editorValue;
+
     const username = getUsernameSomehow();
     
     const imageUrl = await uploadImage(editorValue);
@@ -68,7 +83,7 @@ export default function IdeaWrite(){
       body: JSON.stringify({
         username,
         title,
-        textContent,
+        textContent : textContentForSubmission,
         imageUrl,
       }),
     });
