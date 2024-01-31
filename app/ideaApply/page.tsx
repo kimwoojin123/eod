@@ -38,6 +38,7 @@ export default function IdeaApply(){
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
+        ariaHideApp={false}
         style={{
           overlay: {
             backgroundColor: " rgba(0, 0, 0, 0.4)",
