@@ -7,6 +7,7 @@ import BackButton from '../ui/Buttons/backButton';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import SearchComponent from '../ui/search';
+import Modal from 'react-modal';
 
 interface BoardItem {
   _id: ObjectId;
@@ -23,9 +24,14 @@ export default function IdeaSearch(){
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [searchResults, setSearchResults] = useState([]);
+  const [message, setMessage] = useState<string>('');
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const router = useRouter();
   const params = useSearchParams();
+
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => setModalIsOpen(false)
 
   const PageGroupSize = 5;
 
@@ -35,7 +41,6 @@ export default function IdeaSearch(){
         let response;
   
         if (searchResults.length === 0) {
-          // Only fetch the board list if there are no search results
           response = await fetch('/api/board-list');
           const data = await response.json();
           setTotalPages(Math.ceil(data.length / IdeasPerPage));
@@ -81,16 +86,22 @@ export default function IdeaSearch(){
 
 
   const handleSearch = (searchOption :string, searchText:string) => {
+    if(searchText.length > 0){
     fetch(`/api/search?searchOption=${searchOption}&searchText=${searchText}`)
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data.searchResults);
       })
       .catch((error) => console.error('Error fetching search results:', error));
+    } else {
+      setMessage('검색어를 1글자 이상 입력하세요')
+      openModal();
+    }
   };
   useEffect(() => {
     console.log("Search Results Length:", searchResults.length);
   }, [searchResults]);
+
 
   return (
     <div>
@@ -105,19 +116,19 @@ export default function IdeaSearch(){
           </tr>
         </thead>
         <tbody>
-  {searchResults.length > 0 ? (
-    searchResults.map((item: BoardItem, index: number) => (
-      <tr key={item._id.toString()}>
-        <td className="px-4 py-2 border-b border-r">{item.username}</td>
-        <td className="px-4 py-2 border-b border-r">
-          <Link href={`/ideaSearch/${item._id}`}>
-            {item.title}
-          </Link>
-        </td>
-        <td className="px-4 py-2 border-b">{item.addDate}</td>
-      </tr>
-    ))
-  ) : (
+    {searchResults.length > 0 ? (
+      searchResults.map((item: BoardItem, index: number) => (
+        <tr key={item._id.toString()}>
+          <td className="px-4 py-2 border-b border-r">{item.username}</td>
+          <td className="px-4 py-2 border-b border-r">
+            <Link href={`/ideaSearch/${item._id}`}>
+              {item.title}
+            </Link>
+          </td>
+          <td className="px-4 py-2 border-b">{item.addDate}</td>
+        </tr>
+      ))
+    ) : (
     boardList.map((item: BoardItem, index: number) => (
       <tr key={item._id.toString()}>
         <td className="px-4 py-2 border-b border-r">{item.username}</td>
@@ -153,6 +164,44 @@ export default function IdeaSearch(){
           {'>'}
         </button>
       </div>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+        style={{
+          overlay: {
+            backgroundColor: " rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            height: "100vh",
+            zIndex: "10",
+            position: "fixed",
+            top: "0",
+            left: "0",
+          },
+          content: {
+            display:"flex",
+            flexDirection : "column",
+            alignItems : 'center',
+            width: "360px",
+            height: "180px",
+            zIndex: "150",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px",
+            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "white",
+            justifyContent: "center",
+            overflow: "auto",
+            whiteSpace: 'pre-line',
+          },
+        }}
+        contentLabel="아이디어 검색 모달"
+      >
+        <p>{message}</p>
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
+      </Modal>
     </div>
   );
 }
