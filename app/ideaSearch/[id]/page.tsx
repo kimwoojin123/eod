@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import BackButton from '@/app/ui/Buttons/backButton';
+import Delete from '@/app/ui/ideaSearch/delete'
 
 interface DetailPageProps {
   username: string;
@@ -14,8 +15,9 @@ interface DetailPageProps {
 }
 
 export default function DetailPage() {
-
   const [boardData, setBoardData] = useState<DetailPageProps | null>(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+
   const searchPath = usePathname();
   const id = searchPath.split('/').pop();
 
@@ -39,6 +41,26 @@ export default function DetailPage() {
     return <div>Loading...</div>;
   }
 
+  const handleDelete = async () => {
+    try {
+      const response = await fetch(`/api/idea-delete/${id}`, {
+        method: 'DELETE',
+      });
+  
+      if (response.ok) {
+        console.log('데이터가 성공적으로 삭제되었습니다.');
+      } else {
+        console.error('데이터를 삭제하는 중에 오류가 발생했습니다.');
+      }
+    } catch (error) {
+      console.error('Error deleting data:', error);
+    }
+  }
+
+  const handleCloseDeleteModal = () => {
+    setShowDeleteModal(false);
+  };
+
   return (
     <div className="p-4">
       <BackButton />
@@ -51,6 +73,12 @@ export default function DetailPage() {
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
+      <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">
+          삭제
+        </button>
+        {showDeleteModal && (
+          <Delete onDelete={handleDelete} onClose={handleCloseDeleteModal} />
+        )}
     </div>
   );
   }

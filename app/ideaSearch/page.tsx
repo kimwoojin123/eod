@@ -6,7 +6,7 @@ import Link from 'next/link'
 import BackButton from '../ui/Buttons/backButton';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
-import SearchComponent from '../ui/search';
+import SearchComponent from '../ui/ideaSearch/search';
 import Modal from 'react-modal';
 
 interface BoardItem {
