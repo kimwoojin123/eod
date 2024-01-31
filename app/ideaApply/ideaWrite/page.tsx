@@ -6,15 +6,18 @@ import dynamic from "next/dynamic";
 import Modal from 'react-modal';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
+import { useRouter } from 'next/router';
+
 
 export default function IdeaWrite(){
   const [editorValue, setEditorValue] = useState<string>('');
   const [message, setMessage] = useState<string>('');
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [title, setTitle] = useState<string>('');
+  const router = useRouter();
 
   const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
+  const closeModal = () => {setModalIsOpen(false); router.back()}
 
 
   const handleEditorChange = (value : string) => {

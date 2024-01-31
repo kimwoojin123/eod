@@ -12,22 +12,55 @@ interface BoardItem {
   addDate: string;
 }
 
+const IdeasPerPage = 12;
+
 export default function IdeaSearch(){
   const [boardList, setBoardList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const PageGroupSize = 5;
 
   useEffect(() => {
     const fetchBoardList = async () => {
       try {
         const response = await fetch('/api/board-list');
         const data = await response.json();
-        setBoardList(data.reverse());
+        setTotalPages(Math.ceil(data.length / IdeasPerPage));
+        setBoardList(data.reverse().slice((currentPage - 1) * IdeasPerPage, currentPage * IdeasPerPage));
       } catch (error) {
         console.error('Error fetching board list:', error);
       }
     };
 
     fetchBoardList();
-  }, []); 
+  }, [currentPage]);
+
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
+
+  const renderPageButtons = () => {
+    const pages = [];
+    const startPage = Math.floor((currentPage - 1) / PageGroupSize) * PageGroupSize + 1;
+
+    for (let i = startPage; i < startPage + PageGroupSize; i++) {
+      if (i <= totalPages) {
+        pages.push(
+          <button
+            key={i}
+            className={`mx-1 px-3 py-1 border rounded ${i === currentPage ? 'bg-gray-300' : ''}`}
+            onClick={() => handlePageChange(i)}
+          >
+            {i}
+          </button>
+        );
+      }
+    }
+
+    return pages;
+  };
+
   return (
     <div>
       <BackButton />
@@ -55,6 +88,23 @@ export default function IdeaSearch(){
         </tbody>
       </table>
     </div>
+    <div className="flex justify-center mt-4">
+        <button
+          className="mx-1 px-3 py-1 border rounded"
+          onClick={() => handlePageChange(currentPage - 1)}
+          disabled={currentPage === 1}
+        >
+          {'<'}
+        </button>
+        {renderPageButtons()}
+        <button
+          className="mx-1 px-3 py-1 border rounded"
+          onClick={() => handlePageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          {'>'}
+        </button>
+      </div>
     </div>
-  )
+  );
 }
