@@ -20,12 +20,7 @@ export function MyPageButton(){
 }
 
 
-export function SignUpButton(){
-  return <Link href='signup'>회원가입</Link>
-}
-
-
-export function LoginButton(){
+export function AuthButton() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
@@ -36,22 +31,22 @@ export function LoginButton(){
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
-    window.location.href = '/'
+    window.location.href = '/';
   };
-  return(
+
+  return (
     <div>
       {isLoggedIn ? (
-  
         <div className='cursor-pointer' onClick={handleLogout}>
           <span>로그아웃</span>
         </div>
-  
       ) : (
-  
-        <div>
+        <>
+        <div className='w-40 flex justify-between'>
           <Link href='login'>로그인</Link>
+          <Link href='signup'>회원가입</Link>
         </div>
-        
+        </>
       )}
     </div>
   );
