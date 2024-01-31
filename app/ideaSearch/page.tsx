@@ -98,9 +98,6 @@ export default function IdeaSearch(){
       openModal();
     }
   };
-  useEffect(() => {
-    console.log("Search Results Length:", searchResults.length);
-  }, [searchResults]);
 
   const handleShowAll = () => {
     setSearchResults([]); 
