@@ -6,12 +6,14 @@ import Link from 'next/link'
 import BackButton from '../ui/Buttons/backButton';
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
+import SearchComponent from '../ui/search';
 
 interface BoardItem {
   _id: ObjectId;
   username: string;
   title: string;
   addDate: string;
+  content : string;
 }
 
 const IdeasPerPage = 2;
@@ -20,6 +22,8 @@ export default function IdeaSearch(){
   const [boardList, setBoardList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchResults, setSearchResults] = useState([]);
+
   const router = useRouter();
   const params = useSearchParams();
 
@@ -28,19 +32,23 @@ export default function IdeaSearch(){
   useEffect(() => {
     const fetchBoardList = async () => {
       try {
-        const response = await fetch('/api/board-list');
-        const data = await response.json();
-        setTotalPages(Math.ceil(data.length / IdeasPerPage));
-        setBoardList(data.reverse().slice((currentPage - 1) * IdeasPerPage, currentPage * IdeasPerPage));
+        let response;
+  
+        if (searchResults.length === 0) {
+          // Only fetch the board list if there are no search results
+          response = await fetch('/api/board-list');
+          const data = await response.json();
+          setTotalPages(Math.ceil(data.length / IdeasPerPage));
+          setBoardList(data.reverse().slice((currentPage - 1) * IdeasPerPage, currentPage * IdeasPerPage));
+        }
       } catch (error) {
         console.error('Error fetching board list:', error);
       }
     };
-
     fetchBoardList();
-  }, [currentPage]);
-  
-  
+  }, [currentPage, searchResults]);
+
+
   useEffect(() => {
     const page = parseInt(params.get('page') as string, 10) || 1;
     setCurrentPage(page);
@@ -71,6 +79,19 @@ export default function IdeaSearch(){
     return pages;
   };
 
+
+  const handleSearch = (searchOption :string, searchText:string) => {
+    fetch(`/api/search?searchOption=${searchOption}&searchText=${searchText}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setSearchResults(data.searchResults);
+      })
+      .catch((error) => console.error('Error fetching search results:', error));
+  };
+  useEffect(() => {
+    console.log("Search Results Length:", searchResults.length);
+  }, [searchResults]);
+
   return (
     <div>
       <BackButton />
@@ -84,19 +105,36 @@ export default function IdeaSearch(){
           </tr>
         </thead>
         <tbody>
-          {boardList.map((item: BoardItem, index: number) => (
-            <tr key={item._id.toString()}>
-              <td className="px-4 py-2 border-b border-r">{item.username}</td>
-              <td className="px-4 py-2 border-b border-r">
-                <Link href={`/ideaSearch/${item._id}`}>
-                  {item.title}
-                </Link>
-              </td>
-              <td className="px-4 py-2 border-b">{item.addDate}</td>
-            </tr>
-          ))}
-        </tbody>
+  {searchResults.length > 0 ? (
+    searchResults.map((item: BoardItem, index: number) => (
+      <tr key={item._id.toString()}>
+        <td className="px-4 py-2 border-b border-r">{item.username}</td>
+        <td className="px-4 py-2 border-b border-r">
+          <Link href={`/ideaSearch/${item._id}`}>
+            {item.title}
+          </Link>
+        </td>
+        <td className="px-4 py-2 border-b">{item.addDate}</td>
+      </tr>
+    ))
+  ) : (
+    boardList.map((item: BoardItem, index: number) => (
+      <tr key={item._id.toString()}>
+        <td className="px-4 py-2 border-b border-r">{item.username}</td>
+        <td className="px-4 py-2 border-b border-r">
+          <Link href={`/ideaSearch/${item._id}`}>
+            {item.title}
+          </Link>
+        </td>
+        <td className="px-4 py-2 border-b">{item.addDate}</td>
+      </tr>
+    ))
+  )}
+</tbody>
       </table>
+    </div>
+    <div className='flex justify-center'>
+      <SearchComponent onSearch={handleSearch} />
     </div>
     <div className="flex justify-center mt-4">
         <button

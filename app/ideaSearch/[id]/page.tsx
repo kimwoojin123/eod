@@ -46,7 +46,9 @@ export default function DetailPage() {
         <h1 className="text-2xl font-bold mb-4 border-b pb-2">{boardData.title}</h1>
         <p className="text-gray-500 mb-2 border-b pb-2">작성자 : {boardData.username}</p>
         <p className="text-gray-500 mb-4 border-b pb-2">{boardData.addDate}</p>
+        {boardData.imageUrl && (
         <Image src={boardData.imageUrl} alt="Image" width={500} height={500} className="mb-4" />
+        )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
     </div>
