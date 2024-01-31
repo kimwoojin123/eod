@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import Modal from 'react-modal';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 
 export default function IdeaWrite(){
