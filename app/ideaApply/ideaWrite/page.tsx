@@ -5,7 +5,7 @@ import GptAI from '@/app/ui/ideaWrite/gptAI';
 import dynamic from "next/dynamic";
 import Modal from 'react-modal';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
-const DynamicTextEditor = dynamic(() => import('@/app/ui/ideaWrite/textEditor'), { ssr: false });
+const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 import { useRouter } from 'next/navigation';
 
 

@@ -72,6 +72,10 @@ export default function DetailPage() {
     setShowDeleteModal(false);
   };
 
+  const handleEdit = () => {
+    router.push(`/ideaSearch/${id}/edit`);
+  };
+
   return (
     <div className="p-4">
       <BackButton />
@@ -84,6 +88,7 @@ export default function DetailPage() {
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
+      <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">편집</button>
       <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">
           삭제
         </button>
