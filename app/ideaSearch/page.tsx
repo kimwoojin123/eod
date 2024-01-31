@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { ObjectId } from 'mongodb';
 import Link from 'next/link'
 import BackButton from '../ui/Buttons/backButton';
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation';
 
 interface BoardItem {
   _id: ObjectId;
@@ -12,12 +14,14 @@ interface BoardItem {
   addDate: string;
 }
 
-const IdeasPerPage = 12;
+const IdeasPerPage = 2;
 
 export default function IdeaSearch(){
   const [boardList, setBoardList] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const router = useRouter();
+  const params = useSearchParams();
 
   const PageGroupSize = 5;
 
@@ -35,9 +39,15 @@ export default function IdeaSearch(){
 
     fetchBoardList();
   }, [currentPage]);
+  
+  
+  useEffect(() => {
+    const page = parseInt(params.get('page') as string, 10) || 1;
+    setCurrentPage(page);
+  }, [params]);
 
   const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
+    router.push(`/ideaSearch?page=${newPage}`);
   };
 
   const renderPageButtons = () => {
