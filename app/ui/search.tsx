@@ -2,7 +2,11 @@
 
 import React, { useState } from 'react';
 
-const SearchComponent = ({ onSearch }) => {
+interface SearchComponentProps {
+  onSearch: (searchOption: string, searchText: string) => void;
+}
+
+const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch }) => {
   const [searchText, setSearchText] = useState('');
   const [searchOption, setSearchOption] = useState('title');
 
@@ -18,7 +22,7 @@ const SearchComponent = ({ onSearch }) => {
         className='border'
       >
         <option value="title">제목</option>
-        <option value="content">내용</option>
+        <option value="textContent">내용</option>
         <option value="username">작성자</option>
       </select>
       <input
