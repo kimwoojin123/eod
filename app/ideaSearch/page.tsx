@@ -102,10 +102,16 @@ export default function IdeaSearch(){
     console.log("Search Results Length:", searchResults.length);
   }, [searchResults]);
 
+  const handleShowAll = () => {
+    setSearchResults([]); 
+    router.push('/ideaSearch');
+  };
+
 
   return (
     <div>
       <BackButton />
+      <button onClick={handleShowAll}>전체글 보기</button>
         <div className="flex justify-center items-start w-screen h-screen">
       <table className="table-auto w-8/12 border border-collapse">
         <thead>
