@@ -11,6 +11,7 @@ import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import Reply from '../../ui/ideaSearch/reply'
+import { ObjectId } from 'mongodb';
 
 
 interface DetailPageProps {
@@ -19,6 +20,7 @@ interface DetailPageProps {
   addDate: string;
   imageUrl: string;
   textContent: string;
+  replies : ObjectId[]
 }
 
 export default function DetailPage() {
@@ -194,7 +196,13 @@ export default function DetailPage() {
         </div>
 
       </div>
+
+      <div>
+      <div className='flex ml-80 mt-20'>
+        댓글 수 : {boardData.replies?.length || 0}
+      </div>
         {id && <Reply ideaId={id} />}
+        </div>
     </div>
   );
   }

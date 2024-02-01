@@ -65,10 +65,10 @@ export default function Reply({ ideaId }: { ideaId: string }) {
 
   return (
     <div className='w-screen flex justify-center'>
-      <div className='mt-20 w-8/12'>
+      <div className='w-8/12'>
         <table className='w-full'>
           <thead>
-            <tr className='border'>
+            <tr className='border bg-gray-100 h-8'>
               <th className='border-r text-center'>닉네임</th>
               <th className='flex-grow border-r max-w-5xl text-center'>내용</th>
               <th className='text-center'>시간</th>
