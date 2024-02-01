@@ -40,19 +40,20 @@ const EditPage: React.FC<EditPageProps> = ({ initialContent }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`/api/idea-save/${id}`, {
-        method: 'POST',
+      const response = await fetch(`/api/idea-edit/${id}`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          title:title,
           textContent: content,
         }),
       });
 
       if (response.ok) {
         console.log('데이터가 성공적으로 업데이트되었습니다.');
-        router.push(`/ideaSearch/${id}/page`);
+        router.push(`/ideaSearch/${id}`);
       } else {
         console.error('데이터를 업데이트하는 중에 오류가 발생했습니다.');
       }
@@ -62,7 +63,7 @@ const EditPage: React.FC<EditPageProps> = ({ initialContent }) => {
   };
 
   const handleCancel = () => {
-    router.push(`/ideaSearch/${id}/page`);
+    router.push(`/ideaSearch/${id}`);
   };
 
 
