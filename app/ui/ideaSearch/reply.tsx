@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { getUsernameSomehow } from '../getUsername';
 import Modal from 'react-modal'
 
@@ -24,7 +24,7 @@ export default function Reply({ ideaId }: { ideaId: string }) {
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {setModalIsOpen(false); fetchReplies()}
 
-  const fetchReplies = async () => {
+  const fetchReplies = useCallback(async () => {
     try {
       const response = await fetch(`/api/show-reply/${ideaId}`);
       const data = await response.json();
@@ -32,13 +32,13 @@ export default function Reply({ ideaId }: { ideaId: string }) {
     } catch (error) {
       console.error('Error fetching replies:', error);
     }
-  };
+  }, [ideaId]);
 
   useEffect(() => {
       if (ideaId) {
       fetchReplies();
     }
-  }, [ideaId]);
+  }, [ideaId, fetchReplies]);
 
   const handleAddReply = async () => {
     try {
