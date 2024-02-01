@@ -7,6 +7,7 @@ import BackButton from '@/app/ui/Buttons/backButton';
 import Delete from '@/app/ui/ideaSearch/delete'
 import Modal from 'react-modal'
 import { useRouter } from 'next/navigation'
+import { getUsernameSomehow } from '@/app/ui/getUsername';
 
 interface DetailPageProps {
   username: string;
@@ -76,6 +77,27 @@ export default function DetailPage() {
     router.push(`/ideaSearch/${id}/edit`);
   };
 
+  const handleLike = async () => {
+    try {
+      const username = getUsernameSomehow();
+      const response = await fetch(`/api/idea-like/${id}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body : JSON.stringify({username}),
+      });
+      if (response.ok) {
+        const updatedIdea = await response.json();
+        setBoardData((prevData) => prevData ? { ...prevData, likes: updatedIdea.likes, likedBy: updatedIdea.likedBy } : prevData);
+      } else {
+        console.error('Error liking idea:', response.statusText);
+      }
+    } catch (error) {
+      console.error('Error liking idea:', error);
+    }
+  };
+
   return (
     <div className="p-4">
       <BackButton />
@@ -136,6 +158,7 @@ export default function DetailPage() {
             <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
           </Modal>
         </div>
+        <button onClick={handleLike}>좋아요</button>
       </div>
     </div>
   );
