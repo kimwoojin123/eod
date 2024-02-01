@@ -1,5 +1,6 @@
 import { connectDB, closeConnection, client } from '../../../../utills/db';
 import { NextRequest, NextResponse } from 'next/server';
+import { ObjectId } from 'mongodb';
 
 export async function POST(req:NextRequest){
   try{
@@ -51,10 +52,18 @@ async function saveToMongoDB(data: { ideaId:string; username:string; textContent
   const formattedDateTime = `${year}-${month}-${day} ${formattedHour}:${minute}:${second}`;
 
 
-  await client.db('eoddb').collection('reply').insertOne({
+  const replyResult = await client.db('eoddb').collection('reply').insertOne({
     ideaId,
     username,
     textContent,
     addDate: formattedDateTime,
   });
+
+  const replyId = replyResult.insertedId;
+
+  // ideas 컬렉션의 해당 아이디어의 replies 필드 업데이트
+  await client.db('eoddb').collection('ideas').updateOne(
+    { _id: new ObjectId(ideaId) },
+    { $push: { replies: replyId } }
+  );
 }
