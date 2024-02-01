@@ -127,7 +127,7 @@ export default function DetailPage() {
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
       <div className='flex justify-center'>
-        <div className='flex flex-col items-center mt-5'>
+        <div className='flex justify-center relative left-16 items-center mt-5'>
         <button className='flex flex-col items-center' onClick={handleLike}>
           {liked ? (
           <SolidHeartIcon className="w-6 h-6 text-red-500" />
@@ -136,9 +136,10 @@ export default function DetailPage() {
           )}
           <p>Likes : {likes}</p>
         </button>
+        <div className='relative left-40 mt-2'>
         <div className='w-48 flex justify-between'>
-          <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-blue-500 text-white mt-5">편집</button>
-          <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-blue-500 text-white mt-5">
+          <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-blue-500 text-white">편집</button>
+          <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-blue-500 text-white">
               삭제
           </button>
             {showDeleteModal && (
@@ -182,6 +183,7 @@ export default function DetailPage() {
             <p>{message}</p>
             <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
           </Modal>
+          </div>
           </div>
         </div>
 
