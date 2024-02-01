@@ -138,12 +138,16 @@ export default function DetailPage() {
         </button>
         <div className='relative left-40 mt-2'>
         <div className='w-48 flex justify-between'>
+          {boardData.username === getUsernameSomehow() && (
+            <>
           <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-blue-500 text-white">편집</button>
           <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-blue-500 text-white">
               삭제
           </button>
             {showDeleteModal && (
               <Delete onDelete={handleDelete} onClose={handleCloseDeleteModal} />
+            )}
+            </>
             )}
           <Modal
             isOpen={modalIsOpen}
