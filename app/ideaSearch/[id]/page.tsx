@@ -8,6 +8,8 @@ import Delete from '@/app/ui/ideaSearch/delete'
 import Modal from 'react-modal'
 import { useRouter } from 'next/navigation'
 import { getUsernameSomehow } from '@/app/ui/getUsername';
+import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/24/outline';
+import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 
 interface DetailPageProps {
   username: string;
@@ -22,6 +24,8 @@ export default function DetailPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [message, setMessage] = useState<string>('');
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [liked, setLiked] = useState(false);
+  const [likes, setLikes] = useState(0);
 
   const searchPath = usePathname();
   const router = useRouter();
@@ -31,21 +35,27 @@ export default function DetailPage() {
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {setModalIsOpen(false); router.back()}
 
+
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/id-board/${id}`);
-        const data = await response.json();
-        setBoardData(data);
+        // Fetch data from `/api/id-board/${id}`
+        const boardResponse = await fetch(`/api/id-board/${id}`);
+        const boardData = await boardResponse.json();
+        setBoardData(boardData);
+        setLikes(boardData.likes)
+        setLiked(boardData.likedBy.includes(getUsernameSomehow())); // 변경된 부분
       } catch (error) {
-        console.error('Error fetching detail data:', error);
+        console.error('Error fetching data:', error);
       }
     };
-
+  
     if (id) {
       fetchData();
     }
   }, [id]);
+
 
   if (!boardData) {
     return <div>Loading...</div>;
@@ -77,6 +87,8 @@ export default function DetailPage() {
     router.push(`/ideaSearch/${id}/edit`);
   };
 
+
+  
   const handleLike = async () => {
     try {
       const username = getUsernameSomehow();
@@ -91,6 +103,8 @@ export default function DetailPage() {
       if (response.ok) {
         const updatedIdea = await response.json();
         setBoardData((prevData) => prevData ? { ...prevData, likes: updatedIdea.likes, likedBy: updatedIdea.likedBy } : prevData);
+        setLiked((prevLiked) => !prevLiked);
+        setLikes(updatedIdea.likes);
       } else {
         console.error('Error liking idea:', response.statusText);
       }
@@ -98,6 +112,8 @@ export default function DetailPage() {
       console.error('Error liking idea:', error);
     }
   };
+
+  
   return (
     <div className="p-4">
       <BackButton />
@@ -111,9 +127,18 @@ export default function DetailPage() {
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
       <div className='flex justify-center'>
+        <div className='flex flex-col items-center mt-5'>
+        <button onClick={handleLike}>
+          {liked ? (
+          <SolidHeartIcon className="w-6 h-6 text-red-500" />
+            ) : (
+          <OutlineHeartIcon className="w-6 h-6" />
+          )}
+          <p>{likes}</p>
+        </button>
         <div className='w-48 flex justify-between'>
-          <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">편집</button>
-          <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">
+          <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-blue-500 text-white mt-5">편집</button>
+          <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-blue-500 text-white mt-5">
               삭제
           </button>
             {showDeleteModal && (
@@ -157,8 +182,9 @@ export default function DetailPage() {
             <p>{message}</p>
             <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
           </Modal>
+          </div>
         </div>
-        <button onClick={handleLike}>좋아요</button>
+
       </div>
     </div>
   );
