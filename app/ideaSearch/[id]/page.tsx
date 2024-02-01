@@ -128,13 +128,13 @@ export default function DetailPage() {
       </div>
       <div className='flex justify-center'>
         <div className='flex flex-col items-center mt-5'>
-        <button onClick={handleLike}>
+        <button className='flex flex-col items-center' onClick={handleLike}>
           {liked ? (
           <SolidHeartIcon className="w-6 h-6 text-red-500" />
             ) : (
           <OutlineHeartIcon className="w-6 h-6" />
           )}
-          <p>{likes}</p>
+          <p>Likes : {likes}</p>
         </button>
         <div className='w-48 flex justify-between'>
           <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-blue-500 text-white mt-5">편집</button>
