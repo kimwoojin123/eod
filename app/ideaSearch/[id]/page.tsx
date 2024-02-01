@@ -85,8 +85,9 @@ export default function DetailPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body : JSON.stringify({username}),
+        body: JSON.stringify({ username }),
       });
+  
       if (response.ok) {
         const updatedIdea = await response.json();
         setBoardData((prevData) => prevData ? { ...prevData, likes: updatedIdea.likes, likedBy: updatedIdea.likedBy } : prevData);
@@ -97,7 +98,6 @@ export default function DetailPage() {
       console.error('Error liking idea:', error);
     }
   };
-
   return (
     <div className="p-4">
       <BackButton />
