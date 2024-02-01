@@ -56,25 +56,35 @@ export default function Reply({ ideaId }: { ideaId: string }) {
   };
 
   return (
-    <div>
-      {/* 댓글 목록 출력 */}
-      <ul>
-      {replies && Array.isArray(replies) && replies.map((reply) => (
-          <li key={reply._id}>
-            <p>{reply.username}: {reply.textContent}</p>
-            <p>{reply.addDate}</p>
-          </li>
-        ))}
-      </ul>
-
-      {/* 댓글 작성 폼 */}
-      <div>
-        <textarea
-          value={newReply.textContent}
-          onChange={(e) => setNewReply({ ...newReply, textContent: e.target.value })}
-        />
-        <button onClick={handleAddReply}>Add Reply</button>
+    <div className='w-screen flex justify-center'>
+      <div className='mt-20 w-8/12'>
+        <table className='w-full'>
+          <thead>
+            <tr className='border'>
+              <th className='border-r text-center'>닉네임</th>
+              <th className='flex-grow border-r max-w-5xl text-center'>내용</th>
+              <th className='text-center'>시간</th>
+            </tr>
+          </thead>
+          <tbody>
+            {replies && Array.isArray(replies) && replies.map((reply) => (
+              <tr key={reply._id} className='border'>
+                <td className='pl-2 pr-2 border-r text-center'>{reply.username}</td>
+                <td className='flex-grow border-r max-w-5xl pl-3'>{reply.textContent}</td>
+                <td className='text-center pl-2 '>{reply.addDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <div className='flex justify-center mt-2'>
+          <textarea
+            value={newReply.textContent}
+            onChange={(e) => setNewReply({ ...newReply, textContent: e.target.value })}
+            className='border-gray-500 border w-96 h-8'
+          />
+          <button onClick={handleAddReply} className='border ml-2'>등록</button>
+        </div>
       </div>
     </div>
   );
-}
+            }
