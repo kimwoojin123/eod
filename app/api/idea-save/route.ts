@@ -50,5 +50,5 @@ async function saveToMongoDB(data: { username:string; title:string; textContent:
   const formattedDateTime = `${year}-${month}-${day} ${formattedHour}:${minute}:${second}`;
 
 
-  await client.db('eoddb').collection('ideas').insertOne({ username, title, textContent, imageUrl, addDate:formattedDateTime });
+  await client.db('eoddb').collection('ideas').insertOne({ username, title, textContent, imageUrl, addDate:formattedDateTime, likedBy:[], likes:0 });
 }

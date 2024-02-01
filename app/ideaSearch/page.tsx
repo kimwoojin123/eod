@@ -8,6 +8,8 @@ import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 import SearchComponent from '../ui/ideaSearch/search';
 import Modal from 'react-modal';
+import { HeartIcon } from '@heroicons/react/24/solid';
+import { ChatBubbleOvalLeftEllipsisIcon } from '@heroicons/react/24/outline';
 
 interface BoardItem {
   _id: ObjectId;
@@ -15,6 +17,8 @@ interface BoardItem {
   title: string;
   addDate: string;
   content : string;
+  likes:string;
+  replies: ObjectId[];
 }
 
 const IdeasPerPage = 2;
@@ -135,10 +139,12 @@ export default function IdeaSearch(){
     boardList.map((item: BoardItem, index: number) => (
       <tr key={item._id.toString()}>
         <td className="px-4 py-2 border-b border-r">{item.username}</td>
-        <td className="px-4 py-2 border-b border-r">
+        <td className="px-4 py-2 border-b border-r flex items-center">
           <Link href={`/ideaSearch/${item._id}`}>
             {item.title}
           </Link>
+            <ChatBubbleOvalLeftEllipsisIcon className='w-4 h-4 ml-3'/>{item.replies?.length || 0}
+            <HeartIcon className='w-4 h-4 text-red-500 ml-2'/>{item.likes}
         </td>
         <td className="px-4 py-2 border-b">{item.addDate}</td>
       </tr>

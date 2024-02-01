@@ -47,7 +47,7 @@ export default function DetailPage() {
         const boardData = await boardResponse.json();
         setBoardData(boardData);
         setLikes(boardData.likes)
-        setLiked(boardData.likedBy.includes(getUsernameSomehow())); // 변경된 부분
+        setLiked(boardData.likedBy ? boardData.likedBy.includes(getUsernameSomehow()) : false);
       } catch (error) {
         console.error('Error fetching data:', error);
       }

@@ -30,6 +30,10 @@ export async function POST(req: NextRequest) {
       ? { $inc: { likes: -1 }, $pull: { likedBy: username } }
       : { $inc: { likes: 1 }, $addToSet: { likedBy: username } };
 
+      if (!idea.likedBy) {
+        update.$addToSet = { likedBy: username };
+      }
+
     // 해당 아이디어 업데이트
     const updatedIdea = await client.db('eoddb').collection('ideas').findOneAndUpdate(
       { _id: new ObjectId(id) },
