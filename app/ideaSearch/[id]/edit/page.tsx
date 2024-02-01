@@ -40,8 +40,8 @@ const EditPage: React.FC<EditPageProps> = ({ initialContent }) => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`/api/idea-update/${id}`, {
-        method: 'PUT',
+      const response = await fetch(`/api/idea-save/${id}`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -72,12 +72,12 @@ const EditPage: React.FC<EditPageProps> = ({ initialContent }) => {
         <label htmlFor='title'>제목</label>
         <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
+        <button onClick={handleSave}>저장</button>
+        <button onClick={handleCancel}>취소</button>
       <div>
         <TextEditor value={content} onChange={setContent} />
       </div>
       <div>
-        <button onClick={handleSave}>저장</button>
-        <button onClick={handleCancel}>취소</button>
       </div>
     </div>
   );
