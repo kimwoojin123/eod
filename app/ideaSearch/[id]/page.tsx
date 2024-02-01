@@ -88,51 +88,55 @@ export default function DetailPage() {
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
-      <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">편집</button>
-      <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">
-          삭제
-        </button>
-        {showDeleteModal && (
-          <Delete onDelete={handleDelete} onClose={handleCloseDeleteModal} />
-        )}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-          },
-          content: {
-            display:"flex",
-            flexDirection : "column",
-            alignItems : 'center',
-            width: "360px",
-            height: "180px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="삭제 완료 모달"
-      >
-        <p>{message}</p>
-        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
-      </Modal>
+      <div className='flex justify-center'>
+        <div className='w-48 flex justify-between'>
+          <button onClick={handleEdit} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">편집</button>
+          <button onClick={() => setShowDeleteModal(true)} className="w-20 h-10 rounded-2xl bg-red-500 text-white mt-5">
+              삭제
+          </button>
+            {showDeleteModal && (
+              <Delete onDelete={handleDelete} onClose={handleCloseDeleteModal} />
+            )}
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            ariaHideApp={false}
+            style={{
+              overlay: {
+                backgroundColor: " rgba(0, 0, 0, 0.4)",
+                width: "100%",
+                height: "100vh",
+                zIndex: "10",
+                position: "fixed",
+                top: "0",
+                left: "0",
+              },
+              content: {
+                display:"flex",
+                flexDirection : "column",
+                alignItems : 'center',
+                width: "360px",
+                height: "180px",
+                zIndex: "150",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                borderRadius: "10px",
+                boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+                backgroundColor: "white",
+                justifyContent: "center",
+                overflow: "auto",
+                whiteSpace: 'pre-line',
+              },
+            }}
+            contentLabel="삭제 완료 모달"
+          >
+            <p>{message}</p>
+            <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
+          </Modal>
+        </div>
+      </div>
     </div>
   );
   }

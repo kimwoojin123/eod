@@ -68,17 +68,19 @@ const EditPage: React.FC<EditPageProps> = ({ initialContent }) => {
 
 
   return (
-    <div>
-      <div className='w-screen flex justify-center mb-2'>
+    <div className='mt-20'>
+      <div className='w-screen flex justify-center mb-4'>
         <label htmlFor='title'>제목</label>
         <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
-        <button onClick={handleSave}>저장</button>
-        <button onClick={handleCancel}>취소</button>
-      <div>
+      <div className='flex justify-center'>
         <TextEditor value={content} onChange={setContent} />
       </div>
-      <div>
+      <div className='flex justify-center'>
+      <div className='flex justify-between mt-10 w-48'>
+        <button className='w-20 h-10 rounded-2xl bg-red-500 text-white mt-5' onClick={handleSave}>저장</button>
+        <button className='w-20 h-10 rounded-2xl bg-red-500 text-white mt-5' onClick={handleCancel}>취소</button>
+      </div>
       </div>
     </div>
   );
