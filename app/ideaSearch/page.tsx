@@ -106,11 +106,11 @@ export default function IdeaSearch(){
 
 
   return (
-    <div>
+    <div className='h-screen'>
       <BackButton />
-      <button onClick={handleShowAll}>전체글 보기</button>
-        <div className="flex justify-center items-start w-screen h-screen">
-      <table className="table-auto w-8/12 border border-collapse">
+      <button className="rounded-xl bg-gray-300 w-28 h-10 ml-80 mb-5" onClick={handleShowAll}>전체 글 보기</button>
+        <div className="flex justify-center items-start w-screen">
+      <table className="table-auto w-8/12 border border-collapse mb-10">
         <thead>
           <tr className='bg-gray-100'>
             <th className="w-1/5 px-4 py-2 border-b border-r">작성자</th>
