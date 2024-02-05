@@ -11,9 +11,8 @@ export function IdeaSearchButton(){
 
 
 export function TeamSearchButton(){
-  return (
-    <button className="w-40 h-20 bg-gray-200 rounded-lg shadow-md shadow-gray-400">팀 찾기</button>
-  )
+  return <Link href="/teamSearch" className="flex justify-center items-center w-40 h-20 bg-gray-200 rounded-lg shadow-md shadow-gray-400"><p>팀 찾기</p></Link>
+
 }
 
 
