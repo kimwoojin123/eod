@@ -33,7 +33,7 @@ export default function TeamSearch(){
 
   return (
     <div>
-      <Link href="/teamSearch/teamApply" className='flex justify-end mt-12 mr-40'>
+      <Link href="/teamSearch/teamCreate" className='flex justify-end mt-12 mr-40'>
         <p className="flex justify-center items-center w-32 h-10 text-white bg-green-500 rounded-2xl">
           팀 등록하기
         </p>

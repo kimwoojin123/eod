@@ -56,6 +56,7 @@ export default function TeamDetail() {
       <p>팀 목표: {team.purpose}</p>
       <p>개발 언어: {team.lang}</p>
       <p>모집 인원: {team.headCount}</p>
+      <button>팀 지원하기</button>
     </div>
   );
 }

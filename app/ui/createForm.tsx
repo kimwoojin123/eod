@@ -5,7 +5,7 @@ import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { useRouter } from 'next/navigation'
 import Modal from 'react-modal'
 
-export default function ApplyForm(){
+export default function CreateForm(){
   const [formData, setFormData] = useState({
     image: null,
     name: '',
@@ -61,16 +61,17 @@ export default function ApplyForm(){
   
       const { imageUrl } = await imageResponse.json();
       const username = getUsernameSomehow();
-      const response = await fetch('/api/team-apply', {
+      const response = await fetch('/api/team-create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ username, ...formData, imageUrl }),
       });
-  
+      if(response.ok){
       setMessage('팀 등록이 완료되었습니다.')
       openModal();
+    }
     } catch (error) {
       console.error('에러 발생:', error);
     }
