@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { getUsernameSomehow } from '@/app/ui/getUsername';
+import { useRouter } from 'next/navigation'
+import Modal from 'react-modal'
 
 export default function ApplyForm(){
   const [formData, setFormData] = useState({
@@ -11,6 +13,13 @@ export default function ApplyForm(){
     purpose: '',
     headCount: 1,
   });
+  const [message, setMessage] = useState<string>('');
+  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const router = useRouter();
+
+  const openModal = () => setModalIsOpen(true);
+  const closeModal = () => {setModalIsOpen(false); router.back()}
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
@@ -60,8 +69,8 @@ export default function ApplyForm(){
         body: JSON.stringify({ username, ...formData, imageUrl }),
       });
   
-      const result = await response.json();
-      console.log(result);
+      setMessage('팀 등록이 완료되었습니다.')
+      openModal();
     } catch (error) {
       console.error('에러 발생:', error);
     }
@@ -118,6 +127,44 @@ export default function ApplyForm(){
             onClick={handleSubmit}
         >등록</button>
       </form>
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+        style={{
+          overlay: {
+            backgroundColor: " rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            height: "100vh",
+            zIndex: "10",
+            position: "fixed",
+            top: "0",
+            left: "0",
+          },
+          content: {
+            display:"flex",
+            flexDirection : "column",
+            alignItems : 'center',
+            width: "360px",
+            height: "180px",
+            zIndex: "150",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px",
+            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "white",
+            justifyContent: "center",
+            overflow: "auto",
+            whiteSpace: 'pre-line',
+          },
+        }}
+        contentLabel="팀 등록 모달"
+      >
+        <p>{message}</p>
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
+      </Modal>
     </div>
   )
 }
