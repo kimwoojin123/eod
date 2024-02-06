@@ -9,7 +9,7 @@ export default function ApplyForm(){
     name: '',
     lang: 'JavaScript',
     purpose: '',
-    headCount: '',
+    headCount: 1,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -106,8 +106,9 @@ export default function ApplyForm(){
         </div>
         <div>
           <label htmlFor="headCount">모집 인원 : </label>
-          <input type="text" id="headCount" name="headCount"
+          <input type="number" min="1" id="headCount" name="headCount"
           className="border-boutline-none pl-2 border border-gray-300"
+          value={formData.headCount}
           onChange={handleChange}
           />
         </div>
