@@ -6,10 +6,10 @@ export async function POST(req: NextRequest) {
     await connectDB();
 
     const jsonData = await req.json();
-    const { username, name, lang, purpose, headCount, imageUrl } = jsonData;
+    const { username, name, lang, purpose, headCount, imageUrl, tag } = jsonData;
 
     // MongoDB에 저장
-    await saveToMongoDB({ username, name, lang, purpose, headCount, imageUrl });
+    await saveToMongoDB({ username, name, lang, purpose, headCount, imageUrl, tag });
 
     return NextResponse.json({ message: '데이터가 성공적으로 저장되었습니다.' }, { status: 200 });
   } catch (error) {
@@ -27,8 +27,9 @@ async function saveToMongoDB(data: {
   purpose: string;
   headCount: string;
   imageUrl: string;
+  tag: string;
 }) {
-  const { username, name, lang, purpose, headCount, imageUrl } = data;
+  const { username, name, lang, purpose, headCount, imageUrl, tag } = data;
 
   // MongoDB에 저장하는 코드 추가
   await client.db('eoddb').collection('teams').insertOne({
@@ -38,5 +39,6 @@ async function saveToMongoDB(data: {
     purpose,
     headCount,
     imageUrl,
+    tag,
   });
 }

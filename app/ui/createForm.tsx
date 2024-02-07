@@ -12,6 +12,7 @@ export default function CreateForm(){
     lang: 'JavaScript',
     purpose: '',
     headCount: 1,
+    tag: '',
   });
   const [message, setMessage] = useState<string>('');
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
@@ -77,6 +78,23 @@ export default function CreateForm(){
     }
   };
 
+  const handleTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    let { value } = e.target;
+    if (value.includes(',')) {
+      value = value.replace(',', ' #');
+      if (!value.startsWith('#')) {
+        value = `#${value}`;
+      }
+    } else if (!value.startsWith('#')) { // 입력 값이 #로 시작하지 않는 경우
+      value = `#${value}`;
+    }
+    setFormData((prevData) => ({
+      ...prevData,
+      tag: value,
+    }));
+  };
+
+
 
   return (
     <div className="container flex h-screen w-screen justify-center items-center">
@@ -120,6 +138,14 @@ export default function CreateForm(){
           className="border-boutline-none pl-2 border border-gray-300"
           value={formData.headCount}
           onChange={handleChange}
+          />
+        </div>
+        <div>
+        <label htmlFor="headCount">태그 등록 : </label>
+          <input type="text" id="tag" name="tag"
+          className="border-boutline-none pl-2 border border-gray-300"
+          value={formData.tag}
+          onChange={handleTagChange}
           />
         </div>
         <button
