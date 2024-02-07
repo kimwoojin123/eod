@@ -97,24 +97,25 @@ export default function CreateForm(){
 
 
   return (
-    <div className="container flex h-screen w-screen justify-center items-center">
-      <form className="flex flex-col w-1/3">
-        <div className="flex">
-          <label htmlFor="image">이미지 : </label>
+    <div className="container mx-auto p-4 mt-32 relative left-1/4">
+      <h1 className="text-3xl font-bold mb-6">팀 등록</h1>
+      <form className="flex flex-col">
+        <div className="mb-4">
+          <label htmlFor="image" className="text-2xl font-bold" style={{ lineHeight: "2" }}>이미지 : </label>
           <input type="file" id="image" name="image"
           className="w-full max-w-md"
           onChange={handleChange}
           />
         </div>
-        <div className="flex">
-          <label htmlFor="name">팀 명 : </label>
+        <div className="mb-4">
+          <label htmlFor="name" className="text-2xl font-bold" style={{ lineHeight: "2" }}>팀 명 : </label>
           <input type="text" id="name" name="name"
           className="border-boutline-none pl-2 border border-gray-300"
           onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="lang">개발언어</label>
+        <div className="mb-4">
+          <label htmlFor="lang" className="text-2xl font-bold" style={{ lineHeight: "2" }}>개발언어 : </label>
           <select id="lang" name="lang" onChange={handleChange}>
             <option>JavaScript</option>
             <option>Python</option>
@@ -125,23 +126,23 @@ export default function CreateForm(){
             <option>Go</option>
           </select>
         </div>
-        <div>
-          <label htmlFor="purpose">팀 목표 : </label>
+        <div className="mb-4">
+          <label htmlFor="purpose" className="text-2xl font-bold" style={{ lineHeight: "2" }}>팀 목표 : </label>
           <input type="textarea" id="purpose" name="purpose"
           className="border-boutline-none pl-2 border border-gray-300"
           onChange={handleChange}
           />
         </div>
-        <div>
-          <label htmlFor="headCount">모집 인원 : </label>
+        <div className="mb-4">
+          <label htmlFor="headCount" className="text-2xl font-bold" style={{ lineHeight: "2" }}>모집 인원 : </label>
           <input type="number" min="1" id="headCount" name="headCount"
           className="border-boutline-none pl-2 border border-gray-300"
           value={formData.headCount}
           onChange={handleChange}
           />
         </div>
-        <div>
-        <label htmlFor="headCount">태그 등록 : </label>
+        <div className="mb-4">
+        <label htmlFor="headCount" className="text-2xl font-bold" style={{ lineHeight: "2" }}>태그 등록 : </label>
           <input type="text" id="tag" name="tag"
           className="border-boutline-none pl-2 border border-gray-300"
           value={formData.tag}
@@ -149,7 +150,7 @@ export default function CreateForm(){
           />
         </div>
         <button
-            className="bg-blue-500 text-white px-5 py-3 rounded-md text-xl"
+            className="bg-blue-500 text-white px-5 py-3 rounded-md text-xl w-1/4"
             type="button"
             onClick={handleSubmit}
         >등록</button>
