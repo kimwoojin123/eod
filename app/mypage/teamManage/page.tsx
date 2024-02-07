@@ -142,6 +142,7 @@ export default function TeamManage() {
     };
   
     fetchApprovalStatus();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
 
