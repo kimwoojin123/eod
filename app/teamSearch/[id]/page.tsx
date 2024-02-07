@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image'
+import Link from 'next/link'
 
 interface Team {
   username: string;
@@ -56,7 +57,7 @@ export default function TeamDetail() {
       <p>팀 목표: {team.purpose}</p>
       <p>개발 언어: {team.lang}</p>
       <p>모집 인원: {team.headCount}</p>
-      <button>팀 지원하기</button>
+      <Link href={`/teamSearch/${id}/teamApply`}>팀 지원하기</Link>
     </div>
   );
 }
