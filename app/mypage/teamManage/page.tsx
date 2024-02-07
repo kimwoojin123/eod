@@ -2,6 +2,8 @@
 
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { useState, useEffect } from 'react';
+import Modal from 'react-modal'
+import { ObjectId } from 'mongodb';
 
 interface Team {
   _id: string;
@@ -21,6 +23,7 @@ interface Applicant {
   phoneNumber:string;
   stack: string;
   content: string;
+  team_id: string;
   user_info:UserInfo;
 }
 
@@ -34,6 +37,7 @@ export default function TeamManage() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [applicants, setApplicants] = useState<Applicant[]>([]);
+  const [selectedApplicant, setSelectedApplicant] = useState<Applicant | null>(null);
 
   useEffect(() => {
     async function fetchTeamData() {
@@ -70,9 +74,34 @@ export default function TeamManage() {
     }
   };
 
+
   const closeModal = () => {
     setModalIsOpen(false);
     setApplicants([]);
+  };
+  const approve = async (applicantId: string, teamId: string) => {
+    try {
+      const response = await fetch(`/api/approve-applicant/${applicantId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body:JSON.stringify({team_id : teamId})
+      });
+  
+      if (!response.ok) {
+        throw new Error('지원자 승인에 실패했습니다.');
+      }
+
+      console.log('지원자가 성공적으로 승인되었습니다.');
+  
+    } catch (error) {
+      console.error('지원자 승인 중 오류 발생:', error);
+    }
+  }
+
+  const handleDetailClick = (applicant: Applicant) => {
+    setSelectedApplicant(applicant === selectedApplicant ? null : applicant);
   };
 
   return (
@@ -88,26 +117,68 @@ export default function TeamManage() {
         ))}
       </ul>
 
-      {modalIsOpen && (
-        <div className="modal">
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        ariaHideApp={false}
+        style={{
+          overlay: {
+            backgroundColor: " rgba(0, 0, 0, 0.4)",
+            width: "100%",
+            height: "100vh",
+            zIndex: "10",
+            position: "fixed",
+            top: "0",
+            left: "0",
+          },
+          content: {
+            display:"flex",
+            flexDirection : "column",
+            alignItems : 'center',
+            width: "720px",
+            height: "600px",
+            zIndex: "150",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            borderRadius: "10px",
+            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+            backgroundColor: "white",
+            justifyContent: "center",
+            overflow: "auto",
+            whiteSpace: 'pre-line',
+          },
+        }}
+        contentLabel="지원자 정보 모달"
+      >
+          <div className="modal">
           <div className="modal-content">
-            <span className="close" onClick={closeModal}>&times;</span>
             <h2>지원자 정보</h2>
             <ul>
               {applicants.map((applicant) => (
                 <li key={applicant._id}>
-                  <p>이름 : {applicant.name}</p>
-                  <p>유저명 : {applicant.username}</p>
-                  <p>이메일 : {applicant.email}</p>
-                  <p>전화번호 : {applicant.phoneNumber}</p>
-                  <p>스택: {applicant.stack}</p>
-                  <p>지원내용: {applicant.content}</p>
+                  <div className="flex justify-between items-center w-full">
+                    <p>유저명 : {applicant.username}</p>
+                    <button className="w-32 h-10 rounded-2xl bg-gray-200 ml-5" onClick={() => handleDetailClick(applicant)}>자세히 보기</button>
+                  </div>
+                  {selectedApplicant === applicant && (
+                      <div className="flex flex-col mt-3">
+                      <p>이름 : {applicant.name}</p>
+                      <p>이메일 : {applicant.email}</p>
+                      <p>전화번호 : {applicant.phoneNumber}</p>
+                      <p>스택: {applicant.stack}</p>
+                      <p>지원내용: {applicant.content}</p>
+                      <button className="ml-16 w-40 h-10 rounded-2xl bg-green-200 mt-5" onClick={() => approve(applicant._id, applicant.team_id)}>승인</button>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
         </div>
-      )}
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
+      </Modal>
     </div>
   );
 }
