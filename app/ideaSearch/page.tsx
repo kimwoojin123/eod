@@ -110,7 +110,7 @@ export default function IdeaSearch(){
 
 
   return (
-    <div className='h-screen'>
+    <div className='h-screen p-4'>
       <BackButton />
       <button className="rounded-xl bg-gray-300 w-28 h-10 ml-80 mb-5" onClick={handleShowAll}>전체 글 보기</button>
         <div className="flex justify-center items-start w-screen">

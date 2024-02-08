@@ -4,6 +4,7 @@ import { getUsernameSomehow } from "@/app/ui/getUsername"
 import { useState, useEffect } from 'react'
 import { useRouter, usePathname } from 'next/navigation';
 import Modal from 'react-modal'
+import BackButton from "@/app/ui/Buttons/backButton";
 
 interface Idea {
   _id: string;
@@ -97,6 +98,10 @@ export default function IdeaRequest() {
   };
 
   return (
+    <div>
+    <div className='absolute left-6 top-20'>
+    <BackButton />
+    </div>
     <div className="container mx-auto p-4">
       {ideas.map((idea) => (
         <div className="flex items-center justify-between bg-gray-100 p-4 mb-4 rounded-lg" key={idea._id}>
@@ -153,6 +158,7 @@ export default function IdeaRequest() {
         <p>{message}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
       </Modal>
+    </div>
     </div>
   );
 }

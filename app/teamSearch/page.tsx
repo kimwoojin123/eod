@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Modal from 'react-modal'
 import TagMatch from '@/app/ui/teamSearch/tagMatch';
 import StackMatch from '@/app/ui/teamSearch/stackMatch';
+import BackButton from '../ui/Buttons/backButton'
 
 
 interface Team {
@@ -84,6 +85,9 @@ export default function TeamSearch(){
 
   return (
     <div>
+    <div className='absolute left-6 top-20'>
+      <BackButton />
+    </div>
       <div className='flex justify-end'>
       <div className='mt-12 mr-6'>
         <p onClick={openMatchingModal} className="flex justify-center items-center w-32 h-10 text-white bg-blue-500 rounded-2xl cursor-pointer">

@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { useRouter } from 'next/navigation'
 import Modal from 'react-modal'
+import BackButton from '@/app/ui/Buttons/backButton';
 
 export default function TeamApply() {
   const [stack, setStack] = useState('');
@@ -44,6 +45,9 @@ export default function TeamApply() {
 
   return (
     <div className="flex flex-col justify-center items-center w-screen h-screen">
+          <div className='absolute left-6 top-20'>
+    <BackButton />
+    </div>
       <h1 className="mb-20 font-bold text-2xl">해당 팀에 지원하시겠습니까?</h1>
       <form className="flex flex-col w-1/3">
         <label>가능스택 :</label>

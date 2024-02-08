@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image'
 import Link from 'next/link'
+import BackButton from '@/app/ui/Buttons/backButton';
 
 interface Team {
   username: string;
@@ -58,6 +59,10 @@ export default function TeamDetail() {
 
 
   return (
+    <div>
+    <div className='absolute left-6 top-20'>
+      <BackButton />
+    </div>
     <div className="flex flex-col w-screen h-screen items-center justify-center">
       <h1 className="text-2xl font-bold mb-4">{team.name}</h1>
       <div className="w-64 h-64 mb-4">
@@ -70,6 +75,7 @@ export default function TeamDetail() {
       <p className="mb-2">남은 인원: {remainingMembers}명</p>
       <Link href={`/teamSearch/${id}/ideaRequest`} className="text-blue-500">아이디어 의뢰</Link>
       <Link href={`/teamSearch/${id}/teamApply`} className="text-blue-500">팀 지원하기</Link>
+    </div>
     </div>
   );
 }
