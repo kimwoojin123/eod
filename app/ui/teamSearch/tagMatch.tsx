@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link'
 
-interface Team {
+export interface Team {
   _id: string;
   username: string;
   name: string;

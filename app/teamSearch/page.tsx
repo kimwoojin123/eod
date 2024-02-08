@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Modal from 'react-modal'
 import TagMatch from '@/app/ui/teamSearch/tagMatch';
+import StackMatch from '@/app/ui/teamSearch/stackMatch';
+
 
 interface Team {
   _id: string;
@@ -33,7 +35,7 @@ export default function TeamSearch(){
             <button onClick={handleTagMatchingButtonClick} className="px-4 py-2 bg-blue-500 text-white rounded-md mb-10">
               태그로 매칭
             </button>
-            <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
+            <button onClick={handleStackMatchButtonClick} className="px-4 py-2 bg-blue-500 text-white rounded-md">
               스택으로 매칭
             </button>
           </div>
@@ -73,6 +75,12 @@ export default function TeamSearch(){
     setModalSize({width: '600px', height:'720px'});
     setModalIsOpen(true);
   };
+
+  const handleStackMatchButtonClick = () => {
+    setModalContent(<StackMatch teams={teams} onCloseModal={closeMatchingModal}/>);
+    setModalSize({width: '600px', height:'720px'});
+    setModalIsOpen(true);
+  }
 
   return (
     <div>
