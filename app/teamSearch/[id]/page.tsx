@@ -68,7 +68,7 @@ export default function TeamDetail() {
       <p className="mb-2">개발 언어: {team.lang}</p>
       <p className="mb-2">모집 인원: {team.headCount}명</p>
       <p className="mb-2">남은 인원: {remainingMembers}명</p>
-      <Link href={`/teamSearch/${id}/ideaRequest`} className="text-blue-500">팀 지원하기</Link>
+      <Link href={`/teamSearch/${id}/ideaRequest`} className="text-blue-500">아이디어 의뢰</Link>
       <Link href={`/teamSearch/${id}/teamApply`} className="text-blue-500">팀 지원하기</Link>
     </div>
   );

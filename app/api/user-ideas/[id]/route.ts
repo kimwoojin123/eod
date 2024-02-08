@@ -7,15 +7,15 @@ export async function GET(req: NextRequest) {
     const path = req.nextUrl.pathname
     const username = path.split('/').pop();
     
-    const user = await client.db('eoddb').collection('users').findOne({ username });
-    if (!user) {
-      throw new Error('Invalid ID format');
+    const ideas = await client.db('eoddb').collection('ideas').find({ username }).toArray();
+    if (!ideas) {
+      throw new Error('No ideas found for this user');
     }
     
-    return NextResponse.json({ userId: user._id });
+    return NextResponse.json(ideas);
   } catch (error) {
-    console.error('Error fetching user ID:', error);
-    return NextResponse.json({ error: 'Failed to fetch approval status' }, { status: 500 });
+    console.error('Error fetching user ideas:', error);
+    return NextResponse.json({ error: 'Failed to fetch user ideas' }, { status: 500 });
   } finally {
     await closeConnection();
   }
