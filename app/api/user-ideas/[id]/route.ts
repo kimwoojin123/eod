@@ -16,7 +16,5 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error('Error fetching user ideas:', error);
     return NextResponse.json({ error: 'Failed to fetch user ideas' }, { status: 500 });
-  } finally {
-    await closeConnection();
   }
 }

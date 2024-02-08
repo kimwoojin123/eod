@@ -12,11 +12,9 @@ export async function GET(req: NextRequest) {
       throw new Error('Invalid ID format');
     }
     
-    return NextResponse.json({ userId: user._id });
+    return NextResponse.json(user._id);
   } catch (error) {
     console.error('Error fetching user ID:', error);
     return NextResponse.json({ error: 'Failed to fetch approval status' }, { status: 500 });
-  } finally {
-    await closeConnection();
   }
 }
