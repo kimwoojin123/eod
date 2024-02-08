@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Modal from 'react-modal'
+import TagMatch from '@/app/ui/teamSearch/tagMatch';
 
 interface Team {
   _id: string;
@@ -13,17 +14,41 @@ interface Team {
   purpose: string;
   headCount: string;
   imageUrl: string;
+  tag:string;
+  teamMember: string[]; 
 }
 
 export default function TeamSearch(){
   const [teams, setTeams] = useState<Team[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
+  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null); // 모달 내용을 관리하는 상태 추가
+  const [modalSize, setModalSize] = useState<{ width: string; height: string }>({ width: '400px', height: '320px' });
 
   const openMatchingModal = () => {
     setModalIsOpen(true);
+    setModalContent(
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75">
+        <div className="bg-white p-8 rounded-lg w-80 h-60 justify-center flex flex-col">
+          <div className="flex flex-col justify-around">
+            <button onClick={handleTagMatchingButtonClick} className="px-4 py-2 bg-blue-500 text-white rounded-md mb-10">
+              태그로 매칭
+            </button>
+            <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
+              스택으로 매칭
+            </button>
+          </div>
+          <button className="absolute top-4 right-4" onClick={closeMatchingModal}>
+            <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    );
   };
 
   const closeMatchingModal = () => {
+    setModalSize({ width: '400px', height: '320px' })
     setModalIsOpen(false);
   };
 
@@ -40,6 +65,14 @@ export default function TeamSearch(){
 
     fetchData();
   }, []);
+
+
+
+  const handleTagMatchingButtonClick = () => {
+    setModalContent(<TagMatch teams={teams} onCloseModal={closeMatchingModal}/>);
+    setModalSize({width: '600px', height:'720px'});
+    setModalIsOpen(true);
+  };
 
   return (
     <div>
@@ -89,8 +122,8 @@ export default function TeamSearch(){
             display:"flex",
             flexDirection : "column",
             alignItems : 'center',
-            width: "400px",
-            height: "340px",
+            width: modalSize.width, 
+            height: modalSize.height,
             zIndex: "150",
             position: "absolute",
             top: "50%",
@@ -106,23 +139,8 @@ export default function TeamSearch(){
         }}
         contentLabel="매칭 모달"
       >
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-200 bg-opacity-75">
-          <div className="bg-white p-8 rounded-lg w-80 h-60 justify-center flex flex-col">
-            <div className="flex flex-col justify-around">
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-md mb-10">
-                태그로 매칭
-              </button>
-              <button className="px-4 py-2 bg-blue-500 text-white rounded-md">
-                스택으로 매칭
-              </button>
-            </div>
-            <button className="absolute top-4 right-4" onClick={closeMatchingModal}>
-              <svg className="w-6 h-6 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
-        </div>
+         {modalContent}
+
       </Modal>
     </div>
   );

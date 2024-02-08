@@ -51,7 +51,7 @@ export default function TeamDetail() {
     return <div>Team not found</div>;
   }
 
-  const remainingMembers = parseInt(team.headCount) - team.teamMember.length;
+  const remainingMembers = parseInt(team.headCount) - (team.teamMember ? team.teamMember.length : 0);
 
   return (
     <div className="flex flex-col w-screen h-screen items-center justify-center">
