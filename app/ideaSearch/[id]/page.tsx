@@ -121,7 +121,8 @@ export default function DetailPage() {
   return (
     <div className="p-4">
       <BackButton />
-      <div className="mx-auto p-4 max-w-2xl border">
+      <div className='w-screen flex justify-center'>
+      <div className="p-4 w-1/2 border">
         <h1 className="text-2xl font-bold mb-4 border-b pb-2">{boardData.title}</h1>
         <p className="text-gray-500 mb-2 border-b pb-2">작성자 : {boardData.username}</p>
         <p className="text-gray-500 mb-4 border-b pb-2">{boardData.addDate}</p>
@@ -129,6 +130,8 @@ export default function DetailPage() {
         <Image src={boardData.imageUrl} alt="Image" width={500} height={500} className="mb-4" />
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
+      </div>
+        <div className='ml-20'>안녕</div>
       </div>
       <div className='flex justify-center'>
         <div className='flex justify-center relative left-16 items-center mt-5'>
@@ -140,7 +143,7 @@ export default function DetailPage() {
           )}
           <p>Likes : {likes}</p>
         </button>
-        <div className='relative left-40 mt-2'>
+        <div className='relative left-60 mt-2'>
         <div className='w-48 flex justify-between'>
           {boardData.username === getUsernameSomehow() && (
             <>
@@ -194,9 +197,7 @@ export default function DetailPage() {
           </div>
           </div>
         </div>
-
       </div>
-
       <div>
       <div className='flex ml-80 mt-20'>
         댓글 수 : {boardData.replies?.length || 0}
