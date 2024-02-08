@@ -1,11 +1,17 @@
 import { connectDB, closeConnection, client } from '../../../utills/db'
 import { NextRequest, NextResponse } from 'next/server';
 
+interface TeamApplyCount {
+  _id: string;
+  count: number;
+}
+
+
 export async function GET(req: NextRequest) {
   try {
     await connectDB();
 
-    const teamApplyCount = await client.db('eoddb').collection('teamApply')
+    const teamApplyCount: TeamApplyCount[] = await client.db('eoddb').collection('teamApply')
       .aggregate([
         { $group: { _id: '$team_id', count: { $sum: 1 } } },
         { $sort: { count: -1 } },

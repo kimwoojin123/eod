@@ -24,5 +24,5 @@ export async function POST(req: NextRequest) {
 async function saveToMongoDB(data: { ideaId: ObjectId; userId:ObjectId; teamId: ObjectId; }) {
   const { ideaId, userId, teamId } = data;
   
-  await client.db('eoddb').collection('ideaApply').insertOne({ ideaId, userId, teamId });
+  await client.db('eoddb').collection('ideaRequest').insertOne({ ideaId, userId, teamId });
 }
