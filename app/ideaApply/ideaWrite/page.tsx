@@ -102,17 +102,19 @@ export default function IdeaWrite(){
   };
 
   return (
-    <div>
-      <div className='flex flex-col justify-center items-center h-screen'>
+    <div className='w-screen overflow-x-hidden'>
+      <div className='flex flex-col justify-center items-center h-screen mr-20'>
         <h1 className='font-bold text-3xl mb-5'>아이디어 작성</h1>
         <div className='w-screen flex justify-center mb-2'>
-        <label htmlFor='title'>제목</label>
-        <input className = 'ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e)=>handleTitleChange(e.target.value)} />
+          <label htmlFor='title'>제목</label>
+          <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => handleTitleChange(e.target.value)} />
         </div>
-        <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
+        <div className="flex justify-center ml-96 w-screen">
+          <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
+          <GptAI />
+        </div>
       </div>
-      <GptAI />
-      <div className='flex justify-center relative left-72 bottom-14'>
+      <div className='flex justify-center mt-20 ml-96'>
         <div className='flex w-56 justify-between'>
           <button className='w-24 h-10 bg-green-500 text-white rounded-lg'>저장하기</button>
           <button onClick={handleSubmit} className='w-24 h-10 bg-green-500 text-white rounded-lg'>제출하기</button>
@@ -133,9 +135,9 @@ export default function IdeaWrite(){
             left: "0",
           },
           content: {
-            display:"flex",
-            flexDirection : "column",
-            alignItems : 'center',
+            display: "flex",
+            flexDirection: "column",
+            alignItems: 'center',
             width: "360px",
             height: "180px",
             zIndex: "150",
@@ -157,5 +159,5 @@ export default function IdeaWrite(){
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
       </Modal>
     </div>
-  )
+  );
 }

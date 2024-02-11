@@ -28,7 +28,7 @@ export default function GptAI() {
     }
   };
   return (
-    <div className='absolute left-3/4 bottom-1/4'>
+    <div className='ml-10'>
       <h1>Ask ChatGPT a Question:</h1>
       <form onSubmit={handleAskQuestion}>
       <input
