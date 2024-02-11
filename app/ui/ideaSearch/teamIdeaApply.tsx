@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import { getUsernameSomehow } from '../getUsername';
 
 export default function TeamIdeaApplyForm() {
@@ -9,7 +9,8 @@ export default function TeamIdeaApplyForm() {
   const [selectedTeam, setSelectedTeam] = useState('');
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
-  const router = useRouter();
+  const path = usePathname();
+  const ideaId = path.split('/').pop();
 
   useEffect(() => {
     const fetchTeams = async () => {
@@ -35,7 +36,7 @@ export default function TeamIdeaApplyForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: getUsernameSomehow(), 
+          ideaId:ideaId,
           teamId: selectedTeam,
           content,
         }),
