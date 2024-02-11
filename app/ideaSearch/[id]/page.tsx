@@ -131,7 +131,6 @@ export default function DetailPage() {
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
-        <div className='ml-20'>안녕</div>
       </div>
       <div className='flex justify-center'>
         <div className='flex justify-center relative left-16 items-center mt-5'>
