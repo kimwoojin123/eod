@@ -43,17 +43,17 @@ export default function IdeaList() {
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">내가 작성한 아이디어 목록</h1>
-      <ul>
-        {ideas.map((idea) => (
-          <li key={idea._id} className="mb-4">
-            <h2 className="text-lg font-semibold">{idea.title}</h2>
-            <p className="text-gray-500">작성일: {idea.addDate}</p>
-            <button onClick={() => openModal(idea)}>개발지원목록</button>
-          </li>
-        ))}
-      </ul>
+  <div className="container p-4">
+    <h1 className="text-2xl font-bold mb-4">내가 작성한 아이디어 목록</h1>
+    <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      {ideas.map((idea) => (
+        <li key={idea._id} className="bg-white rounded-lg shadow-md p-4">
+          <h2 className="text-lg font-semibold mb-2">{idea.title}</h2>
+          <p className="text-gray-500 text-sm">작성일: {idea.addDate}</p>
+          <button className="bg-green-500 text-white px-4 py-2 rounded-md mt-2" onClick={() => openModal(idea)}>개발지원목록</button>
+        </li>
+      ))}
+    </ul>
 
       <Modal
         isOpen={!!selectedIdea}
