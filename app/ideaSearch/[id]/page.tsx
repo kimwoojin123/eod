@@ -13,6 +13,7 @@ import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import Reply from '../../ui/ideaSearch/reply'
 import { ObjectId } from 'mongodb';
 import TeamIdeaApplyForm from '@/app/ui/ideaSearch/teamIdeaApply';
+import IndividualIdeaApplyForm from '@/app/ui/ideaSearch/individualIdeaApply';
 
 
 interface DetailPageProps {
@@ -32,6 +33,7 @@ export default function DetailPage() {
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
   const [applyAsTeam, setApplyAsTeam] = useState(false);
+  const [applyAsIndividual, setApplyAsIndividual] = useState(false);
 
   const searchPath = usePathname();
   const router = useRouter();
@@ -40,7 +42,7 @@ export default function DetailPage() {
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {setModalIsOpen(false); router.back()}
-
+  const modalClose = () => {setModalIsOpen(false)}
 
 
   useEffect(() => {
@@ -121,8 +123,12 @@ export default function DetailPage() {
 
   const handleTeamApply = () => {
     setApplyAsTeam(false);
+    setApplyAsIndividual(false);
     openModal();
   };
+
+
+
 
   return (
     <div className="p-4">
@@ -245,15 +251,24 @@ export default function DetailPage() {
             }}
             contentLabel="삭제 완료 모달"
           >
-          {applyAsTeam ? <TeamIdeaApplyForm /> : (
-          <div>
-            {/* "개인으로 지원" 내용 */}
-          </div>
-        )}
-        <button onClick={() => setApplyAsTeam(true)}>팀으로 지원</button>
-        <button>개인으로 지원</button>
-        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
-      </Modal>
+  {applyAsTeam ? (
+    <>
+      <TeamIdeaApplyForm />
+      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsTeam(false)}>취소</button>
+    </>
+  ) : applyAsIndividual ? (
+    <>
+      <IndividualIdeaApplyForm />
+      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsIndividual(false)}>취소</button>
+    </>
+  ) : (
+    <>
+      <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsTeam(true)}>팀으로 지원</button>
+      <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsIndividual(true)}>개인으로 지원</button>
+      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={modalClose}>닫기</button>
+    </>
+  )}
+</Modal>
     </div>
   );
   }

@@ -42,7 +42,7 @@ export default function TeamIdeaApplyForm() {
         },
         body: JSON.stringify({
           ideaId:ideaId,
-          teamId: selectedTeam,
+          team: selectedTeam,
           content,
         }),
       });
@@ -70,7 +70,7 @@ export default function TeamIdeaApplyForm() {
       >
         <option value="">팀을 선택하세요</option>
         {teams.map((team) => (
-          <option key={team._id} value={team._id}>
+          <option key={team._id} value={team.name}>
             {team.name}
           </option>
         ))}
