@@ -4,8 +4,13 @@ import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 import { getUsernameSomehow } from '../getUsername';
 
+interface Team{
+  _id : string;
+  name : string
+}
+
 export default function TeamIdeaApplyForm() {
-  const [teams, setTeams] = useState([]);
+  const [teams, setTeams] = useState<Team[]>([]);
   const [selectedTeam, setSelectedTeam] = useState('');
   const [content, setContent] = useState('');
   const [message, setMessage] = useState('');
