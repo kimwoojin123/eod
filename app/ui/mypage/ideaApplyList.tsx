@@ -58,24 +58,26 @@ export default function IdeaApplyList({ ideaId }: { ideaId: string }) {
       <ul>
         {appliedIdeas.map((appliedIdea) => (
           <li key={appliedIdea._id} className="mb-4">
-            <p>
-              <strong>지원자:</strong> {appliedIdea.developer}
-            </p>
-            <p>
-              <strong>내용:</strong> {appliedIdea.content}
-            </p>
-            <button
-              onClick={() =>
-                handleApprovalToggle(appliedIdea._id, appliedIdea.approved)
-              }
-              className={`rounded-md px-4 py-2 ${
-                appliedIdea.approved
-                  ? 'bg-green-500 text-white'
-                  : 'bg-blue-500 text-white'
-              }`}
-            >
-              {appliedIdea.approved ? '승인완료' : '승인'}
-            </button>
+            <div className="bg-white w-96 rounded-lg shadow-md p-4">
+              <p className="mb-2">
+                <strong>지원자:</strong> {appliedIdea.developer}
+              </p>
+              <p className="mb-2">
+                <strong>내용:</strong> {appliedIdea.content}
+              </p>
+              <button
+                onClick={() =>
+                  handleApprovalToggle(appliedIdea._id, appliedIdea.approved)
+                }
+                className={`rounded-md px-4 py-2 ${
+                  appliedIdea.approved
+                    ? 'bg-green-500 text-white'
+                    : 'bg-blue-500 text-white'
+                }`}
+              >
+                {appliedIdea.approved ? '승인완료' : '승인'}
+              </button>
+            </div>
           </li>
         ))}
       </ul>
