@@ -11,14 +11,12 @@ export async function GET(req: NextRequest) {
 
     // teamId에 해당하는 모든 ideaRequest 가져오기
     const ideaRequests = await client.db('eoddb').collection('ideaRequest').find({ teamId: teamId }).toArray();
-    console.log(ideaRequests)
     // 각 ideaRequest에 대한 아이디어 가져오기
     const detailedRequests = await Promise.all(ideaRequests.map(async (request:any) => {
       const idea = await client.db('eoddb').collection('ideas').findOne({ _id: new ObjectId(request.ideaId) });
       return idea;
     }));
     
-    console.log(detailedRequests);
     return NextResponse.json(detailedRequests, { status: 200 });
   } catch (error) {
     console.error('Error fetching idea requests:', error);
