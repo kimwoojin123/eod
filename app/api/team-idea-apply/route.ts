@@ -5,14 +5,14 @@ import { ObjectId } from 'mongodb'; // Import ObjectId from mongodb
 
 export async function POST(req: NextRequest) {
   try {
-    const { ideaId, teamId, content } = req.body;
+    const { ideaId, teamId, content } = await req.json();
     await connectDB();
 
-    // ideaApply 컬렉션에 데이터 추가
     const response = await client.db('eoddb').collection('ideaApply').insertOne({
       idea_id: new ObjectId(ideaId), // 클라이언트에서 전달된 아이디어 ID를 사용
       content,
-      developer: teamId,
+      developer: new ObjectId(teamId),
+      type : 'team'
     });
 
     if (response.insertedId) {

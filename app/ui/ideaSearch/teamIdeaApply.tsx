@@ -59,7 +59,7 @@ export default function TeamIdeaApplyForm() {
   };
 
   return (
-    <div>
+    <div className='flex flex-col w-96 mb-10'>
       <h1 className="text-xl font-bold mb-4">아이디어 지원하기</h1>
       <label htmlFor="team">팀 선택:</label>
       <select

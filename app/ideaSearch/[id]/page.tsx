@@ -31,6 +31,7 @@ export default function DetailPage() {
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
   const [liked, setLiked] = useState(false);
   const [likes, setLikes] = useState(0);
+  const [applyAsTeam, setApplyAsTeam] = useState(false);
 
   const searchPath = usePathname();
   const router = useRouter();
@@ -118,7 +119,11 @@ export default function DetailPage() {
     }
   };
 
-  
+  const handleTeamApply = () => {
+    setApplyAsTeam(false);
+    openModal();
+  };
+
   return (
     <div className="p-4">
       <BackButton />
@@ -132,7 +137,7 @@ export default function DetailPage() {
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
-      <TeamIdeaApplyForm />
+      <button onClick={handleTeamApply}>개발 착수 지원</button>
       </div>
       <div className='flex justify-center'>
         <div className='flex justify-center relative left-16 items-center mt-5'>
@@ -204,7 +209,51 @@ export default function DetailPage() {
         댓글 수 : {boardData.replies?.length || 0}
       </div>
         {id && <Reply ideaId={id} />}
-        </div>
+      </div>
+      <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={closeModal}
+            ariaHideApp={false}
+            style={{
+              overlay: {
+                backgroundColor: " rgba(0, 0, 0, 0.4)",
+                width: "100%",
+                height: "100vh",
+                zIndex: "10",
+                position: "fixed",
+                top: "0",
+                left: "0",
+              },
+              content: {
+                display:"flex",
+                flexDirection : "column",
+                alignItems : 'center',
+                width: "600px",
+                height: "720px",
+                zIndex: "150",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                borderRadius: "10px",
+                boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+                backgroundColor: "white",
+                justifyContent: "center",
+                overflow: "auto",
+                whiteSpace: 'pre-line',
+              },
+            }}
+            contentLabel="삭제 완료 모달"
+          >
+          {applyAsTeam ? <TeamIdeaApplyForm /> : (
+          <div>
+            {/* "개인으로 지원" 내용 */}
+          </div>
+        )}
+        <button onClick={() => setApplyAsTeam(true)}>팀으로 지원</button>
+        <button>개인으로 지원</button>
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
+      </Modal>
     </div>
   );
   }
