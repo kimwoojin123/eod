@@ -148,17 +148,40 @@ export default function TeamManage() {
 
 
   return (
-    <div>
-      <h1>내 팀 관리</h1>
-      <ul>
-        {teams.map((team) => (
-          <li key={team._id} className='flex'>
-            <h2>{team.name}</h2>
-            <button className='ml-40 mr-20' onClick={() => openModal(team._id)}>지원신청 보기</button>
-            <button>팀 정보 수정</button>
-          </li>
-        ))}
-      </ul>
+    <div className="flex flex-col items-center mt-20">
+      <h1 className="text-2xl font-bold mb-4">내 팀 관리</h1>
+      <div className="overflow-x-auto">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                팀 이름
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                지원신청 보기
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                팀 정보 수정
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {teams.map((team) => (
+              <tr key={team._id}>
+                <td className="px-6 py-4 whitespace-nowrap">{team.name}</td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button className="py-2 px-4 rounded-lg bg-blue-500 text-white" onClick={() => openModal(team._id)}>
+                    지원신청 보기
+                  </button>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button className="py-2 px-4 rounded-lg bg-blue-500 text-white">팀 정보 수정</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <Modal
         isOpen={modalIsOpen}
