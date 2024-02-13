@@ -3,7 +3,7 @@
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { useState, useEffect } from 'react';
 import Modal from 'react-modal'
-import { ObjectId } from 'mongodb';
+import RequestIdeaList from '@/app/ui/mypage/requestIdeaList';
 
 interface Team {
   _id: string;
@@ -41,7 +41,8 @@ export default function TeamManage() {
   const [selectedApplicant, setSelectedApplicant] = useState<Applicant | null>(null);
   const [approvalModalIsOpen, setApprovalModalIsOpen] = useState<boolean>(false); 
   const [approvalClicked, setApprovalClicked] = useState<boolean>(false); // 승인 버튼 클릭 상태
-
+  const [ideaRequestModalIsOpen, setIdeaRequestModalIsOpen] = useState<boolean>(false); // 추가
+  const [selectedTeamId, setSelectedTeamId] = useState<string>(''); // 추가
 
   useEffect(() => {
     async function fetchTeamData() {
@@ -146,6 +147,11 @@ export default function TeamManage() {
   }, []);
 
 
+  const openIdeaRequestModal = (teamId: string) => { // 추가
+    setSelectedTeamId(teamId);
+    setIdeaRequestModalIsOpen(true);
+  };
+
 
   return (
     <div className="flex flex-col items-center mt-20">
@@ -161,6 +167,9 @@ export default function TeamManage() {
                 지원신청 보기
               </th>
               <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                요청 아이디어
+              </th>
+              <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 팀 정보 수정
               </th>
             </tr>
@@ -173,6 +182,9 @@ export default function TeamManage() {
                   <button className="py-2 px-4 rounded-lg bg-blue-500 text-white" onClick={() => openModal(team._id)}>
                     지원신청 보기
                   </button>
+                </td>
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <button className="py-2 px-4 rounded-lg bg-blue-500 text-white" onClick={() => openIdeaRequestModal(team._id)}>요청 아이디어</button>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <button className="py-2 px-4 rounded-lg bg-blue-500 text-white">팀 정보 수정</button>
@@ -291,6 +303,44 @@ export default function TeamManage() {
           </div>
         </div>
       </Modal>
+      <Modal
+      isOpen={ideaRequestModalIsOpen}
+      onRequestClose={() => setIdeaRequestModalIsOpen(false)}
+      ariaHideApp={false}
+      style={{
+        overlay: {
+          backgroundColor: " rgba(0, 0, 0, 0.4)",
+          width: "100%",
+          height: "100vh",
+          zIndex: "10",
+          position: "fixed",
+          top: "0",
+          left: "0",
+        },
+        content: {
+          display:"flex",
+          flexDirection : "column",
+          alignItems : 'center',
+          width: "720px",
+          height: "600px",
+          zIndex: "150",
+          position: "absolute",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          borderRadius: "10px",
+          boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
+          backgroundColor: "white",
+          justifyContent: "center",
+          overflow: "auto",
+          whiteSpace: 'pre-line',
+        },
+      }}
+      contentLabel="요청 아이디어 목록 모달"
+    >
+      <RequestIdeaList teamId={selectedTeamId} /> 
+      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={() => setIdeaRequestModalIsOpen(false)}>닫기</button>
+    </Modal>
     </div>
   );
 }
