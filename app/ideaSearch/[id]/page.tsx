@@ -12,6 +12,7 @@ import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as SolidHeartIcon } from '@heroicons/react/24/solid';
 import Reply from '../../ui/ideaSearch/reply'
 import { ObjectId } from 'mongodb';
+import TeamIdeaApplyForm from '@/app/ui/ideaSearch/teamIdeaApply';
 
 
 interface DetailPageProps {
@@ -131,6 +132,7 @@ export default function DetailPage() {
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
+      <TeamIdeaApplyForm />
       </div>
       <div className='flex justify-center'>
         <div className='flex justify-center relative left-16 items-center mt-5'>

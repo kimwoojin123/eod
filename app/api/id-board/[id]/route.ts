@@ -19,7 +19,5 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.error('Error fetching individual idea:', error);
     return NextResponse.json({ error: '아이디어 정보를 불러오는 중에 오류가 발생했습니다.' }, { status: 500 });
-  } finally {
-    await closeConnection();
   }
 }

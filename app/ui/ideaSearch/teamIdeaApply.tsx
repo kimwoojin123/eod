@@ -18,7 +18,7 @@ export default function TeamIdeaApplyForm() {
         const username = getUsernameSomehow(); 
         const response = await fetch(`/api/team-manage/${username}`);
         const data = await response.json();
-        setTeams(data.teams);
+        setTeams(data);
       } catch (error) {
         console.error('Error fetching teams:', error);
         setMessage('팀 데이터를 불러오는 중에 오류가 발생했습니다.');
@@ -26,7 +26,7 @@ export default function TeamIdeaApplyForm() {
     };
 
     fetchTeams();
-  }, []);
+  }, [ideaId]);
 
   const handleSubmit = async () => {
     try {

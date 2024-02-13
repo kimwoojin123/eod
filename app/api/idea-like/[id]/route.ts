@@ -51,7 +51,5 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Error updating idea:', error);
     return NextResponse.json({ error: '아이디어를 업데이트하는 중에 오류가 발생했습니다.' }, { status: 500 });
-  } finally {
-    await closeConnection();
   }
 }
