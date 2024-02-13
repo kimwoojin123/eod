@@ -21,8 +21,6 @@ export async function PUT(req: NextRequest) {
   } catch (error) {
     console.error('Error updating data in MongoDB:', error);
     return NextResponse.json({ error: '데이터를 업데이트하는 중에 오류가 발생했습니다.' }, { status: 500 });
-  } finally {
-    await closeConnection();
   }
 }
 

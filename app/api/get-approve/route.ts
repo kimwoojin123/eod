@@ -18,8 +18,6 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Failed to fetch approval status:', error);
     return NextResponse.json({ error: 'Failed to fetch approval status' }, { status: 500 });
-  } finally {
-    await closeConnection();
   }
 }
 

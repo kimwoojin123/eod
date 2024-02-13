@@ -23,7 +23,5 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Error submitting idea support:', error);
     return NextResponse.json({ error: '아이디어 지원 제출에 실패했습니다.' }, { status: 500 });
-  } finally {
-    await closeConnection();
-  }
+  } 
 }

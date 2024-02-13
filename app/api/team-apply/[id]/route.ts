@@ -31,7 +31,5 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('Error submitting team application:', error);
     return NextResponse.json({ error: '팀 지원 제출 중 오류가 발생했습니다.' }, { status: 500 });
-  } finally {
-    await closeConnection();
-  }
+  } 
 }

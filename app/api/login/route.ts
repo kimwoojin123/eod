@@ -25,9 +25,7 @@ export async function POST(req:NextRequest) {
   } catch (error) {
     console.error('로그인 중 오류:', error);
     return NextResponse.json({ message: '로그인 중 오류가 발생했습니다.' }, { status: 500 });
-  } finally {
-    await closeConnection();
-  }
+  } 
 }
 
 export async function getUserByUsername(username: string) {

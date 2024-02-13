@@ -21,8 +21,6 @@ export async function POST(req: NextRequest) {
   } catch (error) {
     console.error('지원자 승인 중 오류가 발생했습니다:', error);
     return NextResponse.json({ error: '지원자 승인 중 오류가 발생했습니다.' }, { status: 500 });
-  } finally {
-    await closeConnection();
   }
 }
 

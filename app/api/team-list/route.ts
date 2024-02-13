@@ -11,7 +11,5 @@ export async function GET(){
   } catch (error) {
     console.error('Error fetching team data:', error);
     return NextResponse.json({ error: 'Failed to fetch team data' }, { status: 500 });
-  } finally {
-    await closeConnection();
-  }
+  } 
 }
