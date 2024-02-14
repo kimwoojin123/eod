@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
     const ideaId = path.split('/').pop();
 
     // 해당 아이디어에 대한 지원 목록 가져오기
-    const appliedIdeas = await client.db('eoddb').collection('ideaApply').find({ idea_id: new ObjectId(ideaId) }).toArray();
+    const appliedIdeas = await client.db('eoddb').collection('ideaApply').find({ ideaId: ideaId }).toArray();
 
     return NextResponse.json(appliedIdeas, { status: 200 });
   } catch (error) {

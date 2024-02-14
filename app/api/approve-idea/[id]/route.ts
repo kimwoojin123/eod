@@ -20,22 +20,29 @@ export async function PUT(req: NextRequest) {
       .db('eoddb')
       .collection('ideaApply')
       .updateOne(
-        { _id: new ObjectId(ideaId) },
+        { ideaId: ideaId },
         { $set: { approved: approved } } // 승인 상태 업데이트
       );
 
-      const ideaApplyData = await client
+      const countApprovedApply = await client
       .db('eoddb')
       .collection('ideaApply')
-      .findOne({ _id: new ObjectId(ideaId) });
+      .countDocuments({ ideaId: ideaId, approved: true });
 
-      console.log(ideaApplyData.idea_id)
-      await client
+    const countApprovedRequest = await client
+      .db('eoddb')
+      .collection('ideaRequest')
+      .countDocuments({ ideaId: ideaId, approved: true });
+
+    const matched = countApprovedApply > 0 || countApprovedRequest > 0;
+
+    // ideas 컬렉션의 matched 필드 업데이트
+    await client
       .db('eoddb')
       .collection('ideas')
       .updateOne(
-        { _id: ideaApplyData.idea_id },
-        { $set: { matched: approved } } // matched 필드 업데이트
+        { _id: new ObjectId(ideaId) },
+        { $set: { matched: matched } } // matched 필드 업데이트
       );
       
     return NextResponse.json({ message : '성공적으로 업데이트 되었습니다'}, {status:200});
