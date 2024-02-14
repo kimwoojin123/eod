@@ -22,6 +22,14 @@ export async function PUT(req: NextRequest) {
         { $set: { approved: approved } } // 승인 상태 업데이트
       );
 
+      await client
+      .db('eoddb')
+      .collection('ideas')
+      .updateOne(
+        { _id: new ObjectId(ideaId) },
+        { $set: { matched: approved } } // matched 필드 업데이트
+      );
+
     return NextResponse.json(updatedIdea, {status:200});
   } catch (error) {
     console.error('Error updating idea approval status:', error);
