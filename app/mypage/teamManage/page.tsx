@@ -13,6 +13,7 @@ interface Team {
   purpose: string;
   headCount: string;
   imageUrl: string;
+  approved: boolean; 
 }
 
 interface Applicant {
@@ -44,6 +45,7 @@ export default function TeamManage() {
   const [ideaRequestModalIsOpen, setIdeaRequestModalIsOpen] = useState<boolean>(false); // 추가
   const [selectedTeamId, setSelectedTeamId] = useState<string>(''); // 추가
 
+  
   useEffect(() => {
     async function fetchTeamData() {
       try {
@@ -61,6 +63,8 @@ export default function TeamManage() {
 
     fetchTeamData();
   }, []);
+
+  
 
   const openModal = async (teamId: string) => {
     try {
