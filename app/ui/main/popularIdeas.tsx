@@ -44,7 +44,7 @@ export default function PopularIdeas() {
   };
 
   return (
-    <div className='w-1/5 ml-28 mt-10 mr-28'>
+    <div className='w-1/5 mt-10'>
       <h1 className="text-xl font-bold mb-4">인기 아이디어</h1>
       <div className='border border-gray-300 p-4 flex flex-col justify-start' style={{ height: '580px' }}>
       {ideas.map((idea, index) => (
