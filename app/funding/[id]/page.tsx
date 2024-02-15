@@ -8,14 +8,17 @@ interface Funding{
   imageUrl : string;
   title: string;
   textContent : string;
+  quillImageUrl : string;
 }
-
+interface Idea{
+  title : string;
+}
 
 export default function FundingPage() {
   const idPath = usePathname();
   const id = idPath.split('/').pop();
-  const [fundingData, setFundingData] = useState(null);
-  const [ideaData, setIdeaData] = useState(null);
+  const [fundingData, setFundingData] = useState<Funding | null>(null);
+  const [ideaData, setIdeaData] = useState<Idea | null>(null);
 
   useEffect(() => {
     const fetchFundingData = async () => {
