@@ -53,19 +53,26 @@ export default function IdeaSearch(){
         console.error('Error fetching board list:', error);
       }
     };
+  
     fetchBoardList();
   }, [currentPage, searchResults]);
 
 
   useEffect(() => {
-    const page = parseInt(params.get('page') as string, 10) || 1;
+    const params = new URLSearchParams(window.location.search);
+    const page = parseInt(params.get('page') || '1');
     setCurrentPage(page);
-  }, [params]);
+  }, [currentPage]);
 
-  const handlePageChange = (newPage: number) => {
-    router.push(`/ideaSearch?page=${newPage}`);
+
+  const handlePageChange = async (newPage: number) => {
+    try {
+      await router.push(`/ideaSearch?page=${newPage}`);
+      setCurrentPage(newPage);
+    } catch (error) {
+      console.error('Error navigating to page:', error);
+    }
   };
-
   const renderPageButtons = () => {
     const pages = [];
     const startPage = Math.floor((currentPage - 1) / PageGroupSize) * PageGroupSize + 1;
