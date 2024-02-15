@@ -10,9 +10,8 @@ export async function GET(req:NextRequest){
   try{
     await connectDB();
     const path = req.nextUrl.pathname
-    console.log(path)
-    const searchOption = path.split('/')[2]
-    const searchText = path.split('/').pop()
+    const searchOption = path.split('/')[3]|| ''
+    const searchText = path.split('/').pop()|| ''
 
   
     if (searchOption === null) {
@@ -21,9 +20,8 @@ export async function GET(req:NextRequest){
     }
 
     const query: Query = {};
-    
-    query[searchOption] = { $regex: searchText || '', $options: 'i' };
-
+    const decodedSearchText = decodeURIComponent(searchText);
+    query[searchOption] = { $regex: decodedSearchText  || '', $options: 'i' };
     const searchResults = await client.db('eoddb').collection('ideas').find(query).toArray();
 
     closeConnection();
