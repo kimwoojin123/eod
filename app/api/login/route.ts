@@ -4,17 +4,15 @@ import jwt from 'jsonwebtoken'
 import crypto from 'crypto'
 const secretKey = crypto.randomBytes(32).toString('hex');
 
-export async function POST(req:NextRequest) {
-  const formData = await req.formData()
-  const username = formData.get('username') as string;
-  const password = formData.get('password') as string;
+export async function POST(req: NextRequest): Promise<NextResponse> {
+  const { username, password } = await req.json()
 
   await connectDB();
 
   try {
-    const user = await getUserByUsername(username);
+    const user = await client.db('eoddb').collection('users').findOne({ username });
     const tokenPayload = {
-      username : username
+      username: username
     }
     const token = jwt.sign(tokenPayload, secretKey, { expiresIn: '1h' });
     if (user && password === user.password) {
@@ -25,10 +23,5 @@ export async function POST(req:NextRequest) {
   } catch (error) {
     console.error('로그인 중 오류:', error);
     return NextResponse.json({ message: '로그인 중 오류가 발생했습니다.' }, { status: 500 });
-  } 
-}
-
-export async function getUserByUsername(username: string) {
-const user = await client.db('eoddb').collection('users').findOne({ username });
-return user;
+  }
 }

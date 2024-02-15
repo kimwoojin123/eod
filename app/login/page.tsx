@@ -11,12 +11,12 @@ export default function Login(){
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append('username', username);
-      formData.append('password', password);
       const response = await fetch("/api/login", {
         method: "POST",
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
       });
   
       if (response.ok) {

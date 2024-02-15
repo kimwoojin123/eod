@@ -5,12 +5,11 @@ import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 const TextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 
-interface EditPageProps {
-  initialContent: string;
-}
 
-const EditPage: React.FC<EditPageProps> = ({ initialContent }) => {
-  const [content, setContent] = useState(initialContent);
+
+
+export default function EditPage() {
+  const [content, setContent] = useState('');
   const [title, setTitle] = useState('');
   const [imageUrl, setImageUrl] = useState('');
 
@@ -86,4 +85,3 @@ const EditPage: React.FC<EditPageProps> = ({ initialContent }) => {
   );
 };
 
-export default EditPage;

@@ -27,7 +27,6 @@ export default function MyPage(){
         </div>
         <div className="h-2 w-full bg-gray-300 mb-2"></div>
         <div className="flex flex-col mb-8">
-          <TeamListButton />
           <TeamManageButton />
           </div>
         <div className="mb-8">
