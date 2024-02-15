@@ -91,7 +91,7 @@ export default function IdeaSearch(){
 
   const handleSearch = (searchOption :string, searchText:string) => {
     if(searchText.length > 0){
-    fetch(`/api/search?searchOption=${searchOption}&searchText=${searchText}`)
+    fetch(`/api/search/${searchOption}/${searchText}`)
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data.searchResults);
