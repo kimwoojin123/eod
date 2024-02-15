@@ -7,17 +7,23 @@ import { useRouter } from 'next/navigation';
 import dynamic from "next/dynamic";
 const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 
+interface Idea {
+  _id: string;
+  title: string;
+  matched: boolean;
+}
+
 export default function FundingForm() {
   const [editorValue, setEditorValue] = useState<string>('');
   const [formData, setFormData] = useState({
     image: null,
-    selectedIdeaId: null,
-    textEditorContent: '', // textEditor의 내용을 저장할 formData 항목 추가
+    selectedIdeaId: null as string | null, 
+    textEditorContent: '', 
   });
   const [message, setMessage] = useState('');
   const [ideaModalIsOpen, setIdeaModalIsOpen] = useState(false);
   const [fundingModalIsOpen, setFundingModalIsOpen] = useState(false);
-  const [ideas, setIdeas] = useState([]);
+  const [ideas, setIdeas] = useState<Idea[]>([]);
   const [selectedIdeaTitle, setSelectedIdeaTitle] = useState('');
 
   const router = useRouter();
@@ -63,13 +69,13 @@ export default function FundingForm() {
   const openFundingModal = () => setFundingModalIsOpen(true);
   const closeFundingModal = () => {setFundingModalIsOpen(false); router.back()}
 
-  const handleIdeaSelect = (ideaId, ideaTitle) => {
+  const handleIdeaSelect = (ideaId: string, ideaTitle: string) => {
     setFormData({ ...formData, selectedIdeaId: ideaId });
     setSelectedIdeaTitle(ideaTitle);
     closeIdeaModal();
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
 
     if (type === 'file') {
@@ -97,7 +103,7 @@ export default function FundingForm() {
   };
 
 
-  const extractImageDataFromEditorValue = (editorValue) => {
+  const extractImageDataFromEditorValue = (editorValue: string) => {
     const imgRegex = /<img[^>]+src="([^">]+)"/g;
     const matches = editorValue.match(imgRegex);
     if (matches) {
@@ -131,7 +137,8 @@ export default function FundingForm() {
       const { imageUrl } = await imageResponse.json();
   
       // 텍스트 에디터 내 이미지 업로드
-      const quillImageUploadPromises = imageDatas.map(async (dataURL) => {
+      const quillImageUploadPromises = imageDatas.map(async (dataURL: string | null) => {
+        if (dataURL !== null) {
         const base64Data = dataURL.split(',')[1]; // data:image/png;base64, 부분을 제외한 base64 데이터 추출
         const quillImageResponse = await fetch('/api/upload-image', {
           method: 'POST',
@@ -145,11 +152,13 @@ export default function FundingForm() {
         }
         const { imageUrl } = await quillImageResponse.json();
         return imageUrl; // 이미지 URL만 반환
+      }
+      return null
       });
   
       const quillImageUrls = await Promise.all(quillImageUploadPromises);
       const quillImageUrl = quillImageUrls[0]
-      
+
       const username = getUsernameSomehow();
       const response = await fetch('/api/funding-regist', {
         method: 'POST',
@@ -194,7 +203,7 @@ export default function FundingForm() {
           <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
         </div>
         <button
-          className="bg-blue-500 text-white px-5 py-3 rounded-md text-xl w-1/4"
+          className="bg-blue-500 text-white px-5 py-3 rounded-md text-xl w-1/4 mt-20"
           type="button"
           onClick={handleSubmit}
         >
