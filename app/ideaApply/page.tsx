@@ -33,7 +33,6 @@ export default function IdeaApply(){
       </div>
       <div className="flex h-screen justify-around items-center">
         <IdeaWriteButton />
-        <IdeaDrawButton />
       </div>
       <Modal
         isOpen={modalIsOpen}

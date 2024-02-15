@@ -10,6 +10,7 @@ interface Funding{
   title: string;
   textContent : string;
   quillImageUrl : string;
+  amount : number;
 }
 interface Idea{
   title : string;
@@ -20,6 +21,8 @@ export default function FundingPage() {
   const id = idPath.split('/').pop();
   const [fundingData, setFundingData] = useState<Funding | null>(null);
   const [ideaData, setIdeaData] = useState<Idea | null>(null);
+  const [fundingAmount, setFundingAmount] = useState<Funding | null>(null); // 펀딩 금액 상태 추가
+
 
   useEffect(() => {
     const fetchFundingData = async () => {
@@ -31,6 +34,7 @@ export default function FundingPage() {
         const { funding, idea } = await response.json();
         setFundingData(funding);
         setIdeaData(idea);
+        setFundingAmount(funding);
       } catch (error) {
         console.error('Error fetching funding data:', error);
       }
@@ -41,7 +45,7 @@ export default function FundingPage() {
     }
   }, [id]);
 
-  if (!fundingData || !ideaData) {
+  if (!fundingData || !ideaData || fundingAmount === null) {
     return <p>Loading...</p>;
   }
 
@@ -51,7 +55,7 @@ export default function FundingPage() {
         <Image src={fundingData.imageUrl} alt={fundingData.title} width={200} height={200}/>
         <div>
           <p>아이디어명: {ideaData.title}</p>
-          <p>펀딩금액 : 원</p>
+          <p>펀딩금액 : {fundingAmount.amount}원</p>
           <FundingModal />
         </div>
       </div>
