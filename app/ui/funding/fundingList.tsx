@@ -31,13 +31,18 @@ export default function FundingList() {
   }, []);
 
   return (
-    <div>
-      <ul>
+    <div className="container mx-auto py-8">
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {fundingData.map((item) => (
-          <li key={item._id}>
+          <li key={item._id} className="bg-white rounded-lg shadow-md overflow-hidden">
             <Link href={`/funding/${item._id}`}>
-            <Image src={item.imageUrl} alt={item.title} height={200} width={200} />
-            <p>{item.title}</p>
+      
+                <div className="relative h-60">
+                  <Image src={item.imageUrl} alt={item.title} layout="fill" objectFit="contain" />
+                </div>
+                <div className="p-4">
+                  <p className="text-lg font-semibold">{item.title}</p>
+                </div>
             </Link>
           </li>
         ))}

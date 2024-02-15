@@ -41,7 +41,9 @@ export default function FundingModal() {
 
   return (
     <div>
-      <button onClick={() => setModalIsOpen(true)}>펀딩하기</button>
+      <button onClick={() => setModalIsOpen(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+        펀딩하기
+      </button>
       <Modal 
         isOpen={modalIsOpen} 
         onRequestClose={closeModal}
@@ -84,13 +86,18 @@ export default function FundingModal() {
               placeholder="펀딩할 금액을 입력하세요"
               value={fundingAmount}
               onChange={(e) => setFundingAmount(e.target.value)}
+              className="border border-gray-300 rounded mb-2 px-3 py-2 w-full focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <button onClick={handleSubmit}>펀딩하기</button>
+            <button onClick={handleSubmit} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+              펀딩하기
+            </button>
           </>
         ) : (
           <>
-            <p>펀딩이 성공적으로 완료되었습니다.</p>
-            <button onClick={closeModal}>닫기</button>
+            <p className="mb-4 text-lg text-center">펀딩이 성공적으로 완료되었습니다.</p>
+            <button onClick={closeModal} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
+              닫기
+            </button>
           </>
         )}
       </Modal>

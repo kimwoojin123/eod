@@ -143,7 +143,11 @@ export default function DetailPage() {
         )}
         <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
-      <button onClick={handleTeamApply}>개발 착수 지원</button>
+      <button
+        className="rounded-3xl ml-10 h-20 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
+        onClick={handleTeamApply}>
+          개발 착수 지원
+          </button>
       </div>
       <div className='flex justify-center'>
         <div className='flex justify-center relative left-16 items-center mt-5'>
