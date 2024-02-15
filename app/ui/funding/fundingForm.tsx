@@ -25,6 +25,8 @@ export default function FundingForm() {
   const [fundingModalIsOpen, setFundingModalIsOpen] = useState(false);
   const [ideas, setIdeas] = useState<Idea[]>([]);
   const [selectedIdeaTitle, setSelectedIdeaTitle] = useState('');
+  const [title, setTitle] = useState<string>('');
+
 
   const router = useRouter();
   const handleEditorChange = (value: string) => {
@@ -36,6 +38,10 @@ export default function FundingForm() {
     }));
   };
   
+  const handleTitleChange = (value : string) => {
+    setTitle(value);
+  };
+
   const removeImageTagsAndContent = (html: string): string => {
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const images = doc.querySelectorAll('img');
@@ -165,7 +171,7 @@ export default function FundingForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, ...formData, imageUrl, quillImageUrl }),
+        body: JSON.stringify({ username, ...formData, imageUrl, quillImageUrl, title }),
       });
       if (response.ok) {
         setMessage('펀딩이 등록되었습니다.');
@@ -200,6 +206,10 @@ export default function FundingForm() {
               onChange={handleChange}
             />
           </div>
+          <div className='w-screen flex mb-2'>
+          <label htmlFor='title'>제목</label>
+          <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => handleTitleChange(e.target.value)} />
+           </div>
           <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
         </div>
         <button
