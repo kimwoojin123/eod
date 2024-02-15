@@ -4,8 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ObjectId } from 'mongodb';
 import Link from 'next/link'
 import BackButton from '../ui/Buttons/backButton';
-import { useRouter } from 'next/navigation';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import SearchComponent from '../ui/ideaSearch/search';
 import Modal from 'react-modal';
 import { HeartIcon } from '@heroicons/react/24/solid';
