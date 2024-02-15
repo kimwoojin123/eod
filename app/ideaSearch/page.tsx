@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { ObjectId } from 'mongodb';
 import Link from 'next/link'
 import BackButton from '../ui/Buttons/backButton';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import SearchComponent from '../ui/ideaSearch/search';
 import Modal from 'react-modal';
 import { HeartIcon } from '@heroicons/react/24/solid';
@@ -31,7 +31,6 @@ export default function IdeaSearch(){
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const router = useRouter();
-  const params = useSearchParams();
 
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => setModalIsOpen(false)
