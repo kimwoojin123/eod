@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import FundingModal from '@/app/ui/funding/fundingModal';
 
 interface Funding{
   imageUrl : string;
@@ -51,7 +52,7 @@ export default function FundingPage() {
         <div>
           <p>아이디어명: {ideaData.title}</p>
           <p>펀딩금액 : 원</p>
-          <button>펀딩하기</button>
+          <FundingModal />
         </div>
       </div>
       <div>
