@@ -64,7 +64,6 @@ export default function IdeaWrite(){
       return doc.body.innerHTML;
     };
   
-    // 제출할 때 이미지 태그와 내용을 제거한 텍스트를 사용
     const textContentForSubmission = removeImageTagsAndContent(editorValue);
 
     if (title.trim() === '') {

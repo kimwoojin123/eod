@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
 
     const uploadedImage = await s3.upload(params).promise();
     const imageUrl = uploadedImage.Location;
-
+    
     return NextResponse.json({ imageUrl }, { status: 200 });
   } catch (error) {
     console.error('Error uploading image to S3:', error);
