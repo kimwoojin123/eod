@@ -9,7 +9,7 @@ export async function POST(req: NextRequest) {
     const { username, title, selectedIdeaId, textEditorContent, imageUrl, quillImageUrl } = jsonData;
 
     // MongoDB에 저장
-    await saveToMongoDB({ username, title, selectedIdeaId, textEditorContent, imageUrl, quillImageUrl });
+    await saveToMongoDB({ username, title, ideaId: selectedIdeaId, textContent: textEditorContent, imageUrl, quillImageUrl });
 
     return NextResponse.json({ message: '펀딩 정보가 성공적으로 저장되었습니다.' }, { status: 200 });
   } catch (error) {
@@ -18,8 +18,8 @@ export async function POST(req: NextRequest) {
   } 
 }
 
-async function saveToMongoDB(data: { username: string; title:string; selectedIdeaId: string; textEditorContent: string; imageUrl: string; quillImageUrl: string }) { 
-  const { username, title, selectedIdeaId, textEditorContent, imageUrl, quillImageUrl } = data;
+async function saveToMongoDB(data: { username: string; title:string; ideaId: string; textContent: string; imageUrl: string; quillImageUrl: string }) { 
+  const { username, title, ideaId, textContent, imageUrl, quillImageUrl } = data;
   const currentDate = new Date();
   const timeZone = 'Asia/Seoul';
 
@@ -45,14 +45,13 @@ async function saveToMongoDB(data: { username: string; title:string; selectedIde
   const formattedHour = hour === '24' ? '00' : hour;
   const formattedDateTime = `${year}-${month}-${day} ${formattedHour}:${minute}:${second}`;
 
-  // imageUrl 및 quillImageUrl 추가
   await client.db('eoddb').collection('funding').insertOne({ 
     username, 
     title,
-    selectedIdeaId, 
-    textEditorContent, 
+    ideaId, 
+    textContent, 
     imageUrl, 
-    quillImageUrl, // quillImageUrl 추가
-    createdAt: formattedDateTime 
+    quillImageUrl,
+    addDate: formattedDateTime 
   });
 }
