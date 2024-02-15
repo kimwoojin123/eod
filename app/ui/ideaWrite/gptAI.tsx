@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function GptAI() {
   const [question, setQuestion] = useState('');
-  const [response, setResponse] = useState('질문을 입력하세요.');
+  const [response, setResponse] = useState('도움을 드릴게요.');
 
   const handleAskQuestion = async (e:React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -35,8 +35,10 @@ export default function GptAI() {
         type="text"
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
+        className='border'
+        placeholder='질문을 입력하세요'
       />
-      <button type='submit'>질문하기</button>
+      <button className='bg-gray-200 ml-4 h-8 w-20 rounded-2xl' type='submit'>질문하기</button>
       </form>
       <h2>답변:</h2>
       <p className="h-96 w-80 border">{response}</p>
