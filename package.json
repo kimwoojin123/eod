@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 8081",
+    "dev": "next dev",
     "build": "next build",
-    "start": "next start -p 8081",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
     "@types/dompurify": "^3.0.5",
     "@types/jsdom": "^21.1.6",
     "@types/react-modal": "^3.16.3",
+    "aws": "^0.0.3-2",
     "aws-amplify": "^6.0.13",
     "aws-sdk": "^2.1546.0",
     "bcrypt": "^5.1.1",
