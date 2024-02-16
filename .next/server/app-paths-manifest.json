@@ -1,7 +1,0 @@
-{
-  "/api/board-list/route": "app/api/board-list/route.js",
-  "/page": "app/page.js",
-  "/api/get-funding/route": "app/api/get-funding/route.js",
-  "/api/get-teamApply/route": "app/api/get-teamApply/route.js",
-  "/ideaSearch/page": "app/ideaSearch/page.js"
-}
