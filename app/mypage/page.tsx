@@ -37,14 +37,6 @@ export default function MyPage(){
             <ResignButton />
           </div>
         </div>
-
-        <div>
-          <div className="text-xl font-medium">고객센터</div>
-          <div className="h-2 w-full bg-gray-300 mb-2"></div>
-          <button className="text-center text-blue-600 hover:underline">
-            <Link href={"../board"}>1:1 문의하기</Link>
-          </button>
-        </div>
       </div>
     </div>
   );
