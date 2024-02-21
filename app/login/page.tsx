@@ -18,7 +18,8 @@ export default function Login(){
         },
         body: JSON.stringify({ username, password })
       });
-  
+      const responseData = await response.json();
+
       if (response.ok) {
         const { token } = await response.json(); // 토큰 및 사용자 정보 받기
         localStorage.setItem("token", JSON.stringify(token));
@@ -31,7 +32,8 @@ export default function Login(){
         alert("로그인이 완료되었습니다.");
         window.location.href = '/';
       } else {
-        alert("로그인에 실패했습니다.");
+        const errorMessage = responseData.message || "로그인에 실패했습니다.";
+        alert(errorMessage);
       }
     } catch (error) {
       console.error("Error:", error);

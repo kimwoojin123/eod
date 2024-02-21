@@ -14,9 +14,19 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     const tokenPayload = {
       username: username
     }
-    const token = jwt.sign(tokenPayload, secretKey, { expiresIn: '1h' });
-    if (user && password === user.password) {
-      return NextResponse.json({ message: '로그인이 완료되었습니다.', token }, { status: 200 });
+
+    if (user) {
+      if (!user.activate) {
+        return NextResponse.json({ message: '계정이 활성화되지 않았습니다. 관리자에게 문의하세요.' }, { status: 401 });
+      }
+
+      const token = jwt.sign(tokenPayload, secretKey, { expiresIn: '1h' });
+
+      if (password === user.password) {
+        return NextResponse.json({ message: '로그인이 완료되었습니다.', token }, { status: 200 });
+      } else {
+        return NextResponse.json({ message: '로그인 실패. 사용자 정보를 확인하세요.' }, { status: 401 });
+      }
     } else {
       return NextResponse.json({ message: '로그인 실패. 사용자 정보를 확인하세요.' }, { status: 401 });
     }
