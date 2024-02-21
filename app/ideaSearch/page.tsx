@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { ObjectId } from 'mongodb';
 import Link from 'next/link'
 import BackButton from '../ui/Buttons/backButton';
@@ -52,26 +52,16 @@ export default function IdeaSearch(){
         console.error('Error fetching board list:', error);
       }
     };
-  
     fetchBoardList();
   }, [currentPage, searchResults]);
 
 
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const page = parseInt(params.get('page') || '1');
-    setCurrentPage(page);
-  }, [currentPage]);
-
-
-  const handlePageChange = async (newPage: number) => {
-    try {
-      await router.push(`/ideaSearch?page=${newPage}`);
-      setCurrentPage(newPage);
-    } catch (error) {
-      console.error('Error navigating to page:', error);
-    }
+  
+  const handlePageChange = (newPage: number) => {
+    router.push(`/ideaSearch?page=${newPage}`);
+    setCurrentPage(newPage);
   };
+
   const renderPageButtons = () => {
     const pages = [];
     const startPage = Math.floor((currentPage - 1) / PageGroupSize) * PageGroupSize + 1;
@@ -155,7 +145,7 @@ export default function IdeaSearch(){
       </tr>
     ))
   )}
-</tbody>
+  </tbody>
       </table>
     </div>
     <div className='flex justify-center'>
@@ -166,7 +156,7 @@ export default function IdeaSearch(){
           className="mx-1 px-3 py-1 border rounded"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-        >
+          >
           {'<'}
         </button>
         {renderPageButtons()}
@@ -174,7 +164,7 @@ export default function IdeaSearch(){
           className="mx-1 px-3 py-1 border rounded"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-        >
+          >
           {'>'}
         </button>
       </div>
@@ -212,7 +202,7 @@ export default function IdeaSearch(){
           },
         }}
         contentLabel="아이디어 검색 모달"
-      >
+        >
         <p>{message}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
       </Modal>
