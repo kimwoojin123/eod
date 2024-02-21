@@ -9,6 +9,7 @@ if (!mongoose.models.User) {
     email: String,
     phoneNumber: String,
     address: String,
+    activate: { type: Boolean, default: true }
   });
 
   mongoose.model('User', userSchema);
