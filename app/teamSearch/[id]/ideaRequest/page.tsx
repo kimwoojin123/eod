@@ -88,10 +88,12 @@ export default function IdeaRequest() {
         })
       });
       if (!response.ok) {
-        throw new Error('Failed to request idea');
-      }
+        setMessage('이미 신청한 아이디어입니다.')
+        openModal();
+      } else {
       setMessage('의뢰를 신청했습니다.')
       openModal();
+      }
     } catch (error) {
       console.error('Error requesting idea:', error);
     }

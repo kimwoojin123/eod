@@ -21,6 +21,12 @@ export async function POST(req: NextRequest) {
 
 async function saveToMongoDB(data: { ideaId: ObjectId; userId:ObjectId; teamId: ObjectId; }) {
   const { ideaId, userId, teamId } = data;
+
+  const existingRequest = await client.db('eoddb').collection('ideaRequest').findOne({ ideaId });
+  
+  if (existingRequest) {
+    throw new Error('이미 해당 아이디어에 대한 요청이 존재합니다.');
+  }
   
   await client.db('eoddb').collection('ideaRequest').insertOne({ ideaId, userId, teamId });
 }
