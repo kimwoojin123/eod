@@ -177,25 +177,15 @@ export default function SignUp(){
     }
 
     try {
-      const response = await fetch(`/checkUsername`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ username }),
+      const response = await fetch(`/api/check-user/${username}`, {
+        method: 'GET'
       });
   
       if (response.ok) {
-        const data = await response.json();
-  
-        if (data.isDuplicate) {
           alert('이미 사용 중인 아이디입니다.');
         } else {
           alert('사용 가능한 아이디입니다.');
         }
-      } else {
-        alert('중복 조회에 실패했습니다.');
-      }
     } catch (error) {
       console.error('Error checking duplicate username:', error);
     }
