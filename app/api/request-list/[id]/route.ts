@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
       return idea;
     }));
     
-    return NextResponse.json(detailedRequests, { status: 200 });
+    return NextResponse.json({detailedRequests, ideaRequests}, { status: 200 });
   } catch (error) {
     console.error('Error fetching idea requests:', error);
     return NextResponse.json({ error: '정보를 불러오는 중에 오류가 발생했습니다.' }, { status: 500 });

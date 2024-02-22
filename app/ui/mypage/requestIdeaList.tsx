@@ -12,6 +12,7 @@ interface IdeaRequest {
 
 export default function RequestIdeaList({ teamId }: { teamId: string }) {
   const [ideaRequests, setIdeaRequests] = useState<IdeaRequest[]>([]);
+  const [requestState, setRequestState] = useState<IdeaRequest[]>([])
 
 
   useEffect(() => {
@@ -22,7 +23,10 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
           throw new Error('Failed to fetch idea requests');
         }
         const data = await response.json();
-        setIdeaRequests(data);
+        const ideaData = data.detailedRequests
+        const requestData = data.ideaRequests
+        setIdeaRequests(ideaData);
+        setRequestState(requestData);
       } catch (error) {
         console.error('Error fetching idea requests:', error);
       }
@@ -32,24 +36,35 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
   }, [teamId]);
 
   
-  const handleApprovalToggle = async (id: string, approved: boolean) => {
+  const handleApprovalToggle = async (id: string) => {
     try {
-      console.log('전송하는 데이터:', { approved: approved }); // 전송하는 데이터 콘솔에 출력
+      // 해당 아이디어 요청의 인덱스를 찾습니다.
+      const index = ideaRequests.findIndex(request => request._id === id);
+      if (index === -1) {
+        throw new Error('Cannot find index of idea request');
+      }
+      
+      // 해당 인덱스에 대한 requestState 값이 실제로 존재하는지 확인합니다.
+      if (!requestState[index]) {
+        throw new Error('Request state not found');
+      }
+  
+      console.log('전송하는 데이터:', { approved: requestState[index].approved }); // 전송하는 데이터 콘솔에 출력
       const response = await fetch(`/api/approve-request/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ approved: !approved }), // 승인 상태를 토글
+        body: JSON.stringify({ approved: !requestState[index].approved }), // 승인 상태를 토글
       });
       if (!response.ok) {
         throw new Error('Failed to update approval status');
       }
       
-      const updatedIdeaRequests = ideaRequests.map(ideaRequest =>
-        ideaRequest._id === id ? { ...ideaRequest, approved: !approved } : ideaRequest
-      );
-      setIdeaRequests(updatedIdeaRequests);
+      // 버튼 클릭 시 해당 버튼의 승인 상태를 업데이트
+      const updatedRequestState = [...requestState];
+      updatedRequestState[index].approved = !requestState[index].approved;
+      setRequestState(updatedRequestState);
     } catch (error) {
       console.error('Error updating approval status:', error);
     }
@@ -61,25 +76,25 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
     <div>
       <h1 className="text-2xl font-bold mb-4">요청 아이디어 목록</h1>
       <ul>
-        {ideaRequests.map((ideaRequest) => (
-          <li key={ideaRequest._id} className="mb-4">
-            <p>
-              <Link href={`/ideaSearch/${ideaRequest._id}`}><strong>제목:</strong> {ideaRequest.title}</Link>
-            </p>
-            <button
-                onClick={() =>
-                  handleApprovalToggle(ideaRequest._id, ideaRequest.approved)
-                }
-                className={`rounded-md px-4 py-2 ${
-                  ideaRequest.approved
-                    ? 'bg-green-500 text-white'
-                    : 'bg-blue-500 text-white'
-                }`}
-              >
-                {ideaRequest.approved ? '승인완료' : '승인'}
-              </button>
-          </li>
-        ))}
+      {ideaRequests.map((ideaRequest, index) => (
+        <li key={ideaRequest._id} className="mb-4">
+          <p>
+            <Link href={`/ideaSearch/${ideaRequest._id}`}><strong>제목:</strong> {ideaRequest.title}</Link>
+          </p>
+          <button
+            onClick={() =>
+              handleApprovalToggle(ideaRequest._id, requestState[index].approved)
+            }
+            className={`rounded-md px-4 py-2 ${
+              requestState[index].approved
+                ? 'bg-green-500 text-white'
+                : 'bg-blue-500 text-white'
+            }`}
+          >
+            {requestState[index].approved ? '승인완료' : '승인'}
+          </button>
+        </li>
+      ))}
       </ul>
     </div>
   );
