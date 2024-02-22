@@ -8,7 +8,7 @@ export function ReloadButton(){
     window.location.href="/"
   }
   return (
-    <button onClick={reloadPage}>EveryOneDeveloper</button>
+    <button className="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reloadPage}>EveryOneDeveloper</button>
   )
 }
 
@@ -37,7 +37,7 @@ export function MyPageButton(){
 
   return (
     <div>
-      <button onClick={handleMyPageClick}>마이페이지</button>    
+      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleMyPageClick}>마이페이지</button>    
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
@@ -98,16 +98,14 @@ export function AuthButton() {
   return (
     <div>
       {isLoggedIn ? (
-        <div className='cursor-pointer' onClick={handleLogout}>
-          <span>로그아웃</span>
+        <div className='cursor-pointer'>
+          <span className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded" onClick={handleLogout}>로그아웃</span>
         </div>
       ) : (
-        <>
-        <div className='w-40 flex justify-between'>
-          <Link href='login'>로그인</Link>
-          <Link href='signup'>회원가입</Link>
+        <div className='w-48 flex justify-between'>
+          <Link href='login'><p className="flex justify-center items-center bg-blue-500 hover:bg-blue-700 text-white font-bold w-20 h-10 rounded">로그인</p></Link>
+          <Link href='signup'><p className="flex justify-center items-center bg-blue-500 hover:bg-green-700 text-white font-bold w-20 h-10 rounded">회원가입</p></Link>
         </div>
-        </>
       )}
     </div>
   );
