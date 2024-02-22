@@ -26,7 +26,8 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
         const ideaData = data.detailedRequests
         const requestData = data.ideaRequests
         setIdeaRequests(ideaData);
-        setRequestState(requestData);
+        setRequestState(requestData.map((request: IdeaRequest) => ({ ...request })));
+        console.log(requestData)
       } catch (error) {
         console.error('Error fetching idea requests:', error);
       }
@@ -34,7 +35,6 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
 
     fetchIdeaRequests();
   }, [teamId]);
-
   
   const handleApprovalToggle = async (id: string) => {
     try {
@@ -44,7 +44,6 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
         throw new Error('Cannot find index of idea request');
       }
       
-      // 해당 인덱스에 대한 requestState 값이 실제로 존재하는지 확인합니다.
       if (!requestState[index]) {
         throw new Error('Request state not found');
       }
@@ -61,7 +60,6 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
         throw new Error('Failed to update approval status');
       }
       
-      // 버튼 클릭 시 해당 버튼의 승인 상태를 업데이트
       const updatedRequestState = [...requestState];
       updatedRequestState[index].approved = !requestState[index].approved;
       setRequestState(updatedRequestState);
@@ -83,7 +81,7 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
           </p>
           <button
             onClick={() =>
-              handleApprovalToggle(ideaRequest._id, requestState[index].approved)
+              handleApprovalToggle(ideaRequest._id)
             }
             className={`rounded-md px-4 py-2 ${
               requestState[index].approved
