@@ -21,7 +21,7 @@ export default function Login(){
       const responseData = await response.json();
 
       if (response.ok) {
-        const { token } = await response.json(); // 토큰 및 사용자 정보 받기
+        const { token } = responseData; // 토큰 및 사용자 정보 받기
         localStorage.setItem("token", JSON.stringify(token));
   
         const parsedToken = JSON.parse(localStorage.getItem("token") || ''); // 저장된 토큰 가져오기
