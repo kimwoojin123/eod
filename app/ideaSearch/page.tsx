@@ -43,7 +43,7 @@ export default function IdeaSearch(){
         let response;
   
         if (searchResults.length === 0) {
-          response = await fetch('/api/board-list');
+          response = await fetch('/api/board-list', { cache: 'no-store' });
           const data = await response.json();
           setTotalPages(Math.ceil(data.length / IdeasPerPage));
           setBoardList(data.reverse().slice((currentPage - 1) * IdeasPerPage, currentPage * IdeasPerPage));
