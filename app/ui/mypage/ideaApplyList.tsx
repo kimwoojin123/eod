@@ -16,7 +16,7 @@ export default function IdeaApplyList({ ideaId }: { ideaId: string }) {
   useEffect(() => {
     const fetchAppliedIdeas = async () => {
       try {
-        const response = await fetch(`/api/applied-idea/${ideaId}`);
+        const response = await fetch(`/api/applied-idea/${ideaId}`, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch applied ideas');
         }

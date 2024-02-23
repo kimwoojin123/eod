@@ -20,7 +20,7 @@ export default function IdeaList() {
     const fetchIdeas = async () => {
       try {
         const username = getUsernameSomehow();
-        const response = await fetch(`/api/user-ideas/${username}`);
+        const response = await fetch(`/api/user-ideas/${username}`, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch user ideas');
         }

@@ -20,7 +20,7 @@ export default function PopularIdeas() {
   useEffect(() => {
     const fetchPopularIdeas = async () => {
       try {
-        const response = await fetch('/api/board-list');
+        const response = await fetch('/api/board-list', { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch popular ideas');
         }

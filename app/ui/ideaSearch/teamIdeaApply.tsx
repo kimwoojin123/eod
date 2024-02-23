@@ -21,7 +21,7 @@ export default function TeamIdeaApplyForm() {
     const fetchTeams = async () => {
       try {
         const username = getUsernameSomehow(); 
-        const response = await fetch(`/api/team-manage/${username}`);
+        const response = await fetch(`/api/team-manage/${username}`, { cache: 'no-store' });
         const data = await response.json();
         setTeams(data);
       } catch (error) {

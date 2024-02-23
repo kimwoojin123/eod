@@ -27,7 +27,7 @@ export default function FundingPage() {
   useEffect(() => {
     const fetchFundingData = async () => {
       try {
-        const response = await fetch(`/api/funding-detail/${id}`);
+        const response = await fetch(`/api/funding-detail/${id}`, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch funding data');
         }

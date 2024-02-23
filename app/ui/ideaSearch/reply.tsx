@@ -26,7 +26,7 @@ export default function Reply({ ideaId }: { ideaId: string }) {
 
   const fetchReplies = useCallback(async () => {
     try {
-      const response = await fetch(`/api/show-reply/${ideaId}`);
+      const response = await fetch(`/api/show-reply/${ideaId}`, { cache: 'no-store' });
       const data = await response.json();
       setReplies(data);
     } catch (error) {

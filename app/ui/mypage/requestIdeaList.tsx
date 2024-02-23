@@ -18,7 +18,7 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
   useEffect(() => {
     async function fetchIdeaRequests() {
       try {
-        const response = await fetch(`/api/request-list/${teamId}`);
+        const response = await fetch(`/api/request-list/${teamId}`, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch idea requests');
         }
