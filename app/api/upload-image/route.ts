@@ -13,6 +13,7 @@ const s3 = new AWS.S3();
 export async function POST(req: NextRequest) {
   try {
     const jsonData = await req.json(); // Parse JSON data from the request
+    console.log('Received data:', jsonData); // 콘솔에 데이터 출력
 
     const { dataURL } = jsonData;
     const base64Data = dataURL.split(',')[1];
