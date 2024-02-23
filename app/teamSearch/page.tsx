@@ -1,13 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import Image from 'next/image'
-import Modal from 'react-modal'
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import Modal from 'react-modal';
 import TagMatch from '../ui/teamSearch/tagMatch';
 import StackMatch from '../ui/teamSearch/stackMatch';
-import BackButton from '../ui/Buttons/backButton'
-
+import BackButton from '../ui/Buttons/backButton';
 
 interface Team {
   _id: string;
@@ -17,15 +16,19 @@ interface Team {
   purpose: string;
   headCount: string;
   imageUrl: string;
-  tag:string;
-  teamMember: string[]; 
+  tag: string;
+  teamMember: string[];
 }
 
-export default function TeamSearch(){
+const TeamsPerPage = 3;
+const DisplayedPages = 5;
+
+export default function TeamSearch() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null); // 모달 내용을 관리하는 상태 추가
+  const [modalContent, setModalContent] = useState<React.ReactNode | null>(null);
   const [modalSize, setModalSize] = useState<{ width: string; height: string }>({ width: '400px', height: '320px' });
+  const [currentPage, setCurrentPage] = useState(1);
 
   const openMatchingModal = () => {
     setModalIsOpen(true);
@@ -69,50 +72,96 @@ export default function TeamSearch(){
     fetchData();
   }, []);
 
-
-
   const handleTagMatchingButtonClick = () => {
-    setModalContent(<TagMatch teams={teams} onCloseModal={closeMatchingModal}/>);
-    setModalSize({width: '600px', height:'720px'});
+    setModalContent(<TagMatch teams={teams} onCloseModal={closeMatchingModal} />);
+    setModalSize({ width: '600px', height: '720px' });
     setModalIsOpen(true);
   };
 
   const handleStackMatchButtonClick = () => {
-    setModalContent(<StackMatch teams={teams} onCloseModal={closeMatchingModal}/>);
-    setModalSize({width: '600px', height:'720px'});
+    setModalContent(<StackMatch teams={teams} onCloseModal={closeMatchingModal} />);
+    setModalSize({ width: '600px', height: '720px' });
     setModalIsOpen(true);
   }
 
+  const totalPages = Math.ceil(teams.length / TeamsPerPage);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const renderPagination = () => {
+    const pages = [];
+    const startPage = Math.max(1, currentPage - Math.floor(DisplayedPages / 2));
+    const endPage = Math.min(totalPages, startPage + DisplayedPages - 1);
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <button
+          key={i}
+          className={`mx-1 px-3 py-1 border rounded ${i === currentPage ? 'bg-blue-500 text-white' : ''}`}
+          onClick={() => handlePageChange(i)}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    return (
+      <div className="flex justify-center mt-4">
+        <button
+          className="mx-1 px-3 py-1 border rounded"
+          onClick={() => setCurrentPage(prevPage => Math.max(prevPage - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          이전
+        </button>
+        {pages}
+        <button
+          className="mx-1 px-3 py-1 border rounded"
+          onClick={() => setCurrentPage(nextPage => Math.min(nextPage + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          다음
+        </button>
+      </div>
+    );
+  };
+
+  const indexOfLastTeam = currentPage * TeamsPerPage;
+  const indexOfFirstTeam = indexOfLastTeam - TeamsPerPage;
+  const currentTeams = teams.slice(indexOfFirstTeam, indexOfLastTeam);
+
   return (
     <div>
-    <div className='absolute left-6 top-20'>
-      <BackButton />
-    </div>
-      <div className='flex justify-end'>
-      <div className='mt-12 mr-6'>
-        <p onClick={openMatchingModal} className="flex justify-center items-center w-32 h-10 text-white bg-blue-500 rounded-2xl cursor-pointer">
-            팀 매칭하기
-        </p>
+      <div className='absolute left-6 top-20'>
+        <BackButton />
       </div>
-      <Link href="/teamSearch/teamCreate" className='mt-12 mr-20'>
-        <p className="flex justify-center items-center w-32 h-10 text-white bg-green-500 rounded-2xl">
-          팀 등록하기
-        </p>
-      </Link>
+      <div className='flex justify-end'>
+        <div className='mt-12 mr-6'>
+          <p onClick={openMatchingModal} className="flex justify-center items-center w-32 h-10 text-white bg-blue-500 rounded-2xl cursor-pointer">
+            팀 매칭하기
+          </p>
+        </div>
+        <Link href="/teamSearch/teamCreate" className='mt-12 mr-20'>
+          <p className="flex justify-center items-center w-32 h-10 text-white bg-green-500 rounded-2xl">
+            팀 등록하기
+          </p>
+        </Link>
       </div>
       <h2 className="text-2xl font-bold mt-4 mb-2 ml-20">팀 목록</h2>
       <div className="grid grid-cols-6 gap-4 pl-20 pr-20 pt-5">
-        {teams.map((team) => (
+        {currentTeams.map((team) => (
           <div key={team._id} className="border p-4 rounded-md">
             {team.imageUrl && (
-          <Image
-            src={team.imageUrl}
-            alt={`${team.name} 이미지`}
-            width={800}
-            height={800}
-            className="w-full h-40 object-contain mb-2 rounded-md"
-          />
-        )}
+              <Image
+                src={team.imageUrl}
+                alt={`${team.name} 이미지`}
+                width={800}
+                height={800}
+                className="w-full h-40 object-contain mb-2 rounded-md"
+              />
+            )}
             <h3 className="text-lg font-semibold mb-2">{team.name}</h3>
             <p className="text-gray-500 mb-2">팀장: {team.username}</p>
             <p className="text-gray-500 mb-2">개발 언어: {team.lang}</p>
@@ -124,6 +173,7 @@ export default function TeamSearch(){
           </div>
         ))}
       </div>
+      {renderPagination()}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeMatchingModal}
@@ -139,10 +189,10 @@ export default function TeamSearch(){
             left: "0",
           },
           content: {
-            display:"flex",
-            flexDirection : "column",
-            alignItems : 'center',
-            width: modalSize.width, 
+            display: "flex",
+            flexDirection: "column",
+            alignItems: 'center',
+            width: modalSize.width,
             height: modalSize.height,
             zIndex: "150",
             position: "absolute",
@@ -159,8 +209,7 @@ export default function TeamSearch(){
         }}
         contentLabel="매칭 모달"
       >
-         {modalContent}
-
+        {modalContent}
       </Modal>
     </div>
   );
