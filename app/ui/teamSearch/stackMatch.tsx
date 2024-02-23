@@ -11,7 +11,7 @@ interface StackMatchProps {
 
 const StackMatch: React.FC<StackMatchProps> = ({ teams, onCloseModal }) => {
   const [matchingTeams, setMatchingTeams] = useState<Team[]>([]);
-  const [inputStack, setInputStack] = useState('')
+  const [inputStack, setInputStack] = useState('JavaScript')
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
 
   const handleMatch = () => {
