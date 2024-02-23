@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 interface Query {
   [key: string]: { $regex: string; $options: string };
 }
+export const dynamic = 'force-dynamic';
 
 export async function GET(req:NextRequest){
   try{

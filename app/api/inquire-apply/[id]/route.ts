@@ -5,6 +5,7 @@ import { ObjectId } from 'mongodb';
 interface Applicant{
   user_id: ObjectId;
 }
+export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   try {
