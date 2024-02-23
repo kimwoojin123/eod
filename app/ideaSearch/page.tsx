@@ -40,12 +40,11 @@ export default function IdeaSearch(){
   useEffect(() => {
     const fetchBoardList = async () => {
       try {
-        if (searchResults.length === 0) {
           const response = await fetch('/api/board-list', { cache: 'no-store' });
           const data = await response.json();
           setTotalPages(Math.ceil(data.length / IdeasPerPage));
           setBoardList(data.reverse().slice((currentPage - 1) * IdeasPerPage, currentPage * IdeasPerPage));
-        }
+        
       } catch (error) {
         console.error('Error fetching board list:', error);
       }
