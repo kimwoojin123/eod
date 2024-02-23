@@ -113,11 +113,8 @@ export default function IdeaWrite(){
           <GptAI />
         </div>
       </div>
-      <div className='flex justify-center mt-20 ml-96'>
-        <div className='flex w-56 justify-between'>
-          <button className='w-24 h-10 bg-green-500 text-white rounded-lg'>저장하기</button>
+      <div className='relative left-2/3 bottom-10'>
           <button onClick={handleSubmit} className='w-24 h-10 bg-green-500 text-white rounded-lg'>제출하기</button>
-        </div>
       </div>
       <Modal
         isOpen={modalIsOpen}
