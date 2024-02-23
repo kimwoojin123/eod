@@ -4,8 +4,8 @@ import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import Modal from 'react-modal'
-import TagMatch from '@/app/ui/teamSearch/tagMatch';
-import StackMatch from '@/app/ui/teamSearch/stackMatch';
+import TagMatch from '../ui/teamSearch/tagMatch';
+import StackMatch from '../ui/teamSearch/stackMatch';
 import BackButton from '../ui/Buttons/backButton'
 
 
@@ -104,7 +104,15 @@ export default function TeamSearch(){
       <div className="grid grid-cols-6 gap-4 pl-20 pr-20 pt-5">
         {teams.map((team) => (
           <div key={team._id} className="border p-4 rounded-md">
-            <Image src={team.imageUrl} alt={`${team.name} 이미지`} width={800} height={800} className="w-full h-40 object-contain mb-2 rounded-md" />
+            {team.imageUrl && (
+          <Image
+            src={team.imageUrl}
+            alt={`${team.name} 이미지`}
+            width={800}
+            height={800}
+            className="w-full h-40 object-contain mb-2 rounded-md"
+          />
+        )}
             <h3 className="text-lg font-semibold mb-2">{team.name}</h3>
             <p className="text-gray-500 mb-2">팀장: {team.username}</p>
             <p className="text-gray-500 mb-2">개발 언어: {team.lang}</p>
