@@ -20,7 +20,7 @@ export async function POST(req:NextRequest) {
         messages: [{ role: 'user', content: userQuestion }],
         stream: true,
         temperature : 1.0,
-        max_tokens : 100,
+        max_tokens : 500,
       });
 
       let result = '';
