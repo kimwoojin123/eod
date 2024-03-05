@@ -23,7 +23,7 @@ export default function TeamApply() {
   const handleSubmit = async () => {
     try {
       const username = getUsernameSomehow();
-      const response = await fetch(`/api/team-apply/${id}`, {
+      const response = await fetch(`/api/team/team-apply/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

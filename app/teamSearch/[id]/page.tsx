@@ -27,7 +27,7 @@ export default function TeamDetail() {
   useEffect(() => {
     const fetchTeam = async () => {
       try {
-        const response = await fetch(`/api/team-detail/${id}`);
+        const response = await fetch(`/api/team/team-detail/${id}`);
         if (!response.ok) {
           throw new Error('Failed to fetch team data');
         }

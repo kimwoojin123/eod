@@ -42,7 +42,7 @@ export default function UserEdit(){
       return;
     }
 
-    fetch(`/api/get-user-data/${username}`)
+    fetch(`/api/user/get-user-data/${username}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error('유저 데이터를 가져오는데 실패했습니다.');
@@ -106,7 +106,7 @@ export default function UserEdit(){
 
     try {
       const fullAddress = `${formData.address} ${formData.detailedAddress}`.trim();
-      const response = await fetch("/api/user-edit", {
+      const response = await fetch("/api/user/user-edit", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

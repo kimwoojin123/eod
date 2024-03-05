@@ -100,7 +100,7 @@ export default function SignUp(){
       formData.append('address', fullAddress);
       formData.append('phoneNumber', phoneNumber);
   
-      const response = await fetch("/api/signup", {
+      const response = await fetch("/api/user/signup", {
         method: "POST",
         body: formData,
       });
@@ -177,7 +177,7 @@ export default function SignUp(){
     }
 
     try {
-      const response = await fetch(`/api/check-user/${username}`, {
+      const response = await fetch(`/api/user/check-user/${username}`, {
         method: 'GET'
       });
   

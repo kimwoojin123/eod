@@ -17,7 +17,7 @@ export default function PopularFundingList() {
   useEffect(() => {
     const fetchPopularFundings = async () => {
       try {
-        const response = await fetch('/api/get-funding', { cache: 'no-store' });
+        const response = await fetch('/api/funding/get-funding', { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch popular fundings');
         }

@@ -14,7 +14,7 @@ export default function IndividualIdeaApplyForm() {
   const handleSubmit = async () => {
     try {
       const username = getUsernameSomehow();
-      const response = await fetch('/api/individual-idea-apply', {
+      const response = await fetch('/api/idea/individual-idea-apply', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

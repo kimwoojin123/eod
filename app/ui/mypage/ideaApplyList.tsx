@@ -16,7 +16,7 @@ export default function IdeaApplyList({ ideaId }: { ideaId: string }) {
   useEffect(() => {
     const fetchAppliedIdeas = async () => {
       try {
-        const response = await fetch(`/api/applied-idea/${ideaId}`, { cache: 'no-store' });
+        const response = await fetch(`/api/idea/applied-idea/${ideaId}`, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch applied ideas');
         }
@@ -33,7 +33,7 @@ export default function IdeaApplyList({ ideaId }: { ideaId: string }) {
   const handleApprovalToggle = async (ideaId: string, approved: boolean) => {
     try {
       console.log('전송하는 데이터:', { approved: approved }); // 전송하는 데이터 콘솔에 출력
-      const response = await fetch(`/api/approve-idea/${ideaId}`, {
+      const response = await fetch(`/api/idea/approve-idea/${ideaId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -57,7 +57,7 @@ export default function FundingForm() {
     const fetchIdeas = async () => {
       try {
         const username = getUsernameSomehow();
-        const response = await fetch(`/api/user-ideas/${username}`);
+        const response = await fetch(`/api/idea/user-ideas/${username}`);
         if (!response.ok) {
           throw new Error('Failed to fetch ideas');
         }
@@ -166,7 +166,7 @@ export default function FundingForm() {
       const quillImageUrl = quillImageUrls[0]
 
       const username = getUsernameSomehow();
-      const response = await fetch('/api/funding-regist', {
+      const response = await fetch('/api/funding/funding-regist', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

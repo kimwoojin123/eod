@@ -20,7 +20,7 @@ export default function EditPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/id-board/${id}`);
+        const response = await fetch(`/api/idea/id-board/${id}`);
         const data = await response.json();
         setImageUrl(data.imageUrl);
         setTitle(data.title); 
@@ -39,7 +39,7 @@ export default function EditPage() {
 
   const handleSave = async () => {
     try {
-      const response = await fetch(`/api/idea-edit/${id}`, {
+      const response = await fetch(`/api/idea/idea-edit/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

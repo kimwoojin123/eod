@@ -21,7 +21,7 @@ export default function TeamIdeaApplyForm() {
     const fetchTeams = async () => {
       try {
         const username = getUsernameSomehow(); 
-        const response = await fetch(`/api/team-manage/${username}`, { cache: 'no-store' });
+        const response = await fetch(`/api/team/team-manage/${username}`, { cache: 'no-store' });
         const data = await response.json();
         setTeams(data);
       } catch (error) {
@@ -35,7 +35,7 @@ export default function TeamIdeaApplyForm() {
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch('/api/team-idea-apply', {
+      const response = await fetch('/api/idea/team-idea-apply', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

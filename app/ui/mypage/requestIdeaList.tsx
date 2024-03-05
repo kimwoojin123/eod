@@ -18,7 +18,7 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
   useEffect(() => {
     async function fetchIdeaRequests() {
       try {
-        const response = await fetch(`/api/request-list/${teamId}`, { cache: 'no-store' });
+        const response = await fetch(`/api/team/request-list/${teamId}`, { cache: 'no-store' });
         if (!response.ok) {
           throw new Error('Failed to fetch idea requests');
         }
@@ -49,7 +49,7 @@ export default function RequestIdeaList({ teamId }: { teamId: string }) {
       }
   
       console.log('전송하는 데이터:', { approved: requestState[index].approved }); // 전송하는 데이터 콘솔에 출력
-      const response = await fetch(`/api/approve-request/${id}`, {
+      const response = await fetch(`/api/team/approve-request/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

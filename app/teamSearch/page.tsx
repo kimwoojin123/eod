@@ -61,7 +61,7 @@ export default function TeamSearch() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('/api/team-list', { cache: 'no-store' });
+        const response = await fetch('/api/team/team-list', { cache: 'no-store' });
         const teamData = await response.json();
         setTeams(teamData);
       } catch (error) {

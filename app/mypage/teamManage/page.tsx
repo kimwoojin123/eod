@@ -52,7 +52,7 @@ export default function TeamManage() {
     async function fetchTeamData() {
       try {
         const username = getUsernameSomehow();
-        const response = await fetch(`/api/team-manage/${username}`);
+        const response = await fetch(`/api/team/team-manage/${username}`);
         if (!response.ok) {
           throw new Error('팀 데이터를 불러오는데 문제가 발생했습니다.');
         }
@@ -70,7 +70,7 @@ export default function TeamManage() {
 
   const openModal = async (teamId: string) => {
     try {
-      const response = await fetch(`/api/inquire-apply/${teamId}`);
+      const response = await fetch(`/api/team/inquire-apply/${teamId}`);
       if (!response.ok) {
         throw new Error('지원자 정보를 불러오는데 문제가 발생했습니다.');
       }
@@ -95,7 +95,7 @@ export default function TeamManage() {
 
   const approve = async (applicantId: string, teamId: string) => {
     try {
-      const response = await fetch(`/api/approve-applicant/${applicantId}`, {
+      const response = await fetch(`/api/team/approve-applicant/${applicantId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ export default function TeamManage() {
       try {
         if (!selectedApplicant) return; // 선택된 지원자가 없으면 함수 종료
   
-        const response = await fetch(`/api/get-approve`, {
+        const response = await fetch(`/api/team/get-approve`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

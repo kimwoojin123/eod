@@ -17,7 +17,7 @@ export default function Resign() {
   const handleResign = async () => {
     try {
       const username = getUsernameSomehow(); 
-      await fetch("/api/resign", {
+      await fetch("/api/user/resign", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

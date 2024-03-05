@@ -48,7 +48,7 @@ export default function DetailPage() {
     const fetchData = async () => {
       try {
         // Fetch data from `/api/id-board/${id}`
-        const boardResponse = await fetch(`/api/id-board/${id}`);
+        const boardResponse = await fetch(`/api/idea/id-board/${id}`);
         const boardData = await boardResponse.json();
         setBoardData(boardData);
         setLikes(boardData.likes)
@@ -70,7 +70,7 @@ export default function DetailPage() {
 
   const handleDelete = async () => {
     try {
-      const response = await fetch(`/api/idea-delete/${id}`, {
+      const response = await fetch(`/api/idea/idea-delete/${id}`, {
         method: 'DELETE',
       });
   
@@ -99,7 +99,7 @@ export default function DetailPage() {
   const handleLike = async () => {
     try {
       const username = getUsernameSomehow();
-      const response = await fetch(`/api/idea-like/${id}`, {
+      const response = await fetch(`/api/idea/idea-like/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

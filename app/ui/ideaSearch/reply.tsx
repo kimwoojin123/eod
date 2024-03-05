@@ -26,7 +26,7 @@ export default function Reply({ ideaId }: { ideaId: string }) {
 
   const fetchReplies = useCallback(async () => {
     try {
-      const response = await fetch(`/api/show-reply/${ideaId}`, { cache: 'no-store' });
+      const response = await fetch(`/api/idea/show-reply/${ideaId}`, { cache: 'no-store' });
       const data = await response.json();
       setReplies(data);
     } catch (error) {
@@ -43,7 +43,7 @@ export default function Reply({ ideaId }: { ideaId: string }) {
   const handleAddReply = async () => {
     try {
       const username = getUsernameSomehow();
-      const response = await fetch(`/api/idea-reply/${ideaId}`, {
+      const response = await fetch(`/api/idea/idea-reply/${ideaId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -29,7 +29,7 @@ export default function IdeaRequest() {
     const fetchIdeas = async () => {
       try {
         const username = getUsernameSomehow();
-        const response = await fetch(`/api/user-ideas/${username}`);
+        const response = await fetch(`/api/idea/user-ideas/${username}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user ideas');
         }
@@ -47,7 +47,7 @@ export default function IdeaRequest() {
     const fetchUserId = async () => {
       try {
         const username = getUsernameSomehow();
-        const response = await fetch(`/api/get-userId/${username}`);
+        const response = await fetch(`/api/user/get-userId/${username}`);
         if (!response.ok) {
           throw new Error('Failed to fetch user ideas');
         }
@@ -76,7 +76,7 @@ export default function IdeaRequest() {
     }
     try {
       const ideaId = selectedIdea
-      const response = await fetch(`/api/idea-request`, {
+      const response = await fetch(`/api/idea/idea-request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -62,7 +62,7 @@ export default function CreateForm(){
   
       const { imageUrl } = await imageResponse.json();
       const username = getUsernameSomehow();
-      const response = await fetch('/api/team-create', {
+      const response = await fetch('/api/team/team-create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

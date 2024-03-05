@@ -39,7 +39,7 @@ export default function IdeaSearch(){
   useEffect(() => {
     const fetchBoardList = async () => {
       try {
-          const response = await fetch('/api/board-list', { cache: 'no-store' });
+          const response = await fetch('/api/idea/board-list', { cache: 'no-store' });
           const data = await response.json();
           setTotalPages(Math.ceil(data.length / IdeasPerPage));
           setBoardList(data.reverse().slice((currentPage - 1) * IdeasPerPage, currentPage * IdeasPerPage));
@@ -82,7 +82,7 @@ export default function IdeaSearch(){
 
   const handleSearch = (searchOption :string, searchText:string) => {
     if(searchText.length > 0){
-    fetch(`/api/search/${searchOption}/${searchText}`)
+    fetch(`/api/idea/search/${searchOption}/${searchText}`)
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data.searchResults);

@@ -76,7 +76,7 @@ export default function IdeaWrite(){
     
     const imageUrl = await uploadImage(editorValue);
     try{
-    const response = await fetch('/api/idea-save', {
+    const response = await fetch('/api/idea/idea-save', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

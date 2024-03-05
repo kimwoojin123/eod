@@ -40,7 +40,7 @@ export default function TeamEdit({ teamId }: { teamId: string }) {
 
   const fetchTeamInfo = async (id: string) => {
     try {
-      const response = await fetch(`/api/team-detail/${id}`, { cache: 'no-store' });
+      const response = await fetch(`/api/team/team-detail/${id}`, { cache: 'no-store' });
       if (!response.ok) {
         throw new Error('팀 정보를 불러오는 데 실패했습니다.');
       }
@@ -59,7 +59,7 @@ export default function TeamEdit({ teamId }: { teamId: string }) {
 
   const onSubmit = async (formData: FormData) => {
     try {
-      const response = await fetch(`/api/team-edit/${teamId}`, {
+      const response = await fetch(`/api/team/team-edit/${teamId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
