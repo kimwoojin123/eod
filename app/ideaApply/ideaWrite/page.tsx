@@ -3,11 +3,10 @@
 import React, { useState } from 'react';
 import GptAI from '@/app/ui/ideaWrite/gptAI';
 import dynamic from "next/dynamic";
-import Modal from 'react-modal';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 import { useRouter } from 'next/navigation';
-
+import CustomModal from '@/app/ui/modal';
 
 export default function IdeaWrite(){
   const [editorValue, setEditorValue] = useState<string>('');
@@ -116,44 +115,10 @@ export default function IdeaWrite(){
       <div className='relative left-2/3 bottom-10'>
           <button onClick={handleSubmit} className='w-24 h-10 bg-green-500 text-white rounded-lg'>제출하기</button>
       </div>
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-          },
-          content: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: 'center',
-            width: "360px",
-            height: "180px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="아이디어 제출 모달"
-      >
+      <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
         <p>{message || '작성이 완료되었습니다.'}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
-      </Modal>
+      </CustomModal>
     </div>
   );
 }

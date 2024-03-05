@@ -2,9 +2,9 @@
 
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { useState, useEffect } from 'react';
-import Modal from 'react-modal'
 import RequestIdeaList from '@/app/ui/mypage/requestIdeaList';
 import TeamEdit from '@/app/ui/mypage/teamEdit';
+import CustomModal from '@/app/ui/modal';
 
 interface Team {
   _id: string;
@@ -204,191 +204,54 @@ export default function TeamManage() {
           </tbody>
         </table>
       </div>
-
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-          },
-          content: {
-            display:"flex",
-            flexDirection : "column",
-            alignItems : 'center',
-            width: "720px",
-            height: "600px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="지원자 정보 모달"
-      >
-          <div className="modal">
-          <div className="modal-content">
-            <h2>지원자 정보</h2>
-            <ul>
-            {applicants.map((applicant) => (
-              <li key={applicant._id}>
-                <div className="flex justify-between items-center w-full mb-4">
-                  <p>유저명 : {applicant.username}</p>
-                  <button className="w-32 h-8 rounded-2xl bg-gray-200 ml-5" onClick={() => handleDetailClick(applicant)}>자세히 보기</button>
-                </div>
-                {selectedApplicant === applicant && (
-                  <div className="flex flex-col mt-3 mb-4">
-                    <p>이름 : {applicant.name}</p>
-                    <p>이메일 : {applicant.email}</p>
-                    <p>전화번호 : {applicant.phoneNumber}</p>
-                    <p>스택: {applicant.stack}</p>
-                    <p>지원내용: {applicant.content}</p>
-                    {applicant.approved ? (
-                    <div className="flex justify-center items-center ml-16 w-40 h-10 rounded-2xl bg-gray-200 mt-5">승인완료</div>
-                     ) : (
-                      <button className="ml-16 w-40 h-10 rounded-2xl bg-green-200 mt-5" onClick={() => approve(applicant._id, applicant.team_id)}>승인</button>
-                    )}
+      <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='720px' height='600px'>
+        <div className="modal">
+            <div className="modal-content">
+              <h2>지원자 정보</h2>
+              <ul>
+              {applicants.map((applicant) => (
+                <li key={applicant._id}>
+                  <div className="flex justify-between items-center w-full mb-4">
+                    <p>유저명 : {applicant.username}</p>
+                    <button className="w-32 h-8 rounded-2xl bg-gray-200 ml-5" onClick={() => handleDetailClick(applicant)}>자세히 보기</button>
                   </div>
-                )}
-              </li>
-              ))}
-            </ul>
+                  {selectedApplicant === applicant && (
+                    <div className="flex flex-col mt-3 mb-4">
+                      <p>이름 : {applicant.name}</p>
+                      <p>이메일 : {applicant.email}</p>
+                      <p>전화번호 : {applicant.phoneNumber}</p>
+                      <p>스택: {applicant.stack}</p>
+                      <p>지원내용: {applicant.content}</p>
+                      {applicant.approved ? (
+                      <div className="flex justify-center items-center ml-16 w-40 h-10 rounded-2xl bg-gray-200 mt-5">승인완료</div>
+                      ) : (
+                        <button className="ml-16 w-40 h-10 rounded-2xl bg-green-200 mt-5" onClick={() => approve(applicant._id, applicant.team_id)}>승인</button>
+                      )}
+                    </div>
+                  )}
+                </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
-      </Modal>
-      <Modal
-        isOpen={approvalModalIsOpen}
-        onRequestClose={() => setApprovalModalIsOpen(false)}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-          },
-          content: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: 'center',
-            width: "420px",
-            height: "200px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="승인 완료 모달"
-      >
+          <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
+      </CustomModal>
+      <CustomModal isOpen={approvalModalIsOpen} onRequestClose={() => setApprovalModalIsOpen(false)} width='420px' height='200px'>
         <div className="modal">
           <div className="modal-content">
             <h2>승인이 완료되었습니다!</h2>
             <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={() => setApprovalModalIsOpen(false)}>확인</button>
           </div>
         </div>
-      </Modal>
-      <Modal
-      isOpen={ideaRequestModalIsOpen}
-      onRequestClose={() => setIdeaRequestModalIsOpen(false)}
-      ariaHideApp={false}
-      style={{
-        overlay: {
-          backgroundColor: " rgba(0, 0, 0, 0.4)",
-          width: "100%",
-          height: "100vh",
-          zIndex: "10",
-          position: "fixed",
-          top: "0",
-          left: "0",
-        },
-        content: {
-          display:"flex",
-          flexDirection : "column",
-          alignItems : 'center',
-          width: "720px",
-          height: "600px",
-          zIndex: "150",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          borderRadius: "10px",
-          boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-          backgroundColor: "white",
-          justifyContent: "center",
-          overflow: "auto",
-          whiteSpace: 'pre-line',
-        },
-      }}
-      contentLabel="요청 아이디어 목록 모달"
-    >
-      <RequestIdeaList teamId={selectedTeamId} /> 
-      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={() => setIdeaRequestModalIsOpen(false)}>닫기</button>
-    </Modal>
-    <Modal
-      isOpen={teamEditModalIsOpen}
-      onRequestClose={() => setTeamEditModalIsOpen(false)}
-      ariaHideApp={false}
-      style={{
-        overlay: {
-          backgroundColor: " rgba(0, 0, 0, 0.4)",
-          width: "100%",
-          height: "100vh",
-          zIndex: "10",
-          position: "fixed",
-          top: "0",
-          left: "0",
-        },
-        content: {
-          display:"flex",
-          flexDirection : "column",
-          alignItems : 'center',
-          width: "720px",
-          height: "800px",
-          zIndex: "150",
-          position: "absolute",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          borderRadius: "10px",
-          boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-          backgroundColor: "white",
-          justifyContent: "center",
-          overflow: "auto",
-          whiteSpace: 'pre-line',
-        },
-      }}
-      contentLabel="팀 정보 수정 모달"
-    >
-      <TeamEdit teamId={selectedTeamId} />
-      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={() => setTeamEditModalIsOpen(false)}>닫기</button>
-    </Modal>
+      </CustomModal>
+      <CustomModal isOpen={ideaRequestModalIsOpen} onRequestClose={() => setIdeaRequestModalIsOpen(false)} width='720px' height='600px'>
+        <RequestIdeaList teamId={selectedTeamId} /> 
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={() => setIdeaRequestModalIsOpen(false)}>닫기</button>
+      </CustomModal>
+      <CustomModal isOpen={teamEditModalIsOpen} onRequestClose={() => setTeamEditModalIsOpen(false)} width='720px' height='800px'>
+        <TeamEdit teamId={selectedTeamId} />
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={() => setTeamEditModalIsOpen(false)}>닫기</button>
+      </CustomModal>
     </div>
   );
 }

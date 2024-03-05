@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react';
-import Modal from 'react-modal';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { usePathname } from 'next/navigation';
+import CustomModal from '../modal';
 
 export default function FundingModal() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
@@ -44,41 +44,7 @@ export default function FundingModal() {
       <button onClick={() => setModalIsOpen(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-500">
         펀딩하기
       </button>
-      <Modal 
-        isOpen={modalIsOpen} 
-        onRequestClose={closeModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: "rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-          },
-          content: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: 'center',
-            width: "360px",
-            height: "180px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="펀딩 모달"
-      >
+      <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
         {!isFundingSuccess ? (
           <>
             <input
@@ -100,7 +66,7 @@ export default function FundingModal() {
             </button>
           </>
         )}
-      </Modal>
+      </CustomModal>
     </div>
   );
 }

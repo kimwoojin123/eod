@@ -2,8 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
-import Modal from 'react-modal';
 import IdeaApplyList from '@/app/ui/mypage/ideaApplyList';
+import CustomModal from '@/app/ui/modal';
 
 interface Idea {
   _id: string;
@@ -54,45 +54,10 @@ export default function IdeaList() {
         </li>
       ))}
     </ul>
-
-      <Modal
-        isOpen={!!selectedIdea}
-        onRequestClose={closeModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-          },
-          content: {
-            display:"flex",
-            flexDirection : "column",
-            alignItems : 'center',
-            width: "600px",
-            height: "720px",
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="아이디어 목록 모달"
-      >
+      <CustomModal isOpen={!!selectedIdea} onRequestClose={closeModal} width='600px' height='720px'>
         {selectedIdea && <IdeaApplyList ideaId={selectedIdea._id} />}
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={closeModal}>닫기</button>
-      </Modal>
+      </CustomModal>
     </div>
   );
 }

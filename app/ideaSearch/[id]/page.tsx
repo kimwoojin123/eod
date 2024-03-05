@@ -5,7 +5,6 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import BackButton from '@/app/ui/Buttons/backButton';
 import Delete from '@/app/ui/ideaSearch/delete'
-import Modal from 'react-modal'
 import { useRouter } from 'next/navigation'
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { HeartIcon as OutlineHeartIcon } from '@heroicons/react/24/outline';
@@ -14,7 +13,7 @@ import Reply from '../../ui/ideaSearch/reply'
 import { ObjectId } from 'mongodb';
 import TeamIdeaApplyForm from '@/app/ui/ideaSearch/teamIdeaApply';
 import IndividualIdeaApplyForm from '@/app/ui/ideaSearch/individualIdeaApply';
-
+import CustomModal from '@/app/ui/modal';
 
 interface DetailPageProps {
   username: string;
@@ -172,44 +171,10 @@ export default function DetailPage() {
             )}
             </>
             )}
-          <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            ariaHideApp={false}
-            style={{
-              overlay: {
-                backgroundColor: " rgba(0, 0, 0, 0.4)",
-                width: "100%",
-                height: "100vh",
-                zIndex: "10",
-                position: "fixed",
-                top: "0",
-                left: "0",
-              },
-              content: {
-                display:"flex",
-                flexDirection : "column",
-                alignItems : 'center',
-                width: "360px",
-                height: "180px",
-                zIndex: "150",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                borderRadius: "10px",
-                boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-                backgroundColor: "white",
-                justifyContent: "center",
-                overflow: "auto",
-                whiteSpace: 'pre-line',
-              },
-            }}
-            contentLabel="삭제 완료 모달"
-          >
+          <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
             <p>{message}</p>
             <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
-          </Modal>
+          </CustomModal>
           </div>
           </div>
         </div>
@@ -220,59 +185,25 @@ export default function DetailPage() {
       </div>
         {id && <Reply ideaId={id} />}
       </div>
-      <Modal
-            isOpen={modalIsOpen}
-            onRequestClose={closeModal}
-            ariaHideApp={false}
-            style={{
-              overlay: {
-                backgroundColor: " rgba(0, 0, 0, 0.4)",
-                width: "100%",
-                height: "100vh",
-                zIndex: "10",
-                position: "fixed",
-                top: "0",
-                left: "0",
-              },
-              content: {
-                display:"flex",
-                flexDirection : "column",
-                alignItems : 'center',
-                width: "600px",
-                height: "720px",
-                zIndex: "150",
-                position: "absolute",
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                borderRadius: "10px",
-                boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-                backgroundColor: "white",
-                justifyContent: "center",
-                overflow: "auto",
-                whiteSpace: 'pre-line',
-              },
-            }}
-            contentLabel="삭제 완료 모달"
-          >
-  {applyAsTeam ? (
-    <>
-      <TeamIdeaApplyForm />
-      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsTeam(false)}>취소</button>
-    </>
-  ) : applyAsIndividual ? (
-    <>
-      <IndividualIdeaApplyForm />
-      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsIndividual(false)}>취소</button>
-    </>
-  ) : (
-    <>
-      <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsTeam(true)}>팀으로 지원</button>
-      <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsIndividual(true)}>개인으로 지원</button>
-      <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={modalClose}>닫기</button>
-    </>
-  )}
-</Modal>
+    <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='600px' height='720px'>
+      {applyAsTeam ? (
+        <>
+        <TeamIdeaApplyForm />
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsTeam(false)}>취소</button>
+        </>
+        ) : applyAsIndividual ? (
+        <>
+        <IndividualIdeaApplyForm />
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsIndividual(false)}>취소</button>
+        </>
+        ) : (
+        <>
+        <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsTeam(true)}>팀으로 지원</button>
+        <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsIndividual(true)}>개인으로 지원</button>
+        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={modalClose}>닫기</button>
+        </>
+      )}
+    </CustomModal>
     </div>
   );
   }

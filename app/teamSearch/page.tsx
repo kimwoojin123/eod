@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import Modal from 'react-modal';
 import TagMatch from '../ui/teamSearch/tagMatch';
 import StackMatch from '../ui/teamSearch/stackMatch';
 import BackButton from '../ui/Buttons/backButton';
+import CustomModal from '../ui/modal';
 
 interface Team {
   _id: string;
@@ -174,43 +174,9 @@ export default function TeamSearch() {
         ))}
       </div>
       {renderPagination()}
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={closeMatchingModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: " rgba(0, 0, 0, 0.4)",
-            width: "100%",
-            height: "100vh",
-            zIndex: "10",
-            position: "fixed",
-            top: "0",
-            left: "0",
-          },
-          content: {
-            display: "flex",
-            flexDirection: "column",
-            alignItems: 'center',
-            width: modalSize.width,
-            height: modalSize.height,
-            zIndex: "150",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            borderRadius: "10px",
-            boxShadow: "2px 2px 2px rgba(0, 0, 0, 0.25)",
-            backgroundColor: "white",
-            justifyContent: "center",
-            overflow: "auto",
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="매칭 모달"
-      >
+      <CustomModal isOpen={modalIsOpen} onRequestClose={closeMatchingModal} width={`${modalSize.width}`} height={`${modalSize.height}`}>
         {modalContent}
-      </Modal>
+      </CustomModal>
     </div>
   );
 }

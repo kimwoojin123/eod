@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from 'react';
-import Modal from 'react-modal';
 import { getUsernameSomehow } from '@/app/ui/getUsername';
 import { useRouter } from 'next/navigation';
 import dynamic from "next/dynamic";
+import CustomModal from '../modal';
 const DynamicTextEditor = dynamic(() => import('@/app/ui/textEditor'), { ssr: false });
 
 interface Idea {
@@ -209,7 +209,7 @@ export default function FundingForm() {
           <div className='w-screen flex mb-2'>
           <label htmlFor='title'>제목</label>
           <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => handleTitleChange(e.target.value)} />
-           </div>
+          </div>
           <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
         </div>
         <button
@@ -220,41 +220,7 @@ export default function FundingForm() {
           등록
         </button>
       </form>
-      <Modal
-        isOpen={ideaModalIsOpen}
-        onRequestClose={closeIdeaModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: ' rgba(0, 0, 0, 0.4)',
-            width: '100%',
-            height: '100vh',
-            zIndex: '10',
-            position: 'fixed',
-            top: '0',
-            left: '0',
-          },
-          content: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '500px',
-            height: '700px',
-            zIndex: '150',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            borderRadius: '10px',
-            boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.25)',
-            backgroundColor: 'white',
-            justifyContent: 'center',
-            overflow: 'auto',
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="아이디어 선택 모달"
-      >
+      <CustomModal isOpen={ideaModalIsOpen} onRequestClose={closeIdeaModal} width='500px' height='700px'>
         <h1 className="text-2xl font-bold mb-4">아이디어 선택</h1>
         <ul>
           {ideas
@@ -266,45 +232,11 @@ export default function FundingForm() {
           ))}
         </ul>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeIdeaModal}>닫기</button>
-      </Modal>
-      <Modal
-        isOpen={fundingModalIsOpen}
-        onRequestClose={closeFundingModal}
-        ariaHideApp={false}
-        style={{
-          overlay: {
-            backgroundColor: ' rgba(0, 0, 0, 0.4)',
-            width: '100%',
-            height: '100vh',
-            zIndex: '10',
-            position: 'fixed',
-            top: '0',
-            left: '0',
-          },
-          content: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '360px',
-            height: '200px',
-            zIndex: '150',
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            borderRadius: '10px',
-            boxShadow: '2px 2px 2px rgba(0, 0, 0, 0.25)',
-            backgroundColor: 'white',
-            justifyContent: 'center',
-            overflow: 'auto',
-            whiteSpace: 'pre-line',
-          },
-        }}
-        contentLabel="펀딩 등록 모달"
-      >
+      </CustomModal>
+      <CustomModal isOpen={fundingModalIsOpen} onRequestClose={closeFundingModal} width='360px' height='200px'>
         <p>{message}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeFundingModal}>닫기</button>
-      </Modal>
+      </CustomModal>
     </div>
   );
 }
