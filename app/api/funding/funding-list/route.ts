@@ -1,4 +1,4 @@
-import { connectDB, closeConnection, client } from '../../../utills/db';
+import { connectDB, closeConnection, client } from '../../../../utills/db';
 import { NextRequest, NextResponse } from 'next/server';
 
 export const dynamic = 'force-dynamic';

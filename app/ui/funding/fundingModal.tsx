@@ -16,7 +16,7 @@ export default function FundingModal() {
   const handleSubmit = async () => {
     try {
       const username = getUsernameSomehow();
-      const response = await fetch(`/api/fund/${id}`, {
+      const response = await fetch(`/api/funding/fund/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
