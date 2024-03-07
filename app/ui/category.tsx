@@ -13,6 +13,7 @@ export default function Category(){
         <IdeaSearchButton />
         <TeamSearchButton />
         <FundingButton />
+        <p className='absolute bottom-5 category-menu flex left-32'>EOD v1.0.0</p>
       </div>
     </div>
   )

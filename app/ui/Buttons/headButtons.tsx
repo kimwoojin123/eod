@@ -65,7 +65,7 @@ export function AuthButton() {
     <div>
       {isLoggedIn ? (
         <div className='cursor-pointer'>
-          <span className="text-white font-bold py-2.5 px-4 rounded" onClick={handleLogout}>로그아웃</span>
+          <span className="text-white font-bold py-2.5 px-4 rounded" onClick={handleLogout}>Logout</span>
         </div>
       ) : (
         <div className='w-48 flex justify-between'>
