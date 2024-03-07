@@ -21,7 +21,7 @@ const TextEditor: React.FC<TextEditorProps> = ({ value, onChange }) => {
 
   return (
     <DynamicQuill
-      style={{ width: "800px", height: "600px" }}
+      style={{ position:"absolute", left:"100px", width: "800px", height: "600px", color:'white' }}
       theme="snow"
       value={value}
       onChange={onChange}

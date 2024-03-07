@@ -65,12 +65,12 @@ export function AuthButton() {
     <div>
       {isLoggedIn ? (
         <div className='cursor-pointer'>
-          <span className="text-white font-bold py-2.5 px-4 rounded" onClick={handleLogout}>Logout</span>
+          <p className=" text-white font-bold w-20 h-10 pr-4 pt-4" onClick={handleLogout}>Logout</p>
         </div>
       ) : (
         <div className='w-48 flex justify-between'>
-          <Link href='login'><p className="flex justify-center items-center text-white font-bold w-20 h-10 rounded">Login</p></Link>
-          <Link href='signup'><p className="flex justify-center items-center text-white font-bold w-20 h-10 rounded">SignUp</p></Link>
+          <Link href='login'><p className="flex justify-center items-center text-white font-bold w-20 h-10 pt-3">Login</p></Link>
+          <Link href='signup'><p className="flex justify-center items-center text-white font-bold w-20 h-10 pr-4 pt-3">SignUp</p></Link>
         </div>
       )}
     </div>
