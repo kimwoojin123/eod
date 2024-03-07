@@ -193,7 +193,7 @@ export default function SignUp(){
 
   return (
     <div className="flex flex-col justify-center items-center h-screen">
-      <h1 className="mb-10 text-3xl font-bold">회원가입 페이지</h1>
+      <h1 className="mb-10 text-3xl font-bold text-white">회원가입 페이지</h1>
       <form className="w-full max-w-md" onSubmit={handleJoin}>
         <div className="mb-6 flex flex-col">
           <div className="relative mb-4 flex items-center">

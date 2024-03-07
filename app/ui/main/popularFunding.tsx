@@ -37,11 +37,11 @@ export default function PopularFundingList() {
   };
 
   return (
-    <div className="w-1/5 mt-10">
+    <div className="w-3/12 mt-10">
       <h1 className="text-xl text-white mb-4">Popular Fundings</h1>
-      <div className="border border-gray-300 p-4" style={{ height: '580px' }}>
+      <div className='p-4 flex flex-col justify-start mix-blend-screen bg-white/10 rounded-3xl' style={{ height: '580px' }}>
         {fundings.map((funding, index) => (
-          <div key={funding._id} className="py-2 cursor-pointer" onClick={() => handleFundingClick(funding._id)}>
+          <div key={funding._id} className="py-2 cursor-pointer text-white" onClick={() => handleFundingClick(funding._id)}>
             <p className="hover:underline flex items-center text-white">{`${index + 1}. ${funding.title}`} <CurrencyDollarIcon className="w-5 h-5 ml-2" /> {funding.amount}</p>
           </div>
         ))}

@@ -36,11 +36,11 @@ export default function PopularTeams() {
   };
 
   return (
-    <div className='w-1/5 mt-10'>
+    <div className='w-3/12 mt-10'>
       <h1 className="text-xl text-white mb-4">Popular Teams</h1>
-      <div className='border border-gray-300 p-4' style={{ height: '580px' }}>
+      <div className='p-4 flex flex-col justify-start mix-blend-screen bg-white/10 rounded-3xl' style={{ height: '580px' }}>
         {teams.map((team, index) => (
-          <div key={team._id} className="py-2 cursor-pointer" onClick={() => handleTeamClick(team._id)}>
+          <div key={team._id} className="py-2 cursor-pointer text-white" onClick={() => handleTeamClick(team._id)}>
             <p className="hover:underline flex">{`${index + 1}. ${team.name}`}<UserPlusIcon className='w-5 h-5 ml-2 mt-0.5'/> {team.applicants}</p>
           </div>
         ))}
