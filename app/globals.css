@@ -7,3 +7,12 @@
     text-wrap: balance;
   }
 }
+
+.category {
+  background-color : #12121B;
+  opacity : 95%;
+}
+
+.content {
+  background-image : url("../public/mainImage.png")
+}

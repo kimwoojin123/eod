@@ -44,12 +44,12 @@ export default function PopularIdeas() {
   };
 
   return (
-    <div className='w-1/5 mt-10'>
-      <h1 className="text-xl font-bold mb-4">인기 아이디어</h1>
-      <div className='border border-gray-300 p-4 flex flex-col justify-start' style={{ height: '580px' }}>
+    <div className='w-3/12 mt-10'>
+      <h1 className="text-xl text-white mb-4">Popular Idea</h1>
+      <div className='p-4 flex flex-col justify-start mix-blend-overlay bg-white rounded-3xl' style={{ height: '580px' }}>
       {ideas.map((idea, index) => (
         <div key={idea._id} className="py-2 cursor-pointer " onClick={() => handleIdeaClick(idea._id)}>
-          <p className="flex hover:underline">{`${index + 1}. ${idea.username} - ${idea.title}`}
+          <p className="flex hover:underline text-black">{`${index + 1}. ${idea.username} - ${idea.title}`}
           <HeartIcon className='w-4 h-4 text-red-500 ml-2 mt-1'/>{idea.likes}
           <ChatBubbleOvalLeftEllipsisIcon className='w-4 h-4 ml-3 mt-1'/>{idea.replies?.length || 0}
         </p>

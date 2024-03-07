@@ -5,7 +5,7 @@ import PopularTeams from "./ui/main/popularTeams";
 
 export default function Home() {
   return (
-    <div className="flex w-full">
+    <div className="flex justify-around">
       <PopularIdeas />
       <PopularTeams />
       <PopularFundingList />

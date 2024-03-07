@@ -37,7 +37,7 @@ export default function PopularTeams() {
 
   return (
     <div className='w-1/5 mt-10'>
-      <h1 className="text-xl font-bold mb-4">지원자 많은 팀</h1>
+      <h1 className="text-xl text-white mb-4">Popular Teams</h1>
       <div className='border border-gray-300 p-4' style={{ height: '580px' }}>
         {teams.map((team, index) => (
           <div key={team._id} className="py-2 cursor-pointer" onClick={() => handleTeamClick(team._id)}>
