@@ -37,7 +37,7 @@ export function MyPageButton(){
 
   return (
     <div>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleMyPageClick}>마이페이지</button>    
+      {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleMyPageClick}>마이페이지</button>     */}
       <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
         <p>{message}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
@@ -65,12 +65,12 @@ export function AuthButton() {
     <div>
       {isLoggedIn ? (
         <div className='cursor-pointer'>
-          <span className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded" onClick={handleLogout}>로그아웃</span>
+          <span className="text-white font-bold py-2.5 px-4 rounded" onClick={handleLogout}>로그아웃</span>
         </div>
       ) : (
         <div className='w-48 flex justify-between'>
-          <Link href='login'><p className="flex justify-center items-center bg-blue-500 hover:bg-blue-700 text-white font-bold w-20 h-10 rounded">로그인</p></Link>
-          <Link href='signup'><p className="flex justify-center items-center bg-blue-500 hover:bg-green-700 text-white font-bold w-20 h-10 rounded">회원가입</p></Link>
+          <Link href='login'><p className="flex justify-center items-center text-white font-bold w-20 h-10 rounded">Login</p></Link>
+          <Link href='signup'><p className="flex justify-center items-center text-white font-bold w-20 h-10 rounded">SignUp</p></Link>
         </div>
       )}
     </div>

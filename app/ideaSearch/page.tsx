@@ -19,7 +19,7 @@ interface BoardItem {
   replies: ObjectId[];
 }
 
-const IdeasPerPage = 2;
+const IdeasPerPage = 4;
 
 export default function IdeaSearch(){
   const [boardList, setBoardList] = useState([]);
