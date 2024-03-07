@@ -100,9 +100,10 @@ export default function IdeaSearch(){
   };
 
 
+
   return (
-    <div className='h-screen p-4'>
-      <button className="rounded-xl bg-gray-300 w-28 h-10 ml-80 mb-5" onClick={handleShowAll}>전체 글 보기</button>
+    <div className='h-full overflow-x-hidden w-full items-center flex flex-col'>
+      <button className="rounded-xl bg-gray-300 w-28 h-10 mb-5" onClick={handleShowAll}>전체 글 보기</button>
         <div className="flex justify-center items-start w-screen">
       <table className="table-auto w-8/12 border border-collapse mb-10">
         <thead>
@@ -128,15 +129,15 @@ export default function IdeaSearch(){
     ) : (
     boardList.map((item: BoardItem, index: number) => (
       <tr key={item._id.toString()}>
-        <td className="px-4 py-2 border-b border-r">{item.username}</td>
-        <td className="px-4 py-2 border-b border-r flex items-center">
+        <td className="px-4 py-2 border-b border-r text-white">{item.username}</td>
+        <td className="px-4 py-2 border-b border-r flex items-center text-white">
           <Link href={`/ideaSearch/${item._id}`}>
             {item.title}
           </Link>
             <ChatBubbleOvalLeftEllipsisIcon className='w-4 h-4 ml-3'/>{item.replies?.length || 0}
             <HeartIcon className='w-4 h-4 text-red-500 ml-2'/>{item.likes}
         </td>
-        <td className="px-4 py-2 border-b">{item.addDate}</td>
+        <td className="px-4 py-2 border-b text-white">{item.addDate}</td>
       </tr>
     ))
   )}
