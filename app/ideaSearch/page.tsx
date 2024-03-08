@@ -67,7 +67,7 @@ export default function IdeaSearch(){
         pages.push(
           <button
             key={i}
-            className={`mx-1 px-3 py-1 border rounded ${i === currentPage ? 'bg-gray-300' : ''}`}
+            className={`mx-1 px-3 py-1 border rounded text-white ${i === currentPage ? 'bg-gray-300 text-black' : ''}`}
             onClick={() => handlePageChange(i)}
           >
             {i}
@@ -103,9 +103,9 @@ export default function IdeaSearch(){
 
   return (
     <div className='h-full overflow-x-hidden w-full items-center flex flex-col'>
-      <button className="rounded-xl bg-gray-300 w-28 h-10 mb-5" onClick={handleShowAll}>전체 글 보기</button>
+      <button className="rounded-xl bg-gray-300 w-28 h-10 mb-5 absolute left-28 top-28" onClick={handleShowAll}>전체 글 보기</button>
         <div className="flex justify-center items-start w-screen">
-      <table className="table-auto w-8/12 border border-collapse mb-10">
+      <table className="table-auto w-8/12 border border-collapse mb-10 mt-20">
         <thead>
           <tr className='bg-gray-100'>
             <th className="w-1/5 px-4 py-2 border-b border-r">작성자</th>
@@ -117,13 +117,13 @@ export default function IdeaSearch(){
     {searchResults.length > 0 ? (
       searchResults.map((item: BoardItem, index: number) => (
         <tr key={item._id.toString()}>
-          <td className="px-4 py-2 border-b border-r">{item.username}</td>
-          <td className="px-4 py-2 border-b border-r">
+          <td className="px-4 py-2 border-b border-r text-white">{item.username}</td>
+          <td className="px-4 py-2 border-b border-r text-white">
             <Link href={`/ideaSearch/${item._id}`}>
               {item.title}
             </Link>
           </td>
-          <td className="px-4 py-2 border-b">{item.addDate}</td>
+          <td className="px-4 py-2 border-b text-white">{item.addDate}</td>
         </tr>
       ))
     ) : (
@@ -149,7 +149,7 @@ export default function IdeaSearch(){
     </div>
     <div className="flex justify-center mt-4">
         <button
-          className="mx-1 px-3 py-1 border rounded"
+          className="mx-1 px-3 py-1 border rounded text-white"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           >
@@ -157,7 +157,7 @@ export default function IdeaSearch(){
         </button>
         {renderPageButtons()}
         <button
-          className="mx-1 px-3 py-1 border rounded"
+          className="mx-1 px-3 py-1 border rounded text-white"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           >

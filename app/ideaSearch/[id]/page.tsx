@@ -130,17 +130,17 @@ export default function DetailPage() {
 
 
   return (
-    <div className="p-4">
+    <div className="p-4 w-full h-screen">
       <BackButton />
-      <div className='w-screen flex justify-center'>
+      <div className='flex justify-center'>
       <div className="p-4 w-1/2 border">
-        <h1 className="text-2xl font-bold mb-4 border-b pb-2">{boardData.title}</h1>
-        <p className="text-gray-500 mb-2 border-b pb-2">작성자 : {boardData.username}</p>
-        <p className="text-gray-500 mb-4 border-b pb-2">{boardData.addDate}</p>
+        <h1 className=" text-white text-2xl font-bold mb-4 border-b pb-2">{boardData.title}</h1>
+        <p className=" mb-2 border-b pb-2 text-white">작성자 : {boardData.username}</p>
+        <p className=" text-white mb-4 border-b pb-2">{boardData.addDate}</p>
         {boardData.imageUrl && (
         <Image src={boardData.imageUrl} alt="Image" width={500} height={500} className="mb-4" />
         )}
-        <div className='prose' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
+        <div className='prose text-white' dangerouslySetInnerHTML={{ __html: boardData.textContent }} />
       </div>
       <button
         className="rounded-3xl ml-10 h-20 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 focus:outline-none focus:shadow-outline"
@@ -152,10 +152,10 @@ export default function DetailPage() {
         <div className='flex justify-center relative left-16 items-center mt-5'>
         <button className='flex flex-col items-center' onClick={handleLike}>
           {liked ? (
-          <SolidHeartIcon className="w-6 h-6 text-red-500" />
+            <SolidHeartIcon className="w-6 h-6 text-red-500" />
             ) : (
-          <OutlineHeartIcon className="w-6 h-6" />
-          )}
+              <OutlineHeartIcon className="w-6 h-6" />
+              )}
           <p>Likes : {likes}</p>
         </button>
         <div className='relative left-60 mt-2'>
@@ -168,7 +168,7 @@ export default function DetailPage() {
           </button>
             {showDeleteModal && (
               <Delete onDelete={handleDelete} onClose={handleCloseDeleteModal} />
-            )}
+              )}
             </>
             )}
           <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
@@ -180,10 +180,10 @@ export default function DetailPage() {
         </div>
       </div>
       <div>
-      <div className='flex ml-80 mt-20'>
+      <div className='flex'>
         댓글 수 : {boardData.replies?.length || 0}
       </div>
-        {id && <Reply ideaId={id} />}
+      {id && <Reply ideaId={id} />}
       </div>
     <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='600px' height='720px'>
       {applyAsTeam ? (
@@ -192,12 +192,12 @@ export default function DetailPage() {
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsTeam(false)}>취소</button>
         </>
         ) : applyAsIndividual ? (
-        <>
+          <>
         <IndividualIdeaApplyForm />
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={() => setApplyAsIndividual(false)}>취소</button>
         </>
         ) : (
-        <>
+          <>
         <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsTeam(true)}>팀으로 지원</button>
         <button className="w-40 h-10 rounded-2xl bg-blue-500 text-white mt-3" onClick={() => setApplyAsIndividual(true)}>개인으로 지원</button>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-3" onClick={modalClose}>닫기</button>

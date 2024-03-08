@@ -11,7 +11,7 @@ export async function GET(req:NextRequest){
   try{
     await connectDB();
     const path = req.nextUrl.pathname
-    const searchOption = path.split('/')[3]|| ''
+    const searchOption = path.split('/')[4]|| ''
     const searchText = path.split('/').pop()|| ''
 
   
@@ -25,7 +25,6 @@ export async function GET(req:NextRequest){
     query[searchOption] = { $regex: decodedSearchText  || '', $options: 'i' };
     const searchResults = await client.db('eoddb').collection('ideas').find(query).toArray();
 
-    closeConnection();
     return NextResponse.json({searchResults}, {status: 200})
   } catch (error) {
     console.error('Error processing search request:', error);
