@@ -86,6 +86,7 @@ export default function IdeaSearch(){
       .then((response) => response.json())
       .then((data) => {
         setSearchResults(data.searchResults);
+        console.log(data)
       })
       .catch((error) => console.error('Error fetching search results:', error));
     } else {
