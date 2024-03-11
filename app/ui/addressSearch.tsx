@@ -40,7 +40,7 @@ const Addr = ({ onAddressSelect }: { onAddressSelect: (data: IAddr) => void }) =
 
   return (
     <div>
-      <button onClick={(e) => {e.preventDefault(); openDaumPostcode()}}>우편번호 찾기</button>
+      <button className='text-white' onClick={(e) => {e.preventDefault(); openDaumPostcode()}}>우편번호 찾기</button>
     </div>
   );
 };
