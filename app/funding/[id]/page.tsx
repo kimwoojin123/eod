@@ -54,14 +54,14 @@ export default function FundingPage() {
       <div className="flex items-center mb-8">
         <Image src={fundingData.imageUrl} alt={fundingData.title} width={200} height={200} />
         <div className="ml-4">
-          <p className="text-lg font-semibold">아이디어명: {ideaData.title}</p>
-          <p className="text-lg font-semibold">펀딩금액 : {fundingAmount.amount}원</p>
+          <p className="text-lg font-semibold text-white">아이디어명: {ideaData.title}</p>
+          <p className="text-lg font-semibold text-white">펀딩금액 : {fundingAmount.amount}원</p>
           <FundingModal />
         </div>
       </div>
       <div className="border border-gray-200 rounded-lg p-4">
         <Image src={fundingData.quillImageUrl} alt='추가이미지' width={300} height={300} className="mb-4" />
-        <div className="text-sm text-gray-700 prose" dangerouslySetInnerHTML={{ __html: fundingData.textContent }} />
+        <div className="text-sm text-white prose" dangerouslySetInnerHTML={{ __html: fundingData.textContent }} />
       </div>
     </div>
   );

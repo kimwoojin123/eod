@@ -43,8 +43,8 @@ export default function Login(){
   
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen w-screen">
-      <h1 className="mb-10 text-3xl font-bold">로그인 페이지</h1>
+    <div className="flex flex-col justify-center items-center h-full">
+      <h1 className="mb-10 text-3xl font-bold text-white">로그인 페이지</h1>
       <form className="w-full max-w-md" onSubmit={handleLogin}>
         <div className="mb-4 flex flex-col">
           <input
@@ -70,12 +70,7 @@ export default function Login(){
         </div>
       </form>
       <div className="flex w-full max-w-md justify-between">
-        <div>
-          <Link href="/login/findUsername">아이디 찾기</Link>
-          <span style={{ margin: "0 10px" }} />
-          <Link href="/login/findPassword">비밀번호 찾기</Link>
-        </div>
-        <Link className="ml-auto" href="/">
+        <Link className="ml-auto text-white" href="/">
           메인페이지로
         </Link>
       </div>

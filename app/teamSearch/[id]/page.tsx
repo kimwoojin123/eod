@@ -63,16 +63,16 @@ export default function TeamDetail() {
     <div className='absolute left-6 top-20'>
       <BackButton />
     </div>
-    <div className="flex flex-col w-screen h-screen items-center justify-center">
-      <h1 className="text-2xl font-bold mb-4">{team.name}</h1>
+    <div className="flex flex-col w-11/12 mt-40 items-center justify-center">
+      <h1 className="text-2xl font-bold mb-4 text-white">{team.name}</h1>
       <div className="w-64 h-64 mb-4">
         <Image src={team.imageUrl} alt={`${team.name} 이미지`} width={500} height={500} />
       </div>
-      <p className="mb-2">팀장: {team.username}</p>
-      <p className="mb-2">팀 목표: {team.purpose}</p>
-      <p className="mb-2">개발 언어: {team.lang}</p>
-      <p className="mb-2">모집 인원: {team.headCount}명</p>
-      <p className="mb-2">남은 인원: {remainingMembers}명</p>
+      <p className="mb-2 text-white">팀장: {team.username}</p>
+      <p className="mb-2 text-white">팀 목표: {team.purpose}</p>
+      <p className="mb-2 text-white">개발 언어: {team.lang}</p>
+      <p className="mb-2 text-white">모집 인원: {team.headCount}명</p>
+      <p className="mb-2 text-white">남은 인원: {remainingMembers}명</p>
       <Link href={`/teamSearch/${id}/ideaRequest`} className="text-blue-500">아이디어 의뢰</Link>
       <Link href={`/teamSearch/${id}/teamApply`} className="text-blue-500">팀 지원하기</Link>
     </div>

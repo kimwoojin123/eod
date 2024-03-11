@@ -5,13 +5,10 @@ import PopularTeams from "./ui/main/popularTeams";
 
 export default function Home() {
   return (
-    <div className='w-screen'>
-      <div><Category /></div>
-      <div className="flex justify-around">
+    <div className="flex justify-around pt-10">
       <PopularIdeas />
       <PopularTeams />
       <PopularFundingList />
-      </div>
     </div>
-  );
+    );
 }

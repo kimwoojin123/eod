@@ -182,8 +182,8 @@ export default function FundingForm() {
     }
   };
   return (
-    <div className="container mx-auto p-4 mt-32 relative left-1/4">
-      <h1 className="text-3xl font-bold mb-6">펀딩 등록</h1>
+    <div className='flex flex-col pl-96'>
+      <h1 className="text-3xl font-bold mb-6 text-white">펀딩 등록</h1>
       <form className="flex flex-col">
         <div className="flex flex-col mb-4">
           <div className='flex'>
@@ -197,17 +197,17 @@ export default function FundingForm() {
           <div className="selected-idea-title flex justify-center items-center">{selectedIdeaTitle}</div> 
           </div>
           <div>
-            <label htmlFor="image" className="text-2xl font-bold" style={{ lineHeight: '2' }}>이미지 : </label>
+            <label htmlFor="image" className="text-2xl font-bold text-white" style={{ lineHeight: '2' }}>이미지 : </label>
             <input
               type="file"
               id="image"
               name="image"
-              className="w-full max-w-md"
+              className="w-full max-w-md text-white"
               onChange={handleChange}
             />
           </div>
           <div className='w-screen flex mb-2'>
-          <label htmlFor='title'>제목</label>
+          <label htmlFor='title' className='text-white'>제목</label>
           <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => handleTitleChange(e.target.value)} />
           </div>
           <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />

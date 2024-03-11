@@ -28,10 +28,7 @@ export default function IdeaApply(){
   
   return (
     <div>
-      <div className="relative top-10 left-10">
-      <BackButton />
-      </div>
-      <div className="flex h-screen justify-around items-center">
+      <div className="flex h-full justify-around items-center mt-80 mr-28">
         <IdeaWriteButton />
       </div>
       <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width="360px" height="180px">

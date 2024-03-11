@@ -28,8 +28,8 @@ export default function GptAI() {
     }
   };
   return (
-    <div className='ml-10'>
-      <h1>AI에게 도움받기:</h1>
+    <div>
+      <p className='text-white'>AI에게 도움받기:</p>
       <form onSubmit={handleAskQuestion}>
       <input
         type="text"
@@ -40,8 +40,8 @@ export default function GptAI() {
       />
       <button className='bg-gray-200 ml-4 h-8 w-20 rounded-2xl' type='submit'>질문하기</button>
       </form>
-      <h2>답변:</h2>
-      <p className="h-96 w-80 border">{response}</p>
+      <p className='text-white'>답변:</p>
+      <p className="w-80 border text-white p-4">{response}</p>
     </div>
   );
 }

@@ -44,13 +44,13 @@ export default function TeamApply() {
   };
 
   return (
-    <div className="flex flex-col justify-center items-center w-screen h-screen">
+    <div className="flex flex-col justify-center items-center w-full mt-60">
           <div className='absolute left-6 top-20'>
     <BackButton />
     </div>
-      <h1 className="mb-20 font-bold text-2xl">해당 팀에 지원하시겠습니까?</h1>
+      <h1 className="mb-20 font-bold text-2xl text-white">해당 팀에 지원하시겠습니까?</h1>
       <form className="flex flex-col w-1/3">
-        <label>가능스택 :</label>
+        <label className=' text-white'>가능스택 :</label>
         <input
           type="text"
           value={stack}
@@ -58,7 +58,7 @@ export default function TeamApply() {
           className="border-gray-500 border mb-5"
           required
         />
-        <label>지원내용 :</label>
+        <label className=' text-white'>지원내용 :</label>
         <textarea
           rows={4}
           value={content}

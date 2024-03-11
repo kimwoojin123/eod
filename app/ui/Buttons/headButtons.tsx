@@ -2,13 +2,14 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
 import CustomModal from '../modal';
+import { getUsernameSomehow } from '../getUsername';
 
 export function ReloadButton(){
   const reloadPage = () =>{
     window.location.href="/"
   }
   return (
-    <button className="bg-black hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={reloadPage}>EveryOneDeveloper</button>
+    <button className="text-white font-bold text-3xl" onClick={reloadPage}>EveryOneDeveloper</button>
   )
 }
 
@@ -19,7 +20,9 @@ export function MyPageButton(){
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
+  const closeModal = () => setModalIsOpen(false); 
+
+  const username = getUsernameSomehow();
 
   useEffect(() => {
     const storageToken = localStorage.getItem('token');
@@ -37,7 +40,7 @@ export function MyPageButton(){
 
   return (
     <div>
-      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleMyPageClick}>마이페이지</button>    
+      <button className="text-white font-bold pt-4 pr-4" onClick={handleMyPageClick}>{username}님</button>    
       <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
         <p>{message}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
@@ -65,12 +68,12 @@ export function AuthButton() {
     <div>
       {isLoggedIn ? (
         <div className='cursor-pointer'>
-          <span className="bg-blue-500 hover:bg-red-700 text-white font-bold py-2.5 px-4 rounded" onClick={handleLogout}>로그아웃</span>
+          <p className=" text-white font-bold w-20 h-10 pr-4 pt-4" onClick={handleLogout}>Logout</p>
         </div>
       ) : (
         <div className='w-48 flex justify-between'>
-          <Link href='login'><p className="flex justify-center items-center bg-blue-500 hover:bg-blue-700 text-white font-bold w-20 h-10 rounded">로그인</p></Link>
-          <Link href='signup'><p className="flex justify-center items-center bg-blue-500 hover:bg-green-700 text-white font-bold w-20 h-10 rounded">회원가입</p></Link>
+          <Link href='login'><p className="flex justify-center items-center text-white font-bold w-20 h-10 pt-3">Login</p></Link>
+          <Link href='signup'><p className="flex justify-center items-center text-white font-bold w-20 h-10 pr-4 pt-3">SignUp</p></Link>
         </div>
       )}
     </div>

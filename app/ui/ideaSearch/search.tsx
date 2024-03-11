@@ -19,7 +19,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch }) => {
       <select
         value={searchOption}
         onChange={(e) => setSearchOption(e.target.value)}
-        className='border'
+        className='border mr-2'
       >
         <option value="title">제목</option>
         <option value="textContent">내용</option>
@@ -29,9 +29,9 @@ const SearchComponent: React.FC<SearchComponentProps> = ({ onSearch }) => {
         type="text"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
-        className='border'
+        className='border mr-2'
       />
-      <button className='border'onClick={handleSearch}>검색</button>
+      <button className='border bg-white w-14'onClick={handleSearch}>검색</button>
     </div>
   );
 };

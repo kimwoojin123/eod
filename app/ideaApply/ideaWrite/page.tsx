@@ -100,20 +100,22 @@ export default function IdeaWrite(){
   };
 
   return (
-    <div className='w-screen overflow-x-hidden'>
-      <div className='flex flex-col justify-center items-center h-screen mr-20'>
-        <h1 className='font-bold text-3xl mb-5'>아이디어 작성</h1>
-        <div className='w-screen flex justify-center mb-2'>
-          <label htmlFor='title'>제목</label>
-          <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => handleTitleChange(e.target.value)} />
+    <div className='overflow-x-hidden mt-10'>
+      <div className='flex flex-col items-center w-full h-full'>
+        <h1 className='font-bold text-3xl mb-5 mr-96 text-white'>아이디어 작성</h1>
+        <div className='flex w-screen justify-center mb-2 mr-20'>
+          <label htmlFor='title' className='text-white mr-4'>제목</label>
+          <input className='w-1/3 mr-80 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => handleTitleChange(e.target.value)} />
         </div>
-        <div className="flex justify-center ml-96 w-screen">
+        <div className='flex w-full justify-center'>
+          <div className='mr-20'>
           <DynamicTextEditor value={editorValue} onChange={handleEditorChange} />
+          </div>
           <GptAI />
         </div>
-      </div>
-      <div className='relative left-2/3 bottom-10'>
-          <button onClick={handleSubmit} className='w-24 h-10 bg-green-500 text-white rounded-lg'>제출하기</button>
+        <button onClick={handleSubmit} className='relative top-16 left-40 w-24 h-10 bg-green-500 text-white rounded-lg'>제출하기</button>
+        </div>
+      <div>
       </div>
       <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
         <p>{message || '작성이 완료되었습니다.'}</p>

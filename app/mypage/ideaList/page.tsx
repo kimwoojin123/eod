@@ -44,7 +44,7 @@ export default function IdeaList() {
 
   return (
   <div className="container p-4">
-    <h1 className="text-2xl font-bold mb-4">내가 작성한 아이디어 목록</h1>
+    <h1 className="text-2xl font-bold mb-4 text-white">내가 작성한 아이디어 목록</h1>
     <ul className="grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       {ideas.map((idea) => (
         <li key={idea._id} className="bg-white rounded-lg shadow-md p-4">

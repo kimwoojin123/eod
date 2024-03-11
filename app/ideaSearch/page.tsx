@@ -19,7 +19,7 @@ interface BoardItem {
   replies: ObjectId[];
 }
 
-const IdeasPerPage = 2;
+const IdeasPerPage = 4;
 
 export default function IdeaSearch(){
   const [boardList, setBoardList] = useState([]);
@@ -67,7 +67,7 @@ export default function IdeaSearch(){
         pages.push(
           <button
             key={i}
-            className={`mx-1 px-3 py-1 border rounded ${i === currentPage ? 'bg-gray-300' : ''}`}
+            className={`mx-1 px-3 py-1 border rounded text-white ${i === currentPage ? 'bg-gray-300 text-black' : ''}`}
             onClick={() => handlePageChange(i)}
           >
             {i}
@@ -101,11 +101,12 @@ export default function IdeaSearch(){
   };
 
 
+
   return (
-    <div className='h-screen p-4'>
-      <button className="rounded-xl bg-gray-300 w-28 h-10 ml-80 mb-5" onClick={handleShowAll}>전체 글 보기</button>
+    <div className='h-full overflow-x-hidden w-full items-center flex flex-col pr-96 mt-20'>
         <div className="flex justify-center items-start w-screen">
-      <table className="table-auto w-8/12 border border-collapse mb-10">
+      <button className="rounded-xl bg-gray-300 w-28 h-10 relative left-28" onClick={handleShowAll}>전체 글 보기</button>
+      <table className="table-auto w-8/12 border border-collapse mb-10 mt-14">
         <thead>
           <tr className='bg-gray-100'>
             <th className="w-1/5 px-4 py-2 border-b border-r">작성자</th>
@@ -117,27 +118,27 @@ export default function IdeaSearch(){
     {searchResults.length > 0 ? (
       searchResults.map((item: BoardItem, index: number) => (
         <tr key={item._id.toString()}>
-          <td className="px-4 py-2 border-b border-r">{item.username}</td>
-          <td className="px-4 py-2 border-b border-r">
+          <td className="px-4 py-2 border-b border-r text-white">{item.username}</td>
+          <td className="px-4 py-2 border-b border-r text-white">
             <Link href={`/ideaSearch/${item._id}`}>
               {item.title}
             </Link>
           </td>
-          <td className="px-4 py-2 border-b">{item.addDate}</td>
+          <td className="px-4 py-2 border-b text-white">{item.addDate}</td>
         </tr>
       ))
     ) : (
     boardList.map((item: BoardItem, index: number) => (
       <tr key={item._id.toString()}>
-        <td className="px-4 py-2 border-b border-r">{item.username}</td>
-        <td className="px-4 py-2 border-b border-r flex items-center">
+        <td className="px-4 py-2 border-b border-r text-white">{item.username}</td>
+        <td className="px-4 py-2 border-b border-r flex items-center text-white">
           <Link href={`/ideaSearch/${item._id}`}>
             {item.title}
           </Link>
             <ChatBubbleOvalLeftEllipsisIcon className='w-4 h-4 ml-3'/>{item.replies?.length || 0}
             <HeartIcon className='w-4 h-4 text-red-500 ml-2'/>{item.likes}
         </td>
-        <td className="px-4 py-2 border-b">{item.addDate}</td>
+        <td className="px-4 py-2 border-b text-white">{item.addDate}</td>
       </tr>
     ))
   )}
@@ -149,7 +150,7 @@ export default function IdeaSearch(){
     </div>
     <div className="flex justify-center mt-4">
         <button
-          className="mx-1 px-3 py-1 border rounded"
+          className="mx-1 px-3 py-1 border rounded text-white"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
           >
@@ -157,7 +158,7 @@ export default function IdeaSearch(){
         </button>
         {renderPageButtons()}
         <button
-          className="mx-1 px-3 py-1 border rounded"
+          className="mx-1 px-3 py-1 border rounded text-white"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
           >
