@@ -67,7 +67,7 @@ export default function IdeaSearch(){
         pages.push(
           <button
             key={i}
-            className={`mx-1 px-3 py-1 border rounded text-white ${i === currentPage ? 'bg-gray-300 text-black' : ''}`}
+            className={`mx-1 px-3 py-1 border rounded ${i === currentPage ? 'bg-gray-300 text-black' : 'text-white'}`}
             onClick={() => handlePageChange(i)}
           >
             {i}
@@ -108,7 +108,7 @@ export default function IdeaSearch(){
       <button className="rounded-xl bg-gray-300 w-28 h-10 relative left-28" onClick={handleShowAll}>전체 글 보기</button>
       <table className="table-auto w-8/12 border border-collapse mb-10 mt-14">
         <thead>
-          <tr className='bg-gray-100'>
+          <tr className='bg-gray-300'>
             <th className="w-1/5 px-4 py-2 border-b border-r">작성자</th>
             <th className="w-3/5 px-4 py-2 border-b border-r">글 제목</th>
             <th className="w-1/5 px-4 py-2 border-b">작성일시</th>
