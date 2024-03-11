@@ -45,7 +45,7 @@ export default function TeamApply() {
 
   return (
     <div className="flex flex-col justify-center items-center w-full mt-60">
-          <div className='absolute left-6 top-20'>
+          <div className='absolute left-96 top-20'>
     <BackButton />
     </div>
       <h1 className="mb-20 font-bold text-2xl text-white">해당 팀에 지원하시겠습니까?</h1>

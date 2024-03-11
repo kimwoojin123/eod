@@ -60,7 +60,7 @@ export default function TeamDetail() {
 
   return (
     <div>
-    <div className='absolute left-6 top-20'>
+    <div className='pl-6'>
       <BackButton />
     </div>
     <div className="flex flex-col w-11/12 mt-40 items-center justify-center">

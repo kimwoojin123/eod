@@ -134,7 +134,7 @@ export default function TeamSearch() {
 
   return (
     <div className='ml-96'>
-      <div className='absolute left-6 top-20'>
+      <div className='absolute left-96 top-20'>
         <BackButton />
       </div>
       <div className='flex justify-center mr-72'>

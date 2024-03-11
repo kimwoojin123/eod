@@ -101,7 +101,7 @@ export default function IdeaRequest() {
 
   return (
     <div>
-    <div className='absolute left-6 top-20'>
+    <div className='absolute left-96 top-20'>
     <BackButton />
     </div>
     <div className="container mx-auto p-4">
