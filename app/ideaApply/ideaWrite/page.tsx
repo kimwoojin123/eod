@@ -100,7 +100,7 @@ export default function IdeaWrite(){
   };
 
   return (
-    <div className='overflow-x-hidden mt-10'>
+    <div className='overflow-x-hidden mt-10 h-screen'>
       <div className='flex flex-col items-center w-full h-full'>
         <h1 className='font-bold text-3xl mb-5 mr-96 text-white'>아이디어 작성</h1>
         <div className='flex w-screen justify-center mb-2 mr-20'>

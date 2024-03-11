@@ -3,7 +3,7 @@ import { ReloadButton } from './Buttons/headButtons';
 
 export default function Category(){
   return (
-    <div className='category flex flex-col items-start h-full bg pl-7 pt-7'>
+    <div className='category flex flex-col items-start h-full bg pl-7 pt-7 pr-4'>
       <div>
         <ReloadButton />
       </div>
