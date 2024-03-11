@@ -42,7 +42,7 @@ export default function DetailPage() {
   const openModal = () => setModalIsOpen(true);
   const closeModal = () => {setModalIsOpen(false); router.back()}
   const modalClose = () => {setModalIsOpen(false)}
-
+  const deleteModal = () => {setShowDeleteModal(true); router.back()}
 
   useEffect(() => {
     const fetchData = async () => {
@@ -76,7 +76,7 @@ export default function DetailPage() {
   
       if (response.ok) {
         setMessage('삭제가 완료되었습니다.')
-        openModal()
+        deleteModal()
       } else {
         setMessage('삭제에 실패했습니다.')
         openModal()
