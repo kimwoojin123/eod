@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import React, { useState, useEffect } from 'react';
 import CustomModal from '../modal';
+import { getUsernameSomehow } from '../getUsername';
 
 export function ReloadButton(){
   const reloadPage = () =>{
@@ -19,7 +20,9 @@ export function MyPageButton(){
   const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
 
   const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false);
+  const closeModal = () => setModalIsOpen(false); 
+
+  const username = getUsernameSomehow();
 
   useEffect(() => {
     const storageToken = localStorage.getItem('token');
@@ -37,7 +40,7 @@ export function MyPageButton(){
 
   return (
     <div>
-      {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleMyPageClick}>마이페이지</button>     */}
+      <button className="text-white font-bold pt-4 pr-4" onClick={handleMyPageClick}>{username}님</button>    
       <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
         <p>{message}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>

@@ -31,9 +31,9 @@ export default function Resign() {
     }
   }
   return (
-    <div className='flex flex-col justify-center items-center w-lvw h-lvh'>
+    <div className='flex flex-col justify-center items-center w-full mt-96 pr-10'>
       <h1 className='flex justify-center w-60 h-10 items-center text-white bg-red-500 font-bold'>정말 탈퇴하시겠습니까?</h1><br />
-      <button className="hover:underline" onClick={handleResign}>탈퇴하기</button>
+      <button className="hover:underline text-white" onClick={handleResign}>탈퇴하기</button>
       <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width="360px" height="180px">
         <p>{message}</p>
         <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>

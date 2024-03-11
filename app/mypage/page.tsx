@@ -8,8 +8,8 @@ import IdeaListButton from "../ui/mypage/ideaList"
 
 export default function MyPage(){
   return (
-    <div className="flex flex-col w-screen h-screen justify-center items-center bg-gray-100">
-      <div className="text-4xl font-semibold mb-12">MYPAGE</div>
+    <div className="flex flex-col w-full justify-center items-center pr-10">
+      <div className="text-4xl font-semibold mb-12 mt-40 text-white">MYPAGE</div>
       <div className="w-full max-w-md p-8 bg-white shadow-md rounded">
         <div>
           <div className="text-xl font-medium mb-4">

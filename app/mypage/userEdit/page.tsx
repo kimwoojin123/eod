@@ -182,8 +182,8 @@ export default function UserEdit(){
 
 
   return (
-    <div className="flex flex-col justify-center items-center h-screen">
-      <h1 className="mb-10 text-3xl font-bold">회원정보수정</h1>
+    <div className="flex flex-col justify-center items-center mt-40">
+      <h1 className="mb-10 text-3xl font-bold text-white">회원정보수정</h1>
       <form className="w-full max-w-md" onSubmit={handleEdit}>
         <div className="mb-6 flex flex-col">
           <div className="relative mb-4 flex items-center">
