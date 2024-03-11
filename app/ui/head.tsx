@@ -5,9 +5,6 @@ export default function Head(){
   return (
     <div className="flex">
         <div className="flex items-center">
-        <MyPageButton />
-        </div>
-        <div className="flex items-center">
         <AuthButton />
         </div>
     </div>

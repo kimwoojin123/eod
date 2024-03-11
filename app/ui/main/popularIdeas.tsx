@@ -50,8 +50,8 @@ export default function PopularIdeas() {
       {ideas.map((idea, index) => (
         <div key={idea._id} className="flex flex-col mt-2 pl-4 pr-4 h-14 justify-center cursor-pointer hover:bg-black" onClick={() => handleIdeaClick(idea._id)}>
           <p className="flex hover:underline text-white text-sm">{`${index + 1}. ${idea.username} - ${idea.title}`}
-          <HeartIcon className='w-4 h-4 text-pink-700 ml-2 mt-1'/>{idea.likes}
-          <ChatBubbleOvalLeftEllipsisIcon className='w-4 h-4 ml-3 mt-1'/>{idea.replies?.length || 0}
+          <HeartIcon className='w-4 h-4 text-pink-700 ml-2 mt-0.5'/>{idea.likes}
+          <ChatBubbleOvalLeftEllipsisIcon className='w-4 h-4 ml-3 mt-0.5'/>{idea.replies?.length || 0}
         </p>
         </div>
       ))}

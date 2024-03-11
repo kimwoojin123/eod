@@ -67,19 +67,17 @@ export default function EditPage() {
 
 
   return (
-    <div className='mt-20'>
-      <div className='w-screen flex justify-center mb-4'>
-        <label htmlFor='title'>제목</label>
-        <input className='ml-10 w-1/3 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => setTitle(e.target.value)} />
+    <div className='mt-20 flex flex-col w-full items-center'>
+      <div className='flex mb-4 w-1/2 ml-20'>
+        <label htmlFor='title' className='w-12 text-white'>제목</label>
+        <input className='w-10/12 border-gray-400 border' type='text' id='title' value={title} onChange={(e) => setTitle(e.target.value)} />
       </div>
-      <div className='flex justify-center'>
+      <div>
         <TextEditor value={content} onChange={setContent} />
       </div>
-      <div className='flex justify-center'>
-      <div className='flex justify-between mt-10 w-48'>
+      <div className='flex w-48 justify-between relative top-10 left-80'>
         <button className='w-20 h-10 rounded-2xl bg-red-500 text-white mt-5' onClick={handleSave}>저장</button>
         <button className='w-20 h-10 rounded-2xl bg-red-500 text-white mt-5' onClick={handleCancel}>취소</button>
-      </div>
       </div>
     </div>
   );

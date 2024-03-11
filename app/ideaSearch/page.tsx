@@ -102,10 +102,10 @@ export default function IdeaSearch(){
 
 
   return (
-    <div className='h-full overflow-x-hidden w-full items-center flex flex-col'>
-      <button className="rounded-xl bg-gray-300 w-28 h-10 mb-5 absolute left-28 top-28" onClick={handleShowAll}>전체 글 보기</button>
+    <div className='h-full overflow-x-hidden w-full items-center flex flex-col pr-96 mt-20'>
         <div className="flex justify-center items-start w-screen">
-      <table className="table-auto w-8/12 border border-collapse mb-10 mt-20">
+      <button className="rounded-xl bg-gray-300 w-28 h-10 relative left-28" onClick={handleShowAll}>전체 글 보기</button>
+      <table className="table-auto w-8/12 border border-collapse mb-10 mt-14">
         <thead>
           <tr className='bg-gray-100'>
             <th className="w-1/5 px-4 py-2 border-b border-r">작성자</th>

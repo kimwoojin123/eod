@@ -14,7 +14,10 @@
 }
 
 .content {
-  background-image : url("../public/mainImage.png")
+  background-image : url("../public/mainImage.png");
+  background-size : 1980px 1200px;
+  width:100%;
+  padding-top: 100px;
 }
 
 .category-menu{

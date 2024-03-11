@@ -64,7 +64,7 @@ export default function Reply({ ideaId }: { ideaId: string }) {
   };
 
   return (
-    <div className='w-screen flex justify-center'>
+    <div className='w-screen flex'>
       <div className='w-8/12'>
         <table className='w-full'>
           <thead>
@@ -77,9 +77,9 @@ export default function Reply({ ideaId }: { ideaId: string }) {
           <tbody>
             {replies && Array.isArray(replies) && replies.map((reply) => (
               <tr key={reply._id} className='border'>
-                <td className='pl-2 pr-2 border-r text-center'>{reply.username}</td>
-                <td className='flex-grow border-r max-w-5xl pl-3'>{reply.textContent}</td>
-                <td className='text-center pl-2 '>{reply.addDate}</td>
+                <td className='pl-2 pr-2 border-r text-center text-white'>{reply.username}</td>
+                <td className='flex-grow border-r max-w-5xl pl-3 text-white'>{reply.textContent}</td>
+                <td className='text-center pl-2 text-white'>{reply.addDate}</td>
               </tr>
             ))}
           </tbody>
@@ -90,7 +90,7 @@ export default function Reply({ ideaId }: { ideaId: string }) {
             onChange={(e) => setNewReply({ ...newReply, textContent: e.target.value })}
             className='border-gray-500 border w-96 h-8'
           />
-          <button onClick={handleAddReply} className='border ml-2'>등록</button>
+          <button onClick={handleAddReply} className='border ml-2 text-white'>등록</button>
         </div>
       </div>
       <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>

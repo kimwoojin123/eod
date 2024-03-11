@@ -41,7 +41,7 @@ export default function PopularTeams() {
       <div className='flex flex-col mix-blend-screen bg-white/10 rounded-3xl' style={{ height: '580px' }}>
         {teams.map((team, index) => (
           <div key={team._id} className="flex flex-col mt-2 pl-4 pr-4 h-14 justify-center cursor-pointer hover:bg-black" onClick={() => handleTeamClick(team._id)}>
-            <p className="hover:underline flex text-white text-sm">{`${index + 1}. ${team.name}`}<UserPlusIcon className='w-5 h-5 ml-2 mt-0.5'/> {team.applicants}</p>
+            <p className="hover:underline flex text-white text-sm">{`${index + 1}. ${team.name}`}<UserPlusIcon className='w-5 h-5 ml-2'/> {team.applicants}</p>
           </div>
         ))}
       </div>

@@ -132,7 +132,7 @@ export default function DetailPage() {
   return (
     <div className="p-4 w-full h-screen">
       <BackButton />
-      <div className='flex justify-center'>
+      <div className='flex pl-96'>
       <div className="p-4 w-1/2 border">
         <h1 className=" text-white text-2xl font-bold mb-4 border-b pb-2">{boardData.title}</h1>
         <p className=" mb-2 border-b pb-2 text-white">작성자 : {boardData.username}</p>
@@ -148,17 +148,16 @@ export default function DetailPage() {
           개발 착수 지원
           </button>
       </div>
-      <div className='flex justify-center'>
-        <div className='flex justify-center relative left-16 items-center mt-5'>
-        <button className='flex flex-col items-center' onClick={handleLike}>
-          {liked ? (
-            <SolidHeartIcon className="w-6 h-6 text-red-500" />
-            ) : (
-              <OutlineHeartIcon className="w-6 h-6" />
-              )}
-          <p>Likes : {likes}</p>
-        </button>
-        <div className='relative left-60 mt-2'>
+      <div className='flex'>
+        <div className='flex items-center mt-5 w-full justify-center'>
+          <button className='flex flex-col items-center mr-80' onClick={handleLike}>
+            {liked ? (
+              <SolidHeartIcon className="w-6 h-6 text-red-500" />
+              ) : (
+                <OutlineHeartIcon className="w-6 h-6 text-white" />
+                )}
+            <p className='text-white'>Likes : {likes}</p>
+          </button>
         <div className='w-48 flex justify-between'>
           {boardData.username === getUsernameSomehow() && (
             <>
@@ -176,14 +175,15 @@ export default function DetailPage() {
             <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
           </CustomModal>
           </div>
-          </div>
         </div>
       </div>
       <div>
-      <div className='flex'>
+      <div className='flex text-white ml-32'>
         댓글 수 : {boardData.replies?.length || 0}
       </div>
+      <div className='ml-32'>
       {id && <Reply ideaId={id} />}
+      </div>
       </div>
     <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='600px' height='720px'>
       {applyAsTeam ? (

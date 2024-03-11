@@ -30,10 +30,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} flex`}>
         <div className="flex w-full">
-          <div className="w-1/5">
+          <div className="w-1/5 h-full">
             <Category />
           </div>
-          <div className="content w-4/5 justify-center relative pt-20">
+          <div className="content">
             {children}
           </div>
           <div className="absolute right-0">

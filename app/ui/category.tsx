@@ -3,11 +3,11 @@ import { ReloadButton } from './Buttons/headButtons';
 
 export default function Category(){
   return (
-    <div className='category flex flex-col items-start h-screen bg pl-7 pt-7'>
+    <div className='category flex flex-col items-start h-full bg pl-7 pt-7'>
       <div>
         <ReloadButton />
       </div>
-      <div className='flex flex-col items-start pt-14'>
+      <div className='flex flex-col h-screen items-start pt-14'>
         <p className='text-white mb-4'>menu</p>
         <IdeaApplyButton />
         <IdeaSearchButton />

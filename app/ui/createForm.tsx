@@ -98,25 +98,25 @@ export default function CreateForm(){
 
   return (
     <div className="container mx-auto p-4 mt-32 relative left-1/4">
-      <h1 className="text-3xl font-bold mb-6">팀 등록</h1>
+      <h1 className="text-3xl font-bold mb-6 text-white">팀 등록</h1>
       <form className="flex flex-col">
         <div className="mb-4">
-          <label htmlFor="image" className="text-2xl font-bold" style={{ lineHeight: "2" }}>이미지 : </label>
+          <label htmlFor="image" className="text-2xl font-bold text-white" style={{ lineHeight: "2" }}>이미지 : </label>
           <input type="file" id="image" name="image"
-          className="w-full max-w-md"
+          className="w-full max-w-md text-white "
           onChange={handleChange}
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="name" className="text-2xl font-bold" style={{ lineHeight: "2" }}>팀 명 : </label>
+          <label htmlFor="name" className="text-2xl font-bold text-white" style={{ lineHeight: "2" }}>팀 명 : </label>
           <input type="text" id="name" name="name"
-          className="border-boutline-none pl-2 border border-gray-300"
+          className="border-boutline-none pl-2 border border-gray-300  rounded"
           onChange={handleChange}
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="lang" className="text-2xl font-bold" style={{ lineHeight: "2" }}>개발언어 : </label>
-          <select id="lang" name="lang" onChange={handleChange}>
+          <label htmlFor="lang" className="text-2xl font-bold text-white" style={{ lineHeight: "2" }}>개발언어 : </label>
+          <select className=" rounded h-10 w-40"  id="lang" name="lang" onChange={handleChange}>
             <option>JavaScript</option>
             <option>Python</option>
             <option>C</option>
@@ -127,24 +127,24 @@ export default function CreateForm(){
           </select>
         </div>
         <div className="mb-4">
-          <label htmlFor="purpose" className="text-2xl font-bold" style={{ lineHeight: "2" }}>팀 목표 : </label>
+          <label htmlFor="purpose" className="text-2xl font-bold text-white" style={{ lineHeight: "2" }}>팀 목표 : </label>
           <input type="textarea" id="purpose" name="purpose"
-          className="border-boutline-none pl-2 border border-gray-300"
+          className="border-boutline-none pl-2 border border-gray-300  rounded"
           onChange={handleChange}
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="headCount" className="text-2xl font-bold" style={{ lineHeight: "2" }}>모집 인원 : </label>
+          <label htmlFor="headCount" className="text-2xl font-bold text-white" style={{ lineHeight: "2" }}>모집 인원 : </label>
           <input type="number" min="1" id="headCount" name="headCount"
-          className="border-boutline-none pl-2 border border-gray-300"
+          className="border-boutline-none pl-2 border border-gray-300  rounded"
           value={formData.headCount}
           onChange={handleChange}
           />
         </div>
         <div className="mb-4">
-        <label htmlFor="headCount" className="text-2xl font-bold" style={{ lineHeight: "2" }}>태그 등록 : </label>
+        <label htmlFor="headCount" className="text-2xl font-bold text-white" style={{ lineHeight: "2" }}>태그 등록 : </label>
           <input type="text" id="tag" name="tag"
-          className="border-boutline-none pl-2 border border-gray-300"
+          className="border-boutline-none pl-2 border border-gray-300  rounded"
           value={formData.tag}
           onChange={handleTagChange}
           />

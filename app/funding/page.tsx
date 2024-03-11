@@ -7,7 +7,7 @@ export default function Funding() {
       <div className="mb-8">
         <FundingFormButton />
       </div>
-      <h1 className="text-3xl font-semibold mb-4">펀딩 목록</h1>
+      <h1 className="text-3xl font-semibold mb-4 text-white">펀딩 목록</h1>
       <FundingList />
     </div>
   );
