@@ -16,12 +16,6 @@ export function ReloadButton(){
 
 export function MyPageButton(){
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [message, setMessage] = useState<string>('');
-  const [modalIsOpen, setModalIsOpen] = useState<boolean>(false);
-
-  const openModal = () => setModalIsOpen(true);
-  const closeModal = () => setModalIsOpen(false); 
-
   const username = getUsernameSomehow();
 
   useEffect(() => {
@@ -30,21 +24,16 @@ export function MyPageButton(){
   }, []);
 
   const handleMyPageClick = () => {
-    if (isLoggedIn) {
       window.location.href = '/mypage';
-    } else {
-      setMessage('로그인이 필요합니다.');
-      openModal();
-    }
   };
 
   return (
     <div>
+      {isLoggedIn ? (
       <button className="text-white font-bold pt-4 pr-4" onClick={handleMyPageClick}>{username}님</button>    
-      <CustomModal isOpen={modalIsOpen} onRequestClose={closeModal} width='360px' height='180px'>
-        <p>{message}</p>
-        <button className="w-40 h-10 rounded-2xl bg-gray-200 mt-5" onClick={closeModal}>닫기</button>
-      </CustomModal>
+      ) : (
+        null
+      )}
     </div>
   )
 }
